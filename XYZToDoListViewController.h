@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+#import <CoreBluetooth/CBService.h>
 
-@interface XYZToDoListViewController : UITableViewController
+@interface XYZToDoListViewController : UITableViewController < CBCentralManagerDelegate >
 
 @end

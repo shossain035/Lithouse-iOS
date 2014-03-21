@@ -14,10 +14,12 @@
 
 @property NSMutableArray *toDoItems;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
-
+@property (strong, nonatomic) CBCentralManager *mCentralManager;
 @end
 
 @implementation XYZToDoListViewController
+
+NSTimer *timer;
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
@@ -34,6 +36,8 @@
     [self.toDoItems removeAllObjects];
     [self.tableView reloadData];
     self.refreshButton.enabled = NO;
+    [self scanForPeripherals];
+    NSLog( @"Refresh button clicked" );
     
 }
 
@@ -41,7 +45,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom initialization
+        
     }
     return self;
 }
@@ -63,12 +67,66 @@
     [super viewDidLoad];
     self.toDoItems = [[NSMutableArray alloc] init];
     [self loadInitialData];
+    self.mCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (int) scanForPeripherals
+{
+    if (self.mCentralManager.state != CBCentralManagerStatePoweredOn)
+    {
+        NSLog(@"CoreBluetooth is %s", [self centralManagerStateToString:self.mCentralManager.state] );
+        return -1;
+    }
+    NSLog(@"Starting to scan");
+    
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
+    
+    timer = [NSTimer scheduledTimerWithTimeInterval: ( 20.0 )
+             target: self
+             selector: @selector ( onTimer )
+             userInfo: nil repeats: NO];
+    
+    return 0;
+}
+
+- (void) onTimer
+{
+    NSLog ( @"timer fired" );
+    self.refreshButton.enabled = YES;
+    [self.mCentralManager stopScan];
+    timer = nil;
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+}
+
+- (const char *) centralManagerStateToString: (int)state
+{
+    switch(state)
+    {
+        case CBCentralManagerStateUnknown:
+            return "State unknown (CBCentralManagerStateUnknown)";
+        case CBCentralManagerStateResetting:
+            return "State resetting (CBCentralManagerStateUnknown)";
+        case CBCentralManagerStateUnsupported:
+            return "State BLE unsupported (CBCentralManagerStateResetting)";
+        case CBCentralManagerStateUnauthorized:
+            return "State unauthorized (CBCentralManagerStateUnauthorized)";
+        case CBCentralManagerStatePoweredOff:
+            return "State BLE powered off (CBCentralManagerStatePoweredOff)";
+        case CBCentralManagerStatePoweredOn:
+            return "State powered up and ready (CBCentralManagerStatePoweredOn)";
+        default:
+            return "State unknown";
+    }
+    
+    return "Unknown state";
 }
 
 #pragma mark - Table view data source
@@ -157,4 +215,28 @@
 
  */
 
+#pragma mark -Central manager delegate method
+
+- (void) centralManagerDidUpdateState:(CBCentralManager *)central
+{    
+    NSLog( @"CBT central state :%s", [self centralManagerStateToString:self.mCentralManager.state] );
+}
+
+- (void) centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
+{
+    NSLog(@"Received peripheral :%@",peripheral.name);
+    NSLog(@"Ad data :%@",advertisementData);
+}
+
+
+- (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+{
+    NSLog(@"Connected peripheral %@",peripheral);
+}
+
+
+- (void) centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    NSLog(@"Error occured :%@",[error localizedDescription]);
+}
 @end
