@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
-		71D3492E188767D400AC5537 /* XYZToDoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* XYZToDoItem.m */; };
+		71D3492E188767D400AC5537 /* XYZDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* XYZDevice.m */; };
 		71FA04091883B40C005914EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA04081883B40C005914EA /* Foundation.framework */; };
 		71FA040B1883B40C005914EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA040A1883B40C005914EA /* CoreGraphics.framework */; };
 		71FA040D1883B40C005914EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA040C1883B40C005914EA /* UIKit.framework */; };
@@ -38,8 +38,8 @@
 
 /* Begin PBXFileReference section */
 		717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
-		71D3492C188767D400AC5537 /* XYZToDoItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYZToDoItem.h; path = ../XYZToDoItem.h; sourceTree = "<group>"; };
-		71D3492D188767D400AC5537 /* XYZToDoItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYZToDoItem.m; path = ../XYZToDoItem.m; sourceTree = "<group>"; };
+		71D3492C188767D400AC5537 /* XYZDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYZDevice.h; path = ../XYZDevice.h; sourceTree = "<group>"; };
+		71D3492D188767D400AC5537 /* XYZDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYZDevice.m; path = ../XYZDevice.m; sourceTree = "<group>"; };
 		71FA04051883B40C005914EA /* Lithouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lithouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FA04081883B40C005914EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		71FA040A1883B40C005914EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -122,8 +122,8 @@
 		71FA040E1883B40C005914EA /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				71D3492C188767D400AC5537 /* XYZToDoItem.h */,
-				71D3492D188767D400AC5537 /* XYZToDoItem.m */,
+				71D3492C188767D400AC5537 /* XYZDevice.h */,
+				71D3492D188767D400AC5537 /* XYZDevice.m */,
 				71FA043F1885E035005914EA /* XYZToDoListViewController.h */,
 				71FA04401885E035005914EA /* XYZToDoListViewController.m */,
 				71FA04171883B40C005914EA /* AppDelegate.h */,
@@ -266,7 +266,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71FA04191883B40C005914EA /* AppDelegate.m in Sources */,
-				71D3492E188767D400AC5537 /* XYZToDoItem.m in Sources */,
+				71D3492E188767D400AC5537 /* XYZDevice.m in Sources */,
 				71FA04151883B40C005914EA /* main.m in Sources */,
 				71FA04411885E035005914EA /* XYZToDoListViewController.m in Sources */,
 				71FA043B1885D6EE005914EA /* XYZAddToDoItemViewController.m in Sources */,

@@ -7,7 +7,7 @@
 //
 
 #import "XYZToDoListViewController.h"
-#import "XYZToDoItem.h"
+#import "XYZDevice.h"
 #import "XYZAddToDoItemViewController.h"
 
 @interface XYZToDoListViewController ()
@@ -24,7 +24,7 @@ NSTimer *timer;
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
     XYZAddToDoItemViewController *source = [segue sourceViewController];
-    XYZToDoItem *item = source.toDoItem;
+    XYZDevice *item = source.toDoItem;
     if (item != nil) {
         [self.toDoItems addObject:item];
         [self.tableView reloadData];
@@ -51,13 +51,13 @@ NSTimer *timer;
 }
 
 - (void)loadInitialData {
-    XYZToDoItem *item1 = [[XYZToDoItem alloc] init];
+    XYZDevice *item1 = [[XYZDevice alloc] init];
     item1.itemName = @"Buy milk";
     [self.toDoItems addObject:item1];
-    XYZToDoItem *item2 = [[XYZToDoItem alloc] init];
+    XYZDevice *item2 = [[XYZDevice alloc] init];
     item2.itemName = @"Buy eggs";
     [self.toDoItems addObject:item2];
-    XYZToDoItem *item3 = [[XYZToDoItem alloc] init];
+    XYZDevice *item3 = [[XYZDevice alloc] init];
     item3.itemName = @"Read a book";
     [self.toDoItems addObject:item3];
 }
@@ -146,7 +146,7 @@ NSTimer *timer;
 {
     static NSString *CellIdentifier = @"ListPrototypeCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    XYZToDoItem *toDoItem = [self.toDoItems objectAtIndex:indexPath.row];
+    XYZDevice *toDoItem = [self.toDoItems objectAtIndex:indexPath.row];
     cell.textLabel.text = toDoItem.itemName;
     if (toDoItem.completed) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
@@ -224,8 +224,8 @@ NSTimer *timer;
 
 - (void) centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSLog(@"Received peripheral :%@",peripheral.name);
-    NSLog(@"Ad data :%@",advertisementData);
+    NSLog(@"Received peripheral :%@", peripheral.name );
+    NSLog(@"Ad data :%@", advertisementData );
 }
 
 

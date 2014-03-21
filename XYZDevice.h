@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface XYZToDoItem : NSObject
+@interface XYZDevice : NSObject
 
 @property NSString *itemName;
 @property BOOL completed;

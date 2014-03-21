@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Shah Hossain. All rights reserved.
 //
 
-#import "XYZToDoItem.h"
+#import "XYZDevice.h"
 
-@implementation XYZToDoItem
+@implementation XYZDevice
 
 @end

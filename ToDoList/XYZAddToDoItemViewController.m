@@ -41,7 +41,7 @@
 {
     if (sender != self.doneButton) return;
     if (self.textField.text.length > 0) {
-        self.toDoItem = [[XYZToDoItem alloc] init];
+        self.toDoItem = [[XYZDevice alloc] init];
         self.toDoItem.itemName = self.textField.text;
         self.toDoItem.completed = NO;
     }
