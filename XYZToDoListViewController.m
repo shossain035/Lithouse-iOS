@@ -13,13 +13,14 @@
 @interface XYZToDoListViewController ()
 
 @property NSMutableArray *devices;
+@property NSTimer *timer;
+@property NSMutableDictionary *devicesDictionary;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
 @end
 
 @implementation XYZToDoListViewController
 
-NSTimer *timer;
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
@@ -34,6 +35,7 @@ NSTimer *timer;
 - (IBAction)refresh:(id)sender
 {
     [self.devices removeAllObjects];
+    [self.devicesDictionary removeAllObjects];
     [self.tableView reloadData];
     [self scanForPeripherals];
     NSLog( @"Refresh button clicked" );
@@ -53,6 +55,7 @@ NSTimer *timer;
 {
     [super viewDidLoad];
     self.devices = [[NSMutableArray alloc] init];
+    self.devicesDictionary = [[NSMutableDictionary alloc] init];
     self.mCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -79,7 +82,7 @@ NSTimer *timer;
     
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval: ( 15.0 )
+    self.timer = [NSTimer scheduledTimerWithTimeInterval: ( 15.0 )
              target: self
              selector: @selector ( onTimer )
              userInfo: nil repeats: NO];
@@ -92,7 +95,7 @@ NSTimer *timer;
     NSLog ( @"timer fired" );
     self.refreshButton.enabled = YES;
     [self.mCentralManager stopScan];
-    timer = nil;
+    self.timer = nil;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 }
 
@@ -220,14 +223,16 @@ NSTimer *timer;
 
 - (void) centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    if ([peripheral.name length] == 0 ) return;
+    if ( ( [peripheral.name length] == 0 )
+        || ( [self.devicesDictionary objectForKey:peripheral.identifier] != nil )) return;
     
-    NSLog( @"Received peripheral :%@", peripheral.name );
+    NSLog( @"Received peripheral :%@, id :%@", peripheral.name, peripheral.identifier );
     NSLog( @"Ad data :%@", advertisementData );
     
     XYZDevice *device = [[XYZDevice alloc] init];
     device.deviceName = peripheral.name;
     [self.devices addObject:device];
+    [self.devicesDictionary setObject:device forKey:peripheral.identifier];
     [self.tableView reloadData];
 }
 
