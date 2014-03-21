@@ -12,7 +12,7 @@
 
 @interface XYZToDoListViewController ()
 
-@property NSMutableArray *toDoItems;
+@property NSMutableArray *devices;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
 @end
@@ -26,16 +26,15 @@ NSTimer *timer;
     XYZAddToDoItemViewController *source = [segue sourceViewController];
     XYZDevice *item = source.toDoItem;
     if (item != nil) {
-        [self.toDoItems addObject:item];
+        [self.devices addObject:item];
         [self.tableView reloadData];
     }
 }
 
 - (IBAction)refresh:(id)sender
 {
-    [self.toDoItems removeAllObjects];
+    [self.devices removeAllObjects];
     [self.tableView reloadData];
-    self.refreshButton.enabled = NO;
     [self scanForPeripherals];
     NSLog( @"Refresh button clicked" );
     
@@ -50,24 +49,13 @@ NSTimer *timer;
     return self;
 }
 
-- (void)loadInitialData {
-    XYZDevice *item1 = [[XYZDevice alloc] init];
-    item1.itemName = @"Buy milk";
-    [self.toDoItems addObject:item1];
-    XYZDevice *item2 = [[XYZDevice alloc] init];
-    item2.itemName = @"Buy eggs";
-    [self.toDoItems addObject:item2];
-    XYZDevice *item3 = [[XYZDevice alloc] init];
-    item3.itemName = @"Read a book";
-    [self.toDoItems addObject:item3];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.toDoItems = [[NSMutableArray alloc] init];
-    [self loadInitialData];
+    self.devices = [[NSMutableArray alloc] init];
     self.mCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+    
+    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning
@@ -83,13 +71,15 @@ NSTimer *timer;
         NSLog(@"CoreBluetooth is %s", [self centralManagerStateToString:self.mCentralManager.state] );
         return -1;
     }
+    self.refreshButton.enabled = NO;
+    
     NSLog(@"Starting to scan");
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
     
-    timer = [NSTimer scheduledTimerWithTimeInterval: ( 20.0 )
+    timer = [NSTimer scheduledTimerWithTimeInterval: ( 15.0 )
              target: self
              selector: @selector ( onTimer )
              userInfo: nil repeats: NO];
@@ -139,20 +129,23 @@ NSTimer *timer;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.toDoItems count];
+    return [self.devices count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"ListPrototypeCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    XYZDevice *toDoItem = [self.toDoItems objectAtIndex:indexPath.row];
-    cell.textLabel.text = toDoItem.itemName;
-    if (toDoItem.completed) {
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-    } else {
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }
+    XYZDevice *device = [self.devices objectAtIndex:indexPath.row];
+    cell.textLabel.text = device.deviceName;
+    
+    NSLog( @"row=%d value=%@", indexPath.row, device.deviceName);
+//    if (toDoItem.completed) {
+//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+//    } else {
+//        cell.accessoryType = UITableViewCellAccessoryNone;
+//    }
+    
     return cell;
 }
 
@@ -220,12 +213,22 @@ NSTimer *timer;
 - (void) centralManagerDidUpdateState:(CBCentralManager *)central
 {    
     NSLog( @"CBT central state :%s", [self centralManagerStateToString:self.mCentralManager.state] );
+    if ( self.mCentralManager.state == CBCentralManagerStatePoweredOn ) {
+        [self scanForPeripherals];
+    }
 }
 
 - (void) centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    NSLog(@"Received peripheral :%@", peripheral.name );
-    NSLog(@"Ad data :%@", advertisementData );
+    if ([peripheral.name length] == 0 ) return;
+    
+    NSLog( @"Received peripheral :%@", peripheral.name );
+    NSLog( @"Ad data :%@", advertisementData );
+    
+    XYZDevice *device = [[XYZDevice alloc] init];
+    device.deviceName = peripheral.name;
+    [self.devices addObject:device];
+    [self.tableView reloadData];
 }
 
 

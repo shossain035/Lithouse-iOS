@@ -203,7 +203,7 @@
                             <outlet property="dataSource" destination="fyT-M5-eOv" id="nOL-xY-bhA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Devices near me" id="AgM-vo-4yA">
+                    <navigationItem key="navigationItem" title="Devices Near Me" id="AgM-vo-4yA">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="p9X-H1-a7I">
                             <connections>
                                 <action selector="refresh:" destination="fyT-M5-eOv" id="3dJ-gF-Li4"/>

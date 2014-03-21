@@ -10,8 +10,6 @@
 
 @interface XYZDevice : NSObject
 
-@property NSString *itemName;
-@property BOOL completed;
-@property (readonly) NSDate *creationDate;
+@property NSString *deviceName;
 
 @end
