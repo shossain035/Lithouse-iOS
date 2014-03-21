@@ -142,6 +142,13 @@
     XYZDevice *device = [self.devices objectAtIndex:indexPath.row];
     cell.textLabel.text = device.deviceName;
     
+    //todo: refactor
+    if ( [device.deviceName hasPrefix:@"Flex"] ) cell.imageView.image = [UIImage imageNamed:@"fitbit"];
+    else if ( [device.deviceName hasPrefix:@"Stick"] ) cell.imageView.image = [UIImage imageNamed:@"sticknfind"];
+    else if ( [device.deviceName hasPrefix:@"iSmart"] ) cell.imageView.image = [UIImage imageNamed:@"lumen"];
+    
+    else cell.imageView.image = [UIImage imageNamed:@"unknown"];
+    
     NSLog( @"row=%d value=%@", indexPath.row, device.deviceName);
 //    if (toDoItem.completed) {
 //        cell.accessoryType = UITableViewCellAccessoryCheckmark;
