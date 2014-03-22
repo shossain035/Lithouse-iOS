@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
+		717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */; };
+		71C9743C18DE0B2A0051188A /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C9743B18DE0B2A0051188A /* libupnpx.a */; };
 		71D3492E188767D400AC5537 /* XYZDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* XYZDevice.m */; };
 		71FA04091883B40C005914EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA04081883B40C005914EA /* Foundation.framework */; };
 		71FA040B1883B40C005914EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA040A1883B40C005914EA /* CoreGraphics.framework */; };
@@ -38,6 +40,8 @@
 
 /* Begin PBXFileReference section */
 		717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
+		71C9743B18DE0B2A0051188A /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libupnpx.a; sourceTree = "<group>"; };
 		71D3492C188767D400AC5537 /* XYZDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYZDevice.h; path = ../XYZDevice.h; sourceTree = "<group>"; };
 		71D3492D188767D400AC5537 /* XYZDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYZDevice.m; path = ../XYZDevice.m; sourceTree = "<group>"; };
 		71FA04051883B40C005914EA /* Lithouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lithouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,7 +75,9 @@
 				717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */,
 				71FA040B1883B40C005914EA /* CoreGraphics.framework in Frameworks */,
 				71FA040D1883B40C005914EA /* UIKit.framework in Frameworks */,
+				71C9743C18DE0B2A0051188A /* libupnpx.a in Frameworks */,
 				71FA04091883B40C005914EA /* Foundation.framework in Frameworks */,
+				717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +116,8 @@
 		71FA04071883B40C005914EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				71C9743B18DE0B2A0051188A /* libupnpx.a */,
+				717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */,
 				717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */,
 				71FA04081883B40C005914EA /* Foundation.framework */,
 				71FA040A1883B40C005914EA /* CoreGraphics.framework */,
@@ -227,6 +235,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 71FA03FC1883B40B005914EA;
 			productRefGroup = 71FA04061883B40C005914EA /* Products */;
@@ -391,8 +400,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToDoList/ToDoList-Prefix.pch";
 				INFOPLIST_FILE = "ToDoList/ToDoList-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/upnpx-primer-master",
+					"$(PROJECT_DIR)/upnpx-primer-master/upnpx-primer",
+				);
 				PRODUCT_NAME = Lithouse;
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "../upnpx/api ../upnpx/common ../upnpx/port/ios";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -407,8 +423,15 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToDoList/ToDoList-Prefix.pch";
 				INFOPLIST_FILE = "ToDoList/ToDoList-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/upnpx-primer-master",
+					"$(PROJECT_DIR)/upnpx-primer-master/upnpx-primer",
+				);
 				PRODUCT_NAME = Lithouse;
 				PROVISIONING_PROFILE = "";
+				USER_HEADER_SEARCH_PATHS = "../upnpx/api ../upnpx/common ../upnpx/port/ios";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

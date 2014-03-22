@@ -11,5 +11,6 @@
 @interface XYZDevice : NSObject
 
 @property NSString *deviceName;
+@property UIImage *smallIcon;
 
 @end
