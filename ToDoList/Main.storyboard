@@ -35,15 +35,7 @@
                                 <segue destination="f92-YE-wLt" kind="unwind" unwindAction="unwindToList:" id="cNG-78-NTI"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="4Cx-dL-FX3">
-                            <connections>
-                                <segue destination="f92-YE-wLt" kind="unwind" unwindAction="unwindToList:" id="CtB-SB-wsc"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="doneButton" destination="4Cx-dL-FX3" id="STP-YU-zSp"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lS0-Gc-BoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="f92-YE-wLt" userLabel="Exit" sceneMemberID="exit"/>

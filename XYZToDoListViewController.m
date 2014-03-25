@@ -195,11 +195,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     XYZDevice *device = [ self.devices objectAtIndex:indexPath.row ];
-    self.currentDevice = device;
+    //@TODO consider other devices
+    if ( [device.deviceName hasPrefix:@"Stick"] ) {
+        self.currentDevice = device;
     
-    NSLog ( @"going to alert with %@: ", device.peripheral.name );
+        NSLog ( @"going to alert with %@: ", device.peripheral.name );
     
-    [self performSegueWithIdentifier: @"sticknfind.seague" sender: self];
+        [self performSegueWithIdentifier: @"sticknfind.seague" sender: self];
+    }
 }
 
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
