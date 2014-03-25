@@ -7,10 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface XYZDevice : NSObject
 
 @property NSString *deviceName;
 @property UIImage *smallIcon;
+@property CBPeripheral *peripheral;
 
 @end

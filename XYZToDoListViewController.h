@@ -9,9 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <CoreBluetooth/CBService.h>
+#import "XYZBluetoothLEManager.h"
+
 #import "UPnPDB.h"
 
-@interface XYZToDoListViewController : UITableViewController < CBCentralManagerDelegate, UPnPDBObserver > {
+@interface XYZToDoListViewController : UITableViewController < CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, XYZBluetoothLEManager > {
     NSArray *mDevices; //BasicUPnPDevice*
 }
 

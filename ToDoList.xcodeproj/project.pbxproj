@@ -42,6 +42,7 @@
 		717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
 		71C9743B18DE0B2A0051188A /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libupnpx.a; sourceTree = "<group>"; };
+		71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYZBluetoothLEManager.h; sourceTree = "<group>"; };
 		71D3492C188767D400AC5537 /* XYZDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYZDevice.h; path = ../XYZDevice.h; sourceTree = "<group>"; };
 		71D3492D188767D400AC5537 /* XYZDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYZDevice.m; path = ../XYZDevice.m; sourceTree = "<group>"; };
 		71FA04051883B40C005914EA /* Lithouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lithouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +131,7 @@
 		71FA040E1883B40C005914EA /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
+				71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */,
 				71D3492C188767D400AC5537 /* XYZDevice.h */,
 				71D3492D188767D400AC5537 /* XYZDevice.m */,
 				71FA043F1885E035005914EA /* XYZToDoListViewController.h */,

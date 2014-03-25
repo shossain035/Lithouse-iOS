@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "XYZDevice.h"
+#import "XYZBluetoothLEManager.h"
 
 @interface XYZAddToDoItemViewController : UIViewController
 
 @property XYZDevice *toDoItem;
+@property ( weak ) id < XYZBluetoothLEManager > bluetoothManager;
 
 @end

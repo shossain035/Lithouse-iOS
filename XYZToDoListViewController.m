@@ -9,6 +9,7 @@
 #import "XYZToDoListViewController.h"
 #import "XYZDevice.h"
 #import "XYZAddToDoItemViewController.h"
+#import "UPnPManager.h"
 
 @interface XYZToDoListViewController ()
 
@@ -17,6 +18,7 @@
 @property NSMutableDictionary *devicesDictionary;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
+@property XYZDevice *currentDevice;
 @end
 
 @implementation XYZToDoListViewController
@@ -59,6 +61,18 @@
     self.mCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    
+    UPnPDB* db = [[UPnPManager GetInstance] DB];
+    
+    mDevices = [db rootDevices]; //BasicUPnPDevice
+
+    [db addObserver:(UPnPDBObserver*)self];
+    
+    //Optional; set User Agent
+    [[[UPnPManager GetInstance] SSDP] setUserAgentProduct:@"lithouse/1.0" andOS:@"OSX"];
+    
+    //Search for UPnP Devices during load
+    [[[UPnPManager GetInstance] SSDP] searchSSDP];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,18 +88,21 @@
         NSLog(@"CoreBluetooth is %s", [self centralManagerStateToString:self.mCentralManager.state] );
         return -1;
     }
+  
     self.refreshButton.enabled = NO;
     
     NSLog(@"Starting to scan");
+    
+    [[[UPnPManager GetInstance] SSDP] searchSSDP];
     
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval: ( 15.0 )
-             target: self
-             selector: @selector ( onTimer )
-             userInfo: nil repeats: NO];
+    self.timer = [ NSTimer scheduledTimerWithTimeInterval: ( 10.0 )
+                   target: self
+                   selector: @selector ( onTimer )
+                   userInfo: nil repeats: NO ];
     
     return 0;
 }
@@ -93,10 +110,23 @@
 - (void) onTimer
 {
     NSLog ( @"timer fired" );
-    self.refreshButton.enabled = YES;
     [self.mCentralManager stopScan];
+    NSLog ( @"UPnP device count = %d", [mDevices count] );
+
+    for ( BasicUPnPDevice* uPnPDevice in mDevices ) {
+        XYZDevice *device = [ [ XYZDevice alloc ] init ];
+        device.deviceName = [ uPnPDevice friendlyName ];
+        device.smallIcon = [ uPnPDevice smallIcon ];
+        [ self.devices addObject : device ];
+        [ self.devicesDictionary setObject : device forKey: [ uPnPDevice uuid ]];
+    }
+    
+    [self.tableView reloadData];
+    
     self.timer = nil;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+    self.refreshButton.enabled = YES;
+    
 }
 
 - (const char *) centralManagerStateToString: (int)state
@@ -140,6 +170,7 @@
     static NSString *CellIdentifier = @"ListPrototypeCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     XYZDevice *device = [self.devices objectAtIndex:indexPath.row];
+    
     cell.textLabel.text = device.deviceName;
     
     //todo: refactor
@@ -147,9 +178,11 @@
     else if ( [device.deviceName hasPrefix:@"Stick"] ) cell.imageView.image = [UIImage imageNamed:@"sticknfind"];
     else if ( [device.deviceName hasPrefix:@"iSmart"] ) cell.imageView.image = [UIImage imageNamed:@"lumen"];
     
-    else cell.imageView.image = [UIImage imageNamed:@"unknown"];
+    else {
+        if ( [ device smallIcon ] != nil ) cell.imageView.image = [ device smallIcon ];
+        else cell.imageView.image = [UIImage imageNamed:@"unknown"];
+    }
     
-    NSLog( @"row=%d value=%@", indexPath.row, device.deviceName);
 //    if (toDoItem.completed) {
 //        cell.accessoryType = UITableViewCellAccessoryCheckmark;
 //    } else {
@@ -161,12 +194,19 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //[tableView deselectRowAtIndexPath:indexPath animated:NO];
-    //XYZToDoItem *tappedItem = [self.toDoItems objectAtIndex:indexPath.row];
-    //tappedItem.completed = !tappedItem.completed;
-    //[tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    XYZDevice *device = [ self.devices objectAtIndex:indexPath.row ];
+    self.currentDevice = device;
+    
+    NSLog ( @"going to alert with %@: ", device.peripheral.name );
+    
+    [self performSegueWithIdentifier: @"sticknfind.seague" sender: self];
 }
 
+- (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
+{
+    XYZAddToDoItemViewController *targetVC = ( XYZAddToDoItemViewController* ) segue.destinationViewController;
+    targetVC.bluetoothManager = self;
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -234,12 +274,14 @@
         || ( [self.devicesDictionary objectForKey:peripheral.identifier] != nil )) return;
     
     NSLog( @"Received peripheral :%@, id :%@", peripheral.name, peripheral.identifier );
-    NSLog( @"Ad data :%@", advertisementData );
+    //NSLog( @"Ad data :%@", advertisementData );
     
     XYZDevice *device = [[XYZDevice alloc] init];
     device.deviceName = peripheral.name;
+    device.peripheral = peripheral;
     [self.devices addObject:device];
-    [self.devicesDictionary setObject:device forKey:peripheral.identifier];
+
+    [self.devicesDictionary setObject:device forKey : peripheral.identifier];
     [self.tableView reloadData];
 }
 
@@ -247,6 +289,11 @@
 - (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
 {
     NSLog(@"Connected peripheral %@",peripheral);
+    //@TODO branch for different ble devices
+    
+    peripheral.delegate = self;
+    NSArray *services = @[ [ CBUUID UUIDWithString : @"1802" ] ];
+    [ peripheral discoverServices : services ];
 }
 
 
@@ -254,4 +301,72 @@
 {
     NSLog(@"Error occured :%@",[error localizedDescription]);
 }
+
+#pragma mark protocol CBPeripheralDelegate
+
+- ( void ) peripheral : ( CBPeripheral * ) peripheral didDiscoverServices : ( NSError * ) error {
+    if ( error != nil ) {
+        NSLog ( @"ERROR! failed device discovery %@", error );
+        return;
+    }
+    
+    for ( CBService *service in peripheral.services ) {
+        if ( [ service.UUID isEqual : [ CBUUID UUIDWithString : @"1802" ]] ) {
+            NSArray *characteristics = @[ [ CBUUID UUIDWithString : @"2a06" ] ];
+
+            [ peripheral discoverCharacteristics : characteristics forService: service ];
+        }
+    }
+    
+}
+
+- ( void ) peripheral : ( CBPeripheral * ) peripheral didDiscoverCharacteristicsForService : ( CBService * ) service error:( NSError * ) error {
+    if ( error != nil ) {
+        NSLog ( @"ERROR! failed characteristics discovery %@", error );
+        return;
+    }
+    
+    if ( [ service.UUID isEqual:[CBUUID UUIDWithString : @"1802" ]] ) {
+        for ( CBCharacteristic *charac in service.characteristics ) {
+            
+            if ( [charac.UUID isEqual:[CBUUID UUIDWithString : @"2a06" ]] ) {
+                const unsigned char bytes[] = { 3 };
+                NSData *data = [ NSData dataWithBytes : bytes length : sizeof ( bytes ) ];
+                
+                NSLog ( @"alerting stick n find" );
+                [ peripheral
+                    writeValue : data
+                    forCharacteristic : charac
+                    type : CBCharacteristicWriteWithoutResponse ];
+            }
+        }
+    }
+    
+}
+
+
+#pragma mark protocol UPnPDBObserver
+-(void)UPnPDBWillUpdate:(UPnPDB*)sender{
+    NSLog(@"UPnPDBWillUpdate %d", [mDevices count]);
+}
+
+-(void)UPnPDBUpdated:(UPnPDB*)sender{
+    NSLog(@"UPnPDBUpdated %d", [mDevices count]);
+    BasicUPnPDevice* device = [ mDevices objectAtIndex: ([mDevices count]-1) ];
+    NSLog(@"name = %@ uuid = %@", [device friendlyName], [device uuid]);
+}
+
+#pragma mark protocol XYZBluetoothLEManager
+- ( void ) alertStickNFind {
+    
+    if ( self.currentDevice == nil || self.currentDevice.peripheral == nil ) {
+        NSLog ( @"ERROR! empty current device" );
+        return;
+    }
+    
+    [ self.mCentralManager connectPeripheral : self.currentDevice.peripheral options:nil ];
+    
+    NSLog ( @"StickNFind alert called" );
+}
+
 @end

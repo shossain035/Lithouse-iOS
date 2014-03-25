@@ -16,6 +16,13 @@
 
 @implementation XYZAddToDoItemViewController
 
+- (IBAction)alertStickNFind:(id)sender
+{
+    [ self.bluetoothManager alertStickNFind ];
+    NSLog( @"Alert button clicked" );
+    
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
