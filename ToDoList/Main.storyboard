@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Add To Do Item View Controller - Add To-Do Item-->
+        <!--Device Detail View Controller - Add To-Do Item-->
         <scene sceneID="I51-tE-2sy">
             <objects>
-                <viewController title="Add To-Do Item" id="En6-bu-WSB" customClass="XYZAddToDoItemViewController" sceneMemberID="viewController">
+                <viewController title="Add To-Do Item" id="En6-bu-WSB" customClass="LITDeviceDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7nf-YJ-7bt"/>
                         <viewControllerLayoutGuide type="bottom" id="FeU-B6-mQ8"/>
@@ -42,10 +42,10 @@
             </objects>
             <point key="canvasLocation" x="11805" y="459"/>
         </scene>
-        <!--To Do List View Controller - Devices near me-->
+        <!--Device List View Controller - Devices near me-->
         <scene sceneID="NgY-8G-CeX">
             <objects>
-                <tableViewController title="Devices near me" id="fyT-M5-eOv" customClass="XYZToDoListViewController" sceneMemberID="viewController">
+                <tableViewController title="Devices near me" id="fyT-M5-eOv" customClass="LITDeviceListViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="b3S-e4-W7u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

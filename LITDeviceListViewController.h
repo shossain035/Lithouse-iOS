@@ -1,5 +1,5 @@
 //
-//  XYZToDoListViewController.h
+//  LITDeviceListViewController.h
 //  ToDoList
 //
 //  Created by Shah Hossain on 1/14/14.
@@ -13,7 +13,7 @@
 
 #import "UPnPDB.h"
 
-@interface XYZToDoListViewController : UITableViewController < CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, XYZBluetoothLEManager > {
+@interface LITDeviceListViewController : UITableViewController < CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, XYZBluetoothLEManager > {
     NSArray *mDevices; //BasicUPnPDevice*
 }
 

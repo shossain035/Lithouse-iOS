@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Shah Hossain. All rights reserved.
 //
 
-#import "XYZDevice.h"
+#import "LITDevice.h"
 
-@implementation XYZDevice
+@implementation LITDevice
 
 @end

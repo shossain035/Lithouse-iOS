@@ -6,28 +6,28 @@
 //  Copyright (c) 2014 Shah Hossain. All rights reserved.
 //
 
-#import "XYZToDoListViewController.h"
-#import "XYZDevice.h"
-#import "XYZAddToDoItemViewController.h"
+#import "LITDeviceListViewController.h"
+#import "LITDevice.h"
+#import "LITDeviceDetailViewController.h"
 #import "UPnPManager.h"
 
-@interface XYZToDoListViewController ()
+@interface LITDeviceListViewController ()
 
 @property NSMutableArray *devices;
 @property NSTimer *timer;
 @property NSMutableDictionary *devicesDictionary;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
-@property XYZDevice *currentDevice;
+@property LITDevice *currentDevice;
 @end
 
-@implementation XYZToDoListViewController
+@implementation LITDeviceListViewController
 
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
-    XYZAddToDoItemViewController *source = [segue sourceViewController];
-    XYZDevice *item = source.toDoItem;
+    LITDeviceDetailViewController *source = [segue sourceViewController];
+    LITDevice *item = source.toDoItem;
     if (item != nil) {
         [self.devices addObject:item];
         [self.tableView reloadData];
@@ -111,10 +111,10 @@
 {
     NSLog ( @"timer fired" );
     [self.mCentralManager stopScan];
-    NSLog ( @"UPnP device count = %d", [mDevices count] );
+    NSLog ( @"UPnP device count = %lu", (unsigned long)[mDevices count] );
 
     for ( BasicUPnPDevice* uPnPDevice in mDevices ) {
-        XYZDevice *device = [ [ XYZDevice alloc ] init ];
+        LITDevice *device = [ [ LITDevice alloc ] init ];
         device.deviceName = [ uPnPDevice friendlyName ];
         device.smallIcon = [ uPnPDevice smallIcon ];
         [ self.devices addObject : device ];
@@ -169,7 +169,7 @@
 {
     static NSString *CellIdentifier = @"ListPrototypeCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    XYZDevice *device = [self.devices objectAtIndex:indexPath.row];
+    LITDevice *device = [self.devices objectAtIndex:indexPath.row];
     
     cell.textLabel.text = device.deviceName;
     
@@ -194,7 +194,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    XYZDevice *device = [ self.devices objectAtIndex:indexPath.row ];
+    LITDevice *device = [ self.devices objectAtIndex:indexPath.row ];
     //@TODO consider other devices
     if ( [device.deviceName hasPrefix:@"Stick"] ) {
         self.currentDevice = device;
@@ -207,7 +207,7 @@
 
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
 {
-    XYZAddToDoItemViewController *targetVC = ( XYZAddToDoItemViewController* ) segue.destinationViewController;
+    LITDeviceDetailViewController *targetVC = ( LITDeviceDetailViewController* ) segue.destinationViewController;
     targetVC.bluetoothManager = self;
 }
 /*
@@ -279,7 +279,7 @@
     NSLog( @"Received peripheral :%@, id :%@", peripheral.name, peripheral.identifier );
     //NSLog( @"Ad data :%@", advertisementData );
     
-    XYZDevice *device = [[XYZDevice alloc] init];
+    LITDevice *device = [[LITDevice alloc] init];
     device.deviceName = peripheral.name;
     device.peripheral = peripheral;
     [self.devices addObject:device];
@@ -350,11 +350,11 @@
 
 #pragma mark protocol UPnPDBObserver
 -(void)UPnPDBWillUpdate:(UPnPDB*)sender{
-    NSLog(@"UPnPDBWillUpdate %d", [mDevices count]);
+    NSLog(@"UPnPDBWillUpdate %lu", (unsigned long)[mDevices count]);
 }
 
 -(void)UPnPDBUpdated:(UPnPDB*)sender{
-    NSLog(@"UPnPDBUpdated %d", [mDevices count]);
+    NSLog(@"UPnPDBUpdated %lu", (unsigned long)[mDevices count]);
     BasicUPnPDevice* device = [ mDevices objectAtIndex: ([mDevices count]-1) ];
     NSLog(@"name = %@ uuid = %@", [device friendlyName], [device uuid]);
 }

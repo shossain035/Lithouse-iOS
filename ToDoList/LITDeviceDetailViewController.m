@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 Shah Hossain. All rights reserved.
 //
 
-#import "XYZAddToDoItemViewController.h"
+#import "LITDeviceDetailViewController.h"
 
-@interface XYZAddToDoItemViewController ()
+@interface LITDeviceDetailViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @end
 
-@implementation XYZAddToDoItemViewController
+@implementation LITDeviceDetailViewController
 
 - (IBAction)alertStickNFind:(id)sender
 {
@@ -48,7 +48,7 @@
 {
     if (sender != self.doneButton) return;
     if (self.textField.text.length > 0) {
-        self.toDoItem = [[XYZDevice alloc] init];
+        self.toDoItem = [[LITDevice alloc] init];
         //self.toDoItem.itemName = self.textField.text;
         //self.toDoItem.completed = NO;
     }

@@ -10,7 +10,7 @@
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
 		717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */; };
 		71C9743C18DE0B2A0051188A /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C9743B18DE0B2A0051188A /* libupnpx.a */; };
-		71D3492E188767D400AC5537 /* XYZDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* XYZDevice.m */; };
+		71D3492E188767D400AC5537 /* LITDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* LITDevice.m */; };
 		71FA04091883B40C005914EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA04081883B40C005914EA /* Foundation.framework */; };
 		71FA040B1883B40C005914EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA040A1883B40C005914EA /* CoreGraphics.framework */; };
 		71FA040D1883B40C005914EA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA040C1883B40C005914EA /* UIKit.framework */; };
@@ -24,8 +24,8 @@
 		71FA042C1883B40C005914EA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 71FA042A1883B40C005914EA /* InfoPlist.strings */; };
 		71FA042E1883B40C005914EA /* ToDoListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA042D1883B40C005914EA /* ToDoListTests.m */; };
 		71FA043818850421005914EA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71FA043718850421005914EA /* Main.storyboard */; };
-		71FA043B1885D6EE005914EA /* XYZAddToDoItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA043A1885D6EE005914EA /* XYZAddToDoItemViewController.m */; };
-		71FA04411885E035005914EA /* XYZToDoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA04401885E035005914EA /* XYZToDoListViewController.m */; };
+		71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */; };
+		71FA04411885E035005914EA /* LITDeviceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FA04401885E035005914EA /* LITDeviceListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +43,8 @@
 		717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
 		71C9743B18DE0B2A0051188A /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libupnpx.a; sourceTree = "<group>"; };
 		71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYZBluetoothLEManager.h; sourceTree = "<group>"; };
-		71D3492C188767D400AC5537 /* XYZDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYZDevice.h; path = ../XYZDevice.h; sourceTree = "<group>"; };
-		71D3492D188767D400AC5537 /* XYZDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYZDevice.m; path = ../XYZDevice.m; sourceTree = "<group>"; };
+		71D3492C188767D400AC5537 /* LITDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LITDevice.h; path = ../LITDevice.h; sourceTree = "<group>"; };
+		71D3492D188767D400AC5537 /* LITDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LITDevice.m; path = ../LITDevice.m; sourceTree = "<group>"; };
 		71FA04051883B40C005914EA /* Lithouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lithouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71FA04081883B40C005914EA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		71FA040A1883B40C005914EA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -62,10 +62,10 @@
 		71FA042B1883B40C005914EA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		71FA042D1883B40C005914EA /* ToDoListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ToDoListTests.m; sourceTree = "<group>"; };
 		71FA043718850421005914EA /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		71FA04391885D6EE005914EA /* XYZAddToDoItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYZAddToDoItemViewController.h; sourceTree = "<group>"; };
-		71FA043A1885D6EE005914EA /* XYZAddToDoItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYZAddToDoItemViewController.m; sourceTree = "<group>"; };
-		71FA043F1885E035005914EA /* XYZToDoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XYZToDoListViewController.h; path = ../XYZToDoListViewController.h; sourceTree = "<group>"; };
-		71FA04401885E035005914EA /* XYZToDoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XYZToDoListViewController.m; path = ../XYZToDoListViewController.m; sourceTree = "<group>"; };
+		71FA04391885D6EE005914EA /* LITDeviceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITDeviceDetailViewController.h; sourceTree = "<group>"; };
+		71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITDeviceDetailViewController.m; sourceTree = "<group>"; };
+		71FA043F1885E035005914EA /* LITDeviceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LITDeviceListViewController.h; path = ../LITDeviceListViewController.h; sourceTree = "<group>"; };
+		71FA04401885E035005914EA /* LITDeviceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LITDeviceListViewController.m; path = ../LITDeviceListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,15 +132,15 @@
 			isa = PBXGroup;
 			children = (
 				71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */,
-				71D3492C188767D400AC5537 /* XYZDevice.h */,
-				71D3492D188767D400AC5537 /* XYZDevice.m */,
-				71FA043F1885E035005914EA /* XYZToDoListViewController.h */,
-				71FA04401885E035005914EA /* XYZToDoListViewController.m */,
+				71D3492C188767D400AC5537 /* LITDevice.h */,
+				71D3492D188767D400AC5537 /* LITDevice.m */,
+				71FA043F1885E035005914EA /* LITDeviceListViewController.h */,
+				71FA04401885E035005914EA /* LITDeviceListViewController.m */,
 				71FA04171883B40C005914EA /* AppDelegate.h */,
 				71FA04181883B40C005914EA /* AppDelegate.m */,
 				71FA043718850421005914EA /* Main.storyboard */,
-				71FA04391885D6EE005914EA /* XYZAddToDoItemViewController.h */,
-				71FA043A1885D6EE005914EA /* XYZAddToDoItemViewController.m */,
+				71FA04391885D6EE005914EA /* LITDeviceDetailViewController.h */,
+				71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */,
 				71FA041A1883B40C005914EA /* Images.xcassets */,
 				71FA040F1883B40C005914EA /* Supporting Files */,
 			);
@@ -277,10 +277,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				71FA04191883B40C005914EA /* AppDelegate.m in Sources */,
-				71D3492E188767D400AC5537 /* XYZDevice.m in Sources */,
+				71D3492E188767D400AC5537 /* LITDevice.m in Sources */,
 				71FA04151883B40C005914EA /* main.m in Sources */,
-				71FA04411885E035005914EA /* XYZToDoListViewController.m in Sources */,
-				71FA043B1885D6EE005914EA /* XYZAddToDoItemViewController.m in Sources */,
+				71FA04411885E035005914EA /* LITDeviceListViewController.m in Sources */,
+				71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

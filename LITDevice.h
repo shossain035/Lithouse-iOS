@@ -1,5 +1,5 @@
 //
-//  XYZToDoItem.h
+//  LITDevice.h
 //  ToDoList
 //
 //  Created by Shah Hossain on 1/15/14.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
-@interface XYZDevice : NSObject
+@interface LITDevice : NSObject
 
 @property NSString *deviceName;
 @property UIImage *smallIcon;

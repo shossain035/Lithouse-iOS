@@ -1,5 +1,5 @@
 //
-//  XYZAddToDoItemViewController.h
+//  LITDeviceDetailViewController.h
 //  ToDoList
 //
 //  Created by Shah Hossain on 1/14/14.
@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "XYZDevice.h"
+#import "LITDevice.h"
 #import "XYZBluetoothLEManager.h"
 
-@interface XYZAddToDoItemViewController : UIViewController
+@interface LITDeviceDetailViewController : UIViewController
 
-@property XYZDevice *toDoItem;
+@property LITDevice *toDoItem;
 @property ( weak ) id < XYZBluetoothLEManager > bluetoothManager;
 
 @end
