@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
 		717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */; };
-		71BA7B7D18F2298200F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B7818F2298200F51A75 /* ScanLAN.m */; };
-		71BA7B7E18F2298200F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B7A18F2298200F51A75 /* SimplePing.m */; };
-		71BA7B7F18F2298200F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B7C18F2298200F51A75 /* SimplePingHelper.m */; };
+		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
+		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; };
+		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; };
 		71C9743C18DE0B2A0051188A /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C9743B18DE0B2A0051188A /* libupnpx.a */; };
 		71D3492E188767D400AC5537 /* LITDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* LITDevice.m */; };
 		71FA04091883B40C005914EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA04081883B40C005914EA /* Foundation.framework */; };
@@ -44,12 +44,12 @@
 /* Begin PBXFileReference section */
 		717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
-		71BA7B7718F2298200F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
-		71BA7B7818F2298200F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
-		71BA7B7918F2298200F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
-		71BA7B7A18F2298200F51A75 /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
-		71BA7B7B18F2298200F51A75 /* SimplePingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePingHelper.h; sourceTree = "<group>"; };
-		71BA7B7C18F2298200F51A75 /* SimplePingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePingHelper.m; sourceTree = "<group>"; };
+		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
+		71BA7B8118F261A400F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
+		71BA7B8218F261A400F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
+		71BA7B8318F261A400F51A75 /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
+		71BA7B8418F261A400F51A75 /* SimplePingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePingHelper.h; sourceTree = "<group>"; };
+		71BA7B8518F261A400F51A75 /* SimplePingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePingHelper.m; sourceTree = "<group>"; };
 		71C9743B18DE0B2A0051188A /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libupnpx.a; sourceTree = "<group>"; };
 		71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYZBluetoothLEManager.h; sourceTree = "<group>"; };
 		71D3492C188767D400AC5537 /* LITDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LITDevice.h; path = ../LITDevice.h; sourceTree = "<group>"; };
@@ -107,12 +107,12 @@
 		71BA7B7618F2231200F51A75 /* IPScan */ = {
 			isa = PBXGroup;
 			children = (
-				71BA7B7718F2298200F51A75 /* ScanLAN.h */,
-				71BA7B7818F2298200F51A75 /* ScanLAN.m */,
-				71BA7B7918F2298200F51A75 /* SimplePing.h */,
-				71BA7B7A18F2298200F51A75 /* SimplePing.m */,
-				71BA7B7B18F2298200F51A75 /* SimplePingHelper.h */,
-				71BA7B7C18F2298200F51A75 /* SimplePingHelper.m */,
+				71BA7B8018F261A400F51A75 /* ScanLAN.h */,
+				71BA7B8118F261A400F51A75 /* ScanLAN.m */,
+				71BA7B8218F261A400F51A75 /* SimplePing.h */,
+				71BA7B8318F261A400F51A75 /* SimplePing.m */,
+				71BA7B8418F261A400F51A75 /* SimplePingHelper.h */,
+				71BA7B8518F261A400F51A75 /* SimplePingHelper.m */,
 			);
 			name = IPScan;
 			sourceTree = "<group>";
@@ -299,13 +299,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71BA7B7D18F2298200F51A75 /* ScanLAN.m in Sources */,
+				71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */,
 				71FA04191883B40C005914EA /* AppDelegate.m in Sources */,
 				71D3492E188767D400AC5537 /* LITDevice.m in Sources */,
 				71FA04151883B40C005914EA /* main.m in Sources */,
 				71FA04411885E035005914EA /* LITDeviceListViewController.m in Sources */,
-				71BA7B7F18F2298200F51A75 /* SimplePingHelper.m in Sources */,
-				71BA7B7E18F2298200F51A75 /* SimplePing.m in Sources */,
+				71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */,
+				71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */,
 				71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
