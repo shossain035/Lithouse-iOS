@@ -10,10 +10,11 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <CoreBluetooth/CBService.h>
 #import "XYZBluetoothLEManager.h"
+#import "ScanLAN.h"
 
 #import "UPnPDB.h"
 
-@interface LITDeviceListViewController : UITableViewController < CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, XYZBluetoothLEManager > {
+@interface LITDeviceListViewController : UITableViewController < CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, XYZBluetoothLEManager, ScanLANDelegate > {
     NSArray *mDevices; //BasicUPnPDevice*
 }
 

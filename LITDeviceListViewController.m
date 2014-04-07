@@ -19,10 +19,27 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
 @property LITDevice *currentDevice;
+
+@property ScanLAN *lanScanner;
+
 @end
 
 @implementation LITDeviceListViewController
 
+- (void)startScanningLAN {
+    [self.lanScanner stopScan];
+    self.lanScanner = [[ScanLAN alloc] initWithDelegate:self];
+    //self.connctedDevices = [[NSMutableArray alloc] init];
+    [self.lanScanner startScan];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [self startScanningLAN];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self.lanScanner stopScan];
+}
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
@@ -370,6 +387,21 @@
     [ self.mCentralManager connectPeripheral : self.currentDevice.peripheral options:nil ];
     
     NSLog ( @"StickNFind alert called" );
+}
+
+#pragma mark LAN Scanner delegate method
+- (void)scanLANDidFindNewAdrress:(NSString *)address havingHostName:(NSString *)hostName {
+    NSLog(@"found  %@", address);
+    //Device *device = [[Device alloc] init];
+    //device.name = hostName;
+    //device.address = address;
+    //[self.connctedDevices addObject:device];
+    //[self.tableView reloadData];
+}
+
+- (void)scanLANDidFinishScanning {
+    NSLog(@"Scan finished");
+    //[[[UIAlertView alloc] initWithTitle:@"Scan Finished" message:[NSString stringWithFormat:@"Number of devices connected to the Local Area Network : %d", self.connctedDevices.count] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
 }
 
 @end

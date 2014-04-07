@@ -10,8 +10,8 @@
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
 		717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
-		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; };
-		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; };
+		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71C9743C18DE0B2A0051188A /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 71C9743B18DE0B2A0051188A /* libupnpx.a */; };
 		71D3492E188767D400AC5537 /* LITDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* LITDevice.m */; };
 		71FA04091883B40C005914EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA04081883B40C005914EA /* Foundation.framework */; };
