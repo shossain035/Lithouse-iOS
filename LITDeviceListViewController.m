@@ -26,7 +26,7 @@
 
 @implementation LITDeviceListViewController
 
-- (void)startScanningLAN {
+- (void)startLANScanning {
     [self.lanScanner stopScan];
     self.lanScanner = [[ScanLAN alloc] initWithDelegate:self];
     //self.connctedDevices = [[NSMutableArray alloc] init];
@@ -34,7 +34,7 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
-    [self startScanningLAN];
+    [self startLANScanning];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -356,7 +356,7 @@
                 NSLog ( @"alerting stick n find" );
                 [ peripheral
                     writeValue : data
-                    forCharacteristic : charac
+                    forCharacteristic : charac                                               
                     type : CBCharacteristicWriteWithoutResponse ];
             }
         }
@@ -373,7 +373,7 @@
 -(void)UPnPDBUpdated:(UPnPDB*)sender{
     NSLog(@"UPnPDBUpdated %lu", (unsigned long)[mDevices count]);
     BasicUPnPDevice* device = [ mDevices objectAtIndex: ([mDevices count]-1) ];
-    NSLog(@"name = %@ uuid = %@", [device friendlyName], [device uuid]);
+    NSLog(@"upnp name = %@ uuid = %@ model name=%@, model number=%@ manu=%@ deviceType=%@", [device friendlyName], [device uuid], [device modelName], [device modelNumber], [device manufacturer], [device deviceType]);
 }
 
 #pragma mark protocol XYZBluetoothLEManager
