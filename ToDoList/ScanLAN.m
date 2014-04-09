@@ -124,7 +124,7 @@ struct sockaddr_inarp {
                 self.baseAddressEnd = and;
             }
         }
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(pingAddress) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(pingAddress) userInfo:nil repeats:YES];
     }
 }
 
@@ -136,7 +136,7 @@ struct sockaddr_inarp {
 - (void)pingAddress{
     self.currentHostAddress++;
     NSString *address = [NSString stringWithFormat:@"%@%d", self.baseAddress, self.currentHostAddress];
-    [SimplePingHelper ping:address target:self sel:@selector(pingResult:)];
+    [SimplePingHelper ping:address target:self sel:@selector(pingResult:address:)];
     if (self.currentHostAddress>=254) {
         [self.timer invalidate];
     }
@@ -146,14 +146,15 @@ struct sockaddr_inarp {
  [SimplePingHelper ping:address target:self sel:@selector(pingResult:)];
  }
  */
-- (void)pingResult:(NSNumber*)success {
+- (void)pingResult:(NSNumber*)success address:(NSString*) anAddress {
     self.timerIterationNumber++;
     if (success.boolValue) {
         NSLog(@"SUCCESS");
-        NSString *deviceIPAddress = [[[[NSString stringWithFormat:@"%@%d", self.baseAddress, self.currentHostAddress] stringByReplacingOccurrencesOfString:@".0" withString:@"."] stringByReplacingOccurrencesOfString:@".00" withString:@"."] stringByReplacingOccurrencesOfString:@".." withString:@".0."];
-        NSLog(@"MAC = %@", [self ip2mac:inet_addr([ deviceIPAddress UTF8String ])]);
-        NSString *deviceName = [self getHostFromIPAddress:[[NSString stringWithFormat:@"%@%d", self.baseAddress, self.currentHostAddress] cStringUsingEncoding:NSASCIIStringEncoding]];
-        [self.delegate scanLANDidFindNewAdrress:deviceIPAddress havingHostName:deviceName];
+        NSString *deviceIPAddress = [[anAddress stringByReplacingOccurrencesOfString:@".0" withString:@"."] stringByReplacingOccurrencesOfString:@".." withString:@".0."];
+        NSString *macAddress = [self ip2mac:inet_addr([ deviceIPAddress UTF8String ])];
+        NSLog(@"MAC = %@", macAddress);
+        NSString *deviceName = [self getHostFromIPAddress:[deviceIPAddress cStringUsingEncoding:NSASCIIStringEncoding]];
+        [self.delegate scanLANDidFindNewAdrress:deviceIPAddress havingHostName:deviceName havingMACAddress:macAddress];
     }
     else {
         NSLog(@"FAILURE");
@@ -245,43 +246,6 @@ struct sockaddr_inarp {
     free(buf);
     
     return ret;
-}
-
-// Get IP Address
-- (NSString *)getIPAddress
-{
-    struct ifaddrs *interfaces = NULL;
-    struct ifaddrs *temp_addr = NULL;
-    NSString *wifiAddress = nil;
-    NSString *cellAddress = nil;
-    
-    // retrieve the current interfaces - returns 0 on success
-    if(!getifaddrs(&interfaces)) {
-        // Loop through linked list of interfaces
-        temp_addr = interfaces;
-        while(temp_addr != NULL) {
-            sa_family_t sa_type = temp_addr->ifa_addr->sa_family;
-            if(sa_type == AF_INET || sa_type == AF_INET6) {
-                NSString *name = [NSString stringWithUTF8String:temp_addr->ifa_name];
-                NSString *addr = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)]; // pdp_ip0
-                //NSLog(@"NAME: \"%@\" addr: %@", name, addr); // see for yourself
-                
-                if([name isEqualToString:@"en0"]) {
-                    // Interface is the wifi connection on the iPhone
-                    wifiAddress = addr;
-                } else
-                    if([name isEqualToString:@"pdp_ip0"]) {
-                        // Interface is the cell connection on the iPhone
-                        cellAddress = addr;
-                    }
-            }
-            temp_addr = temp_addr->ifa_next;
-        }
-        // Free memory
-        freeifaddrs(interfaces);
-    }
-    NSString *addr = wifiAddress ? wifiAddress : cellAddress;
-    return addr ? addr : @"0.0.0.0";
 }
 
 - (NSString *) localIPAddress

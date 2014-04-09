@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreBluetooth/CoreBluetooth.h>
 
 @interface LITDevice : NSObject
 
-@property NSString *deviceName;
-@property UIImage *smallIcon;
-@property CBPeripheral *peripheral;
+@property NSString *uid;
+@property NSString *name;
+@property NSString *type;
+@property NSString *manufacturer;
+@property UIImage  *smallIcon;
 
 @end

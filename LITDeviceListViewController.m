@@ -8,38 +8,26 @@
 
 #import "LITDeviceListViewController.h"
 #import "LITDevice.h"
+#import "LITUPnPDevice.h"
+#import "LITBLEDevice.h"
+#import "LITLANDevice.h"
 #import "LITDeviceDetailViewController.h"
 #import "UPnPManager.h"
 
 @interface LITDeviceListViewController ()
 
 @property NSMutableArray *devices;
-@property NSTimer *timer;
 @property NSMutableDictionary *devicesDictionary;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
-@property LITDevice *currentDevice;
-
+@property LITBLEDevice *currentDevice;
 @property ScanLAN *lanScanner;
 
 @end
 
 @implementation LITDeviceListViewController
 
-- (void)startLANScanning {
-    [self.lanScanner stopScan];
-    self.lanScanner = [[ScanLAN alloc] initWithDelegate:self];
-    //self.connctedDevices = [[NSMutableArray alloc] init];
-    [self.lanScanner startScan];
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [self startLANScanning];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [self.lanScanner stopScan];
-}
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
@@ -53,10 +41,7 @@
 
 - (IBAction)refresh:(id)sender
 {
-    [self.devices removeAllObjects];
-    [self.devicesDictionary removeAllObjects];
-    [self.tableView reloadData];
-    [self scanForPeripherals];
+    [self startScanningForDevices];
     NSLog( @"Refresh button clicked" );
     
 }
@@ -80,16 +65,15 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     UPnPDB* db = [[UPnPManager GetInstance] DB];
-    
-    mDevices = [db rootDevices]; //BasicUPnPDevice
-
+    mBasicUPnPDevices = [db rootDevices];
     [db addObserver:(UPnPDBObserver*)self];
-    
     //Optional; set User Agent
     [[[UPnPManager GetInstance] SSDP] setUserAgentProduct:@"lithouse/1.0" andOS:@"OSX"];
-    
-    //Search for UPnP Devices during load
-    [[[UPnPManager GetInstance] SSDP] searchSSDP];
+    mLANDevices = [[NSMutableArray alloc] init];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [self stopScanningForDevices];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,7 +82,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (int) scanForPeripherals
+- (int) startScanningForDevices
 {
     if (self.mCentralManager.state != CBCentralManagerStatePoweredOn)
     {
@@ -106,44 +90,67 @@
         return -1;
     }
   
-    self.refreshButton.enabled = NO;
+    [self.devices removeAllObjects];
+    [self.devicesDictionary removeAllObjects];
+    [self.tableView reloadData];
+    [mLANDevices removeAllObjects];
     
     NSLog(@"Starting to scan");
     
-    [[[UPnPManager GetInstance] SSDP] searchSSDP];
-    
+    self.refreshButton.enabled = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
+    //search for upnp devices
+    [[[UPnPManager GetInstance] SSDP] searchSSDP];
+    //search for ble devices
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
-    
-    self.timer = [ NSTimer scheduledTimerWithTimeInterval: ( 10.0 )
-                   target: self
-                   selector: @selector ( onTimer )
-                   userInfo: nil repeats: NO ];
+    //search for lan devices
+    [self.lanScanner stopScan];
+    self.lanScanner = [[ScanLAN alloc] initWithDelegate:self];
+    [self.lanScanner startScan];
     
     return 0;
 }
 
-- (void) onTimer
-{
-    NSLog ( @"timer fired" );
-    [self.mCentralManager stopScan];
-    NSLog ( @"UPnP device count = %lu", (unsigned long)[mDevices count] );
 
-    for ( BasicUPnPDevice* uPnPDevice in mDevices ) {
-        LITDevice *device = [ [ LITDevice alloc ] init ];
-        device.deviceName = [ uPnPDevice friendlyName ];
-        device.smallIcon = [ uPnPDevice smallIcon ];
-        [ self.devices addObject : device ];
-        [ self.devicesDictionary setObject : device forKey: [ uPnPDevice uuid ]];
+- (void) stopScanningForDevices {
+    NSLog ( @"stopping scan" );
+    [self.mCentralManager stopScan];
+    [self.lanScanner stopScan];
+    
+    NSLog ( @"UPnP device count = %lu", (unsigned long) [mBasicUPnPDevices count] );
+    NSLog ( @"LAN device count = %lu", (unsigned long) [mLANDevices count] );
+    
+    for ( BasicUPnPDevice* uPnPDevice in mBasicUPnPDevices ) {
+        [self registerUPnPDevice:uPnPDevice];
     }
     
+    
+    for ( LITLANDevice *lanDevice in mLANDevices ) {
+        if ( [self.devicesDictionary objectForKey:[lanDevice ipAddress]] == nil ) {
+            [self.devices addObject:lanDevice];
+            [self.devicesDictionary setObject:lanDevice forKey:[lanDevice ipAddress]];
+        }
+    }
+    
+    NSLog ( @"Total device count = %lu", (unsigned long) [self.devices count] );
     [self.tableView reloadData];
     
-    self.timer = nil;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
     self.refreshButton.enabled = YES;
+}
+
+- (LITUPnPDevice *) registerUPnPDevice: (BasicUPnPDevice *) uPnPDevice {
+    LITUPnPDevice *device = [[LITUPnPDevice alloc] initWithBasicUPnPDevice:uPnPDevice];
     
+    if ( [self.devicesDictionary objectForKey:[device ipAddress]] == nil ) {
+        [self.devices addObject : device];
+        [self.devicesDictionary setObject : device forKey: [device ipAddress]];
+        
+        return device;
+    }
+    
+    return nil;
 }
 
 - (const char *) centralManagerStateToString: (int)state
@@ -188,18 +195,9 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     LITDevice *device = [self.devices objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = device.deviceName;
-    
-    //todo: refactor
-    if ( [device.deviceName hasPrefix:@"Flex"] ) cell.imageView.image = [UIImage imageNamed:@"fitbit"];
-    else if ( [device.deviceName hasPrefix:@"Stick"] ) cell.imageView.image = [UIImage imageNamed:@"sticknfind"];
-    else if ( [device.deviceName hasPrefix:@"iSmart"] ) cell.imageView.image = [UIImage imageNamed:@"lumen"];
-    
-    else {
-        if ( [ device smallIcon ] != nil ) cell.imageView.image = [ device smallIcon ];
-        else cell.imageView.image = [UIImage imageNamed:@"unknown"];
-    }
-    
+    cell.textLabel.text = device.name;
+    cell.imageView.image = device.smallIcon;
+        
 //    if (toDoItem.completed) {
 //        cell.accessoryType = UITableViewCellAccessoryCheckmark;
 //    } else {
@@ -213,13 +211,13 @@
 {
     LITDevice *device = [ self.devices objectAtIndex:indexPath.row ];
     //@TODO consider other devices
-    if ( [device.deviceName hasPrefix:@"Stick"] ) {
+   /* if ( [device.name hasPrefix:@"Stick"] ) {
         self.currentDevice = device;
     
         NSLog ( @"going to alert with %@: ", device.peripheral.name );
     
         [self performSegueWithIdentifier: @"sticknfind.seague" sender: self];
-    }
+    }*/
 }
 
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
@@ -284,7 +282,8 @@
 {    
     NSLog( @"CBT central state :%s", [self centralManagerStateToString:self.mCentralManager.state] );
     if ( self.mCentralManager.state == CBCentralManagerStatePoweredOn ) {
-        [self scanForPeripherals];
+        //initial scan
+        [self startScanningForDevices];
     }
 }
 
@@ -296,9 +295,7 @@
     NSLog( @"Received peripheral :%@, id :%@", peripheral.name, peripheral.identifier );
     //NSLog( @"Ad data :%@", advertisementData );
     
-    LITDevice *device = [[LITDevice alloc] init];
-    device.deviceName = peripheral.name;
-    device.peripheral = peripheral;
+    LITBLEDevice *device = [[LITBLEDevice alloc] initWithCBPeripheral:peripheral];
     [self.devices addObject:device];
 
     [self.devicesDictionary setObject:device forKey : peripheral.identifier];
@@ -367,13 +364,18 @@
 
 #pragma mark protocol UPnPDBObserver
 -(void)UPnPDBWillUpdate:(UPnPDB*)sender{
-    NSLog(@"UPnPDBWillUpdate %lu", (unsigned long)[mDevices count]);
+    NSLog(@"UPnPDBWillUpdate %lu", (unsigned long)[mBasicUPnPDevices count]);
 }
 
 -(void)UPnPDBUpdated:(UPnPDB*)sender{
-    NSLog(@"UPnPDBUpdated %lu", (unsigned long)[mDevices count]);
-    BasicUPnPDevice* device = [ mDevices objectAtIndex: ([mDevices count]-1) ];
-    NSLog(@"upnp name = %@ uuid = %@ model name=%@, model number=%@ manu=%@ deviceType=%@", [device friendlyName], [device uuid], [device modelName], [device modelNumber], [device manufacturer], [device deviceType]);
+    NSLog(@"UPnPDBUpdated %lu", (unsigned long)[mBasicUPnPDevices count]);
+    BasicUPnPDevice* basicUPnPdevice = [ mBasicUPnPDevices objectAtIndex: ([mBasicUPnPDevices count]-1) ];
+    
+    LITUPnPDevice *device = [self registerUPnPDevice:basicUPnPdevice];
+    
+    [self.tableView reloadData];
+
+    NSLog(@"upnp name = %@ uid = %@ type = %@ manufacturer = %@", [device name], [device uid], [device type], [device manufacturer]);
 }
 
 #pragma mark protocol XYZBluetoothLEManager
@@ -390,18 +392,15 @@
 }
 
 #pragma mark LAN Scanner delegate method
-- (void)scanLANDidFindNewAdrress:(NSString *)address havingHostName:(NSString *)hostName {
+- (void)scanLANDidFindNewAdrress:(NSString *)address havingHostName:(NSString *)hostName havingMACAddress:(NSString *)macAddress {
     NSLog(@"found  %@", address);
-    //Device *device = [[Device alloc] init];
-    //device.name = hostName;
-    //device.address = address;
-    //[self.connctedDevices addObject:device];
-    //[self.tableView reloadData];
+    LITLANDevice *device = [[LITLANDevice alloc] initWithName:hostName ipAddress:address macAddress:macAddress];
+    [mLANDevices addObject:device];
 }
 
 - (void)scanLANDidFinishScanning {
     NSLog(@"Scan finished");
-    //[[[UIAlertView alloc] initWithTitle:@"Scan Finished" message:[NSString stringWithFormat:@"Number of devices connected to the Local Area Network : %d", self.connctedDevices.count] delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+    [self stopScanningForDevices];
 }
 
 @end

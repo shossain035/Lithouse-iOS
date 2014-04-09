@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		7119205018F350C200F00437 /* libupnpx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7119204F18F350C200F00437 /* libupnpx.a */; };
+		7119205518F3A49600F00437 /* LITBLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119205418F3A49600F00437 /* LITBLEDevice.m */; };
+		7119205B18F3A8E600F00437 /* LITLANDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119205A18F3A8E600F00437 /* LITLANDevice.m */; };
+		7119206018F3AD1200F00437 /* LITUPnPDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119205F18F3AD1200F00437 /* LITUPnPDevice.m */; };
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
 		717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
@@ -43,6 +46,12 @@
 
 /* Begin PBXFileReference section */
 		7119204F18F350C200F00437 /* libupnpx.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libupnpx.a; sourceTree = "<group>"; };
+		7119205318F3A49600F00437 /* LITBLEDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITBLEDevice.h; sourceTree = "<group>"; };
+		7119205418F3A49600F00437 /* LITBLEDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITBLEDevice.m; sourceTree = "<group>"; };
+		7119205918F3A8E600F00437 /* LITLANDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITLANDevice.h; sourceTree = "<group>"; };
+		7119205A18F3A8E600F00437 /* LITLANDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITLANDevice.m; sourceTree = "<group>"; };
+		7119205E18F3AD1200F00437 /* LITUPnPDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITUPnPDevice.h; sourceTree = "<group>"; };
+		7119205F18F3AD1200F00437 /* LITUPnPDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITUPnPDevice.m; sourceTree = "<group>"; };
 		717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
 		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
@@ -104,11 +113,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7119205118F3A2DF00F00437 /* Devices */ = {
+		7119205218F3A44D00F00437 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				71D3492C188767D400AC5537 /* LITDevice.h */,
+				71D3492D188767D400AC5537 /* LITDevice.m */,
+				7119205318F3A49600F00437 /* LITBLEDevice.h */,
+				7119205418F3A49600F00437 /* LITBLEDevice.m */,
+				7119205918F3A8E600F00437 /* LITLANDevice.h */,
+				7119205A18F3A8E600F00437 /* LITLANDevice.m */,
+				7119205E18F3AD1200F00437 /* LITUPnPDevice.h */,
+				7119205F18F3AD1200F00437 /* LITUPnPDevice.m */,
 			);
-			name = Devices;
+			name = Models;
+			sourceTree = "<group>";
+		};
+		7119205D18F3A9EA00F00437 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				71FA043F1885E035005914EA /* LITDeviceListViewController.h */,
+				71FA04401885E035005914EA /* LITDeviceListViewController.m */,
+				71FA04391885D6EE005914EA /* LITDeviceDetailViewController.h */,
+				71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		71BA7B7618F2231200F51A75 /* IPScan */ = {
@@ -160,18 +188,13 @@
 		71FA040E1883B40C005914EA /* ToDoList */ = {
 			isa = PBXGroup;
 			children = (
-				7119205118F3A2DF00F00437 /* Devices */,
+				7119205D18F3A9EA00F00437 /* View Controllers */,
+				7119205218F3A44D00F00437 /* Models */,
 				71BA7B7618F2231200F51A75 /* IPScan */,
 				71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */,
-				71D3492C188767D400AC5537 /* LITDevice.h */,
-				71D3492D188767D400AC5537 /* LITDevice.m */,
-				71FA043F1885E035005914EA /* LITDeviceListViewController.h */,
-				71FA04401885E035005914EA /* LITDeviceListViewController.m */,
 				71FA04171883B40C005914EA /* AppDelegate.h */,
 				71FA04181883B40C005914EA /* AppDelegate.m */,
 				71FA043718850421005914EA /* Main.storyboard */,
-				71FA04391885D6EE005914EA /* LITDeviceDetailViewController.h */,
-				71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */,
 				71FA041A1883B40C005914EA /* Images.xcassets */,
 				71FA040F1883B40C005914EA /* Supporting Files */,
 			);
@@ -311,9 +334,12 @@
 				71FA04191883B40C005914EA /* AppDelegate.m in Sources */,
 				71D3492E188767D400AC5537 /* LITDevice.m in Sources */,
 				71FA04151883B40C005914EA /* main.m in Sources */,
+				7119205518F3A49600F00437 /* LITBLEDevice.m in Sources */,
 				71FA04411885E035005914EA /* LITDeviceListViewController.m in Sources */,
+				7119206018F3AD1200F00437 /* LITUPnPDevice.m in Sources */,
 				71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */,
 				71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */,
+				7119205B18F3A8E600F00437 /* LITLANDevice.m in Sources */,
 				71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

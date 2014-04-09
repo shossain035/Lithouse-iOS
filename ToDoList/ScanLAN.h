@@ -11,7 +11,7 @@
 @protocol ScanLANDelegate <NSObject>
 
 @optional
-- (void)scanLANDidFindNewAdrress:(NSString *)ipAddress havingHostName:(NSString *)hostName;
+- (void)scanLANDidFindNewAdrress:(NSString *)ipAddress havingHostName:(NSString *)hostName havingMACAddress:(NSString *)macAddress;
 - (void)scanLANDidFinishScanning;
 @end
 

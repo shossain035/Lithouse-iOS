@@ -12,6 +12,7 @@
 @property(nonatomic,retain) SimplePing* simplePing;
 @property(nonatomic,retain) id target;
 @property(nonatomic,assign) SEL sel;
+@property(nonatomic,copy) NSString* address;
 - (id)initWithAddress:(NSString*)address target:(id)_target sel:(SEL)_sel;
 - (void)go;
 @end
@@ -32,6 +33,7 @@
 - (void)dealloc {
 	self.simplePing = nil;
 	self.target = nil;
+    self.address = nil;
 	[super dealloc];
 }
 
@@ -41,6 +43,7 @@
 		self.simplePing.delegate = self;
 		self.target = _target;
 		self.sel = _sel;
+        self.address = address;
 	}
 	return self;
 }
@@ -63,7 +66,7 @@
 
 - (void)successPing {
 	[self killPing];
-	[target performSelector:sel withObject:[NSNumber numberWithBool:YES]];
+	[target performSelector:sel withObject:[NSNumber numberWithBool:YES] withObject:self.address];
 }
 
 - (void)failPing:(NSString*)reason {

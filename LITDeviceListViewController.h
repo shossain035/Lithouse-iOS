@@ -15,7 +15,8 @@
 #import "UPnPDB.h"
 
 @interface LITDeviceListViewController : UITableViewController < CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, XYZBluetoothLEManager, ScanLANDelegate > {
-    NSArray *mDevices; //BasicUPnPDevice*
+    NSArray *mBasicUPnPDevices;
+    NSMutableArray *mLANDevices;
 }
 
 //protocol UPnPDBObserver
