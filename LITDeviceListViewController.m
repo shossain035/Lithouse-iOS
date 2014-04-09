@@ -98,7 +98,9 @@
     self.refreshButton.enabled = NO;
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    //search for upnp devices
+    //search for upnp devices. Being defensive by stopping SSDP
+    [[[UPnPManager GetInstance] SSDP] stopSSDP];
+    [[[UPnPManager GetInstance] SSDP] startSSDP];
     [[[UPnPManager GetInstance] SSDP] searchSSDP];
     //search for ble devices
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
@@ -115,6 +117,7 @@
     NSLog ( @"stopping scan" );
     [self.mCentralManager stopScan];
     [self.lanScanner stopScan];
+    [[[UPnPManager GetInstance] SSDP] stopSSDP];
     
     NSLog ( @"UPnP device count = %lu", (unsigned long) [mBasicUPnPDevices count] );
     NSLog ( @"LAN device count = %lu", (unsigned long) [mLANDevices count] );
