@@ -36,6 +36,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#import "LITLANDevice.h"
 
 #define RTF_LLINFO	0x400
 
@@ -89,6 +90,7 @@ struct sockaddr_inarp {
 @property NSString *netMask;
 @property NSInteger baseAddressEnd;
 @property NSInteger timerIterationNumber;
+@property NSDictionary* portMapping;
 
 @end
 
@@ -101,6 +103,13 @@ struct sockaddr_inarp {
     {
 		self.delegate = delegate;
     }
+    
+    self.portMapping = @{
+                         [NSNumber numberWithInt : DEVICE_PORT_PC]      : DEVICE_TYPE_PC,
+                         [NSNumber numberWithInt : DEVICE_PORT_MAC]     : DEVICE_TYPE_MAC,
+                         [NSNumber numberWithInt : DEVICE_PORT_IOS]     : DEVICE_TYPE_IOS,
+                         [NSNumber numberWithInt : DEVICE_PORT_PRINTER] : DEVICE_TYPE_PRINTER,
+                        };
     return self;
 }
 
@@ -154,7 +163,18 @@ struct sockaddr_inarp {
         NSString *macAddress = [self ip2mac:inet_addr([ deviceIPAddress UTF8String ])];
         NSLog(@"MAC = %@", macAddress);
         NSString *deviceName = [self getHostFromIPAddress:[deviceIPAddress cStringUsingEncoding:NSASCIIStringEncoding]];
-        [self.delegate scanLANDidFindNewAdrress:deviceIPAddress havingHostName:deviceName havingMACAddress:macAddress];
+        NSString *deviceType = nil;
+        
+        if ( [deviceIPAddress isEqualToString : self.localAddress] ) {
+            deviceType = DEVICE_TYPE_IOS;
+        } else {
+            deviceType = [self deviceTypeOfHost : deviceIPAddress];
+        }
+        
+        [self.delegate scanLANDidFindNewAdrress : deviceIPAddress
+                                 havingHostName : deviceName
+                               havingMACAddress : macAddress
+                                     havingType : deviceType];
     }
     else {
         NSLog(@"FAILURE");
@@ -283,7 +303,43 @@ struct sockaddr_inarp {
     return address;
 }
 
-- (BOOL) isIpAddressValid:(NSString *)ipAddress{
+- (BOOL) isPortOpenOfHost : (NSString *) hostAddress port : (int) aPort {
+    struct sockaddr_in addr;
+    int sockfd;
+    
+    // Create a socket
+    sockfd = socket( AF_INET, SOCK_STREAM, 0 );
+    
+    addr.sin_family = AF_INET;
+    addr.sin_addr.s_addr = inet_addr( [hostAddress UTF8String] );
+    addr.sin_port = htons( aPort );
+    
+    int conn = connect( sockfd, &addr, sizeof( addr ) );
+    
+    if ( !conn ) {
+        
+        NSLog ( @"port=%d is open of ip=%@", aPort, hostAddress );
+        close ( sockfd );
+        
+        return YES;
+    }
+    
+    close ( sockfd );
+    return NO;
+}
+
+- (NSString *) deviceTypeOfHost : (NSString *) hostAddress {
+    for ( id port in self.portMapping ) {
+        
+        if ( [self isPortOpenOfHost : hostAddress port : [port intValue]] ) {
+            return [self.portMapping objectForKey : port];
+        }
+    }
+    
+    return nil;
+}
+
+- (BOOL) isIpAddressValid : (NSString *)ipAddress{
     struct in_addr pin;
     int success = inet_aton([ipAddress UTF8String],&pin);
     if (success == 1) return TRUE;

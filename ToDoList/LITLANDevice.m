@@ -10,15 +10,22 @@
 
 @implementation LITLANDevice
 
-- (id)initWithName:(NSString *) name ipAddress: (NSString *) ipAddress macAddress:(NSString *) macAddress {
+- (id)initWithName : (NSString *) name
+         ipAddress : (NSString *) ipAddress
+        macAddress : (NSString *) macAddress
+              type : (NSString *) type {
     if ( self = [super init] ) {
         self.name = name;
         
-        //todo: refactor
-        self.smallIcon = [UIImage imageNamed:@"unknown"];
         
         //self.manufacturer = [aBasicUPnPDevice manufacturer];
-        //self.type = [aBasicUPnPDevice modelNumber];
+        if ( type != nil ) {
+            self.type = type;
+            self.smallIcon = [UIImage imageNamed : type];
+        } else {
+            self.smallIcon = [UIImage imageNamed : @"unknown"];
+        }
+        
         self.uid = macAddress;
         
         self.ipAddress = ipAddress;

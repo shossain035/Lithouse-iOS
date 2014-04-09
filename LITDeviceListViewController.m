@@ -27,8 +27,6 @@
 
 @implementation LITDeviceListViewController
 
-
-
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
     LITDeviceDetailViewController *source = [segue sourceViewController];
@@ -351,10 +349,9 @@
                 NSData *data = [ NSData dataWithBytes : bytes length : sizeof ( bytes ) ];
                 
                 NSLog ( @"alerting stick n find" );
-                [ peripheral
-                    writeValue : data
-                    forCharacteristic : charac                                               
-                    type : CBCharacteristicWriteWithoutResponse ];
+                [peripheral writeValue : data
+                     forCharacteristic : charac
+                                  type : CBCharacteristicWriteWithoutResponse];
             }
         }
     }
@@ -392,9 +389,16 @@
 }
 
 #pragma mark LAN Scanner delegate method
-- (void)scanLANDidFindNewAdrress:(NSString *)address havingHostName:(NSString *)hostName havingMACAddress:(NSString *)macAddress {
-    NSLog(@"found  %@", address);
-    LITLANDevice *device = [[LITLANDevice alloc] initWithName:hostName ipAddress:address macAddress:macAddress];
+- (void)scanLANDidFindNewAdrress : (NSString *) address
+                  havingHostName : (NSString *) hostName
+                havingMACAddress : (NSString *) macAddress
+                      havingType : (NSString *) type {
+    
+    NSLog ( @"found  %@, type %@", address, type );
+    LITLANDevice *device = [[LITLANDevice alloc] initWithName : hostName
+                                                    ipAddress : address
+                                                   macAddress : macAddress
+                                                         type : type];
     [mLANDevices addObject:device];
 }
 
