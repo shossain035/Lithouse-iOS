@@ -18,7 +18,8 @@
 
 @property NSMutableArray *devices;
 @property NSMutableDictionary *devicesDictionary;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
+@property IBOutlet UIBarButtonItem *refreshButton;
+@property UIBarButtonItem *activityIndicatorButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
 @property LITBLEDevice *currentDevice;
 @property ScanLAN *lanScanner;
@@ -68,6 +69,11 @@
     //Optional; set User Agent
     [[[UPnPManager GetInstance] SSDP] setUserAgentProduct:@"lithouse/1.0" andOS:@"OSX"];
     mLANDevices = [[NSMutableArray alloc] init];
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle : UIActivityIndicatorViewStyleGray];
+    [activityIndicator startAnimating];
+    self.activityIndicatorButton = [[UIBarButtonItem alloc] initWithCustomView : activityIndicator];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -87,7 +93,7 @@
         NSLog(@"CoreBluetooth is %s", [self centralManagerStateToString:self.mCentralManager.state] );
         return -1;
     }
-  
+    
     [self.devices removeAllObjects];
     [self.devicesDictionary removeAllObjects];
     [self.tableView reloadData];
@@ -95,8 +101,7 @@
     
     NSLog(@"Starting to scan");
     
-    self.refreshButton.enabled = NO;
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    self.navigationItem.rightBarButtonItem = self.activityIndicatorButton;
     
     //search for upnp devices. Being defensive by stopping SSDP
     [[[UPnPManager GetInstance] SSDP] stopSSDP];
@@ -137,8 +142,7 @@
     NSLog ( @"Total device count = %lu", (unsigned long) [self.devices count] );
     [self.tableView reloadData];
     
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
-    self.refreshButton.enabled = YES;
+    self.navigationItem.rightBarButtonItem = self.refreshButton;
 }
 
 - (LITUPnPDevice *) registerUPnPDevice: (BasicUPnPDevice *) uPnPDevice {
