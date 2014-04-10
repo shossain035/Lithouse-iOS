@@ -219,6 +219,10 @@
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
 {
     //LITDeviceDetailViewController *targetVC = ( LITDeviceDetailViewController* ) segue.destinationViewController;
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle : @""
+                                                                             style : UIBarButtonItemStylePlain
+                                                                            target : nil
+                                                                            action : nil];
 }
 /*
 // Override to support conditional editing of the table view.

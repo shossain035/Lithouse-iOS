@@ -40,7 +40,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lS0-Gc-BoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="f92-YE-wLt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="11398" y="459"/>
+            <point key="canvasLocation" x="11451" y="269"/>
+        </scene>
+        <!--Options View Controller-->
+        <scene sceneID="bXn-3L-qum">
+            <objects>
+                <viewController id="hfF-fa-WYu" userLabel="Options View Controller" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rcj-hz-p6j"/>
+                        <viewControllerLayoutGuide type="bottom" id="U4e-9L-hKn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RBN-xd-TgI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Options" id="Vow-0e-c3g"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A2r-ZJ-X9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="11459" y="859"/>
         </scene>
         <!--Device List View Controller - Devices near me-->
         <scene sceneID="NgY-8G-CeX">
@@ -80,7 +99,11 @@
                             <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="WIa-rf-Wzl"/>
-                        <barButtonItem image="settings" id="7yD-M6-u3N"/>
+                        <barButtonItem image="settings" id="7yD-M6-u3N">
+                            <connections>
+                                <segue destination="hfF-fa-WYu" kind="push" id="gkp-qE-T7V"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Devices Near Me" id="AgM-vo-4yA">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="p9X-H1-a7I">
