@@ -60,7 +60,6 @@
 		71BA7B8318F261A400F51A75 /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
 		71BA7B8418F261A400F51A75 /* SimplePingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePingHelper.h; sourceTree = "<group>"; };
 		71BA7B8518F261A400F51A75 /* SimplePingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePingHelper.m; sourceTree = "<group>"; };
-		71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYZBluetoothLEManager.h; sourceTree = "<group>"; };
 		71D3492C188767D400AC5537 /* LITDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LITDevice.h; path = ../LITDevice.h; sourceTree = "<group>"; };
 		71D3492D188767D400AC5537 /* LITDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LITDevice.m; path = ../LITDevice.m; sourceTree = "<group>"; };
 		71FA04051883B40C005914EA /* Lithouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lithouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,7 +190,6 @@
 				7119205D18F3A9EA00F00437 /* View Controllers */,
 				7119205218F3A44D00F00437 /* Models */,
 				71BA7B7618F2231200F51A75 /* IPScan */,
-				71C9743D18E0E7110051188A /* XYZBluetoothLEManager.h */,
 				71FA04171883B40C005914EA /* AppDelegate.h */,
 				71FA04181883B40C005914EA /* AppDelegate.m */,
 				71FA043718850421005914EA /* Main.storyboard */,

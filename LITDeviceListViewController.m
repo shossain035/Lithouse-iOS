@@ -21,7 +21,6 @@
 @property IBOutlet UIBarButtonItem *refreshButton;
 @property UIBarButtonItem *activityIndicatorButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
-@property LITBLEDevice *currentDevice;
 @property ScanLAN *lanScanner;
 
 @end
@@ -227,8 +226,7 @@
 
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
 {
-    LITDeviceDetailViewController *targetVC = ( LITDeviceDetailViewController* ) segue.destinationViewController;
-    targetVC.bluetoothManager = self;
+    //LITDeviceDetailViewController *targetVC = ( LITDeviceDetailViewController* ) segue.destinationViewController;
 }
 /*
 // Override to support conditional editing of the table view.
@@ -292,77 +290,87 @@
     }
 }
 
-- (void) centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
+- (void) centralManager : (CBCentralManager *) central
+  didDiscoverPeripheral : (CBPeripheral *) peripheral
+      advertisementData : (NSDictionary *) advertisementData
+                   RSSI : (NSNumber *)RSSI
 {
     if ( ( [peripheral.name length] == 0 )
         || ( [self.devicesDictionary objectForKey:peripheral.identifier] != nil )) return;
     
     NSLog( @"Received peripheral :%@, id :%@", peripheral.name, peripheral.identifier );
-    //NSLog( @"Ad data :%@", advertisementData );
     
     LITBLEDevice *device = [[LITBLEDevice alloc] initWithCBPeripheral:peripheral];
     [self.devices addObject:device];
 
     [self.devicesDictionary setObject:device forKey : peripheral.identifier];
     [self.tableView reloadData];
+    
+    [self.mCentralManager connectPeripheral : peripheral options:nil ];
 }
 
 
-- (void) centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral
+- (void) centralManager : (CBCentralManager *) central
+   didConnectPeripheral : (CBPeripheral *) peripheral
 {
     NSLog(@"Connected peripheral %@",peripheral);
     //@TODO branch for different ble devices
     
     peripheral.delegate = self;
-    NSArray *services = @[ [ CBUUID UUIDWithString : @"1802" ] ];
-    [ peripheral discoverServices : services ];
+    //look for device information
+    NSArray *services = @[[CBUUID UUIDWithString : @"180A"]];
+    [peripheral discoverServices : services];
 }
 
 
-- (void) centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+- (void) centralManager : (CBCentralManager *) central didFailToConnectPeripheral : (CBPeripheral *) peripheral
+                  error : (NSError *)error
 {
     NSLog(@"Error occured :%@",[error localizedDescription]);
 }
 
 #pragma mark protocol CBPeripheralDelegate
 
-- ( void ) peripheral : ( CBPeripheral * ) peripheral didDiscoverServices : ( NSError * ) error {
+- (void) peripheral : (CBPeripheral *) peripheral didDiscoverServices : (NSError *) error {
     if ( error != nil ) {
         NSLog ( @"ERROR! failed device discovery %@", error );
         return;
     }
     
     for ( CBService *service in peripheral.services ) {
-        if ( [ service.UUID isEqual : [ CBUUID UUIDWithString : @"1802" ]] ) {
-            NSArray *characteristics = @[ [ CBUUID UUIDWithString : @"2a06" ] ];
+        if ( [service.UUID isEqual : [CBUUID UUIDWithString : @"180A"]] ) {
+            //look for manufacturer info
+            NSArray *characteristics = @[[CBUUID UUIDWithString : @"2A29"]];
 
-            [ peripheral discoverCharacteristics : characteristics forService: service ];
+            [peripheral discoverCharacteristics : characteristics forService : service];
         }
     }
     
 }
 
-- ( void ) peripheral : ( CBPeripheral * ) peripheral didDiscoverCharacteristicsForService : ( CBService * ) service error:( NSError * ) error {
+- (void) peripheral : (CBPeripheral * ) peripheral didDiscoverCharacteristicsForService : (CBService *) service
+              error : (NSError *) error {
     if ( error != nil ) {
         NSLog ( @"ERROR! failed characteristics discovery %@", error );
         return;
     }
     
-    if ( [ service.UUID isEqual:[CBUUID UUIDWithString : @"1802" ]] ) {
-        for ( CBCharacteristic *charac in service.characteristics ) {
+    if ( [service.UUID isEqual : [CBUUID UUIDWithString : @"180A"]] ) {
+        for ( CBCharacteristic *characteristic in service.characteristics ) {
             
-            if ( [charac.UUID isEqual:[CBUUID UUIDWithString : @"2a06" ]] ) {
-                const unsigned char bytes[] = { 3 };
-                NSData *data = [ NSData dataWithBytes : bytes length : sizeof ( bytes ) ];
+            if ( [characteristic.UUID isEqual : [CBUUID UUIDWithString : @"2A29"]] ) {
                 
-                NSLog ( @"alerting stick n find" );
-                [peripheral writeValue : data
-                     forCharacteristic : charac
-                                  type : CBCharacteristicWriteWithoutResponse];
+                [peripheral readValueForCharacteristic : characteristic];
+                NSString *manufacturer = [NSString stringWithUTF8String : [[characteristic value] bytes]];
+                NSLog ( @"Manufacturer %@", manufacturer );
+                
+                LITDevice *device = [self.devicesDictionary objectForKey : peripheral.identifier];
+                device.manufacturer = manufacturer;
             }
         }
     }
     
+    [self.mCentralManager cancelPeripheralConnection : peripheral];
 }
 
 
@@ -380,19 +388,6 @@
     //[self.tableView reloadData];
 
     //NSLog(@"upnp name = %@ uid = %@ type = %@ manufacturer = %@", [device name], [device uid], [device type], [device manufacturer]);
-}
-
-#pragma mark protocol XYZBluetoothLEManager
-- ( void ) alertStickNFind {
-    
-    if ( self.currentDevice == nil || self.currentDevice.peripheral == nil ) {
-        NSLog ( @"ERROR! empty current device" );
-        return;
-    }
-    
-    [ self.mCentralManager connectPeripheral : self.currentDevice.peripheral options:nil ];
-    
-    NSLog ( @"StickNFind alert called" );
 }
 
 #pragma mark LAN Scanner delegate method

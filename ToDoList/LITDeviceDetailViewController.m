@@ -18,7 +18,7 @@
 
 - (IBAction)alertStickNFind:(id)sender
 {
-    [ self.bluetoothManager alertStickNFind ];
+   // [ self.bluetoothManager alertStickNFind ];
     NSLog( @"Alert button clicked" );
     
 }
