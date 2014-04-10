@@ -45,7 +45,7 @@
         <!--Options View Controller-->
         <scene sceneID="bXn-3L-qum">
             <objects>
-                <viewController id="hfF-fa-WYu" userLabel="Options View Controller" sceneMemberID="viewController">
+                <viewController id="hfF-fa-WYu" userLabel="Options View Controller" customClass="LITOptionsViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rcj-hz-p6j"/>
                         <viewControllerLayoutGuide type="bottom" id="U4e-9L-hKn"/>

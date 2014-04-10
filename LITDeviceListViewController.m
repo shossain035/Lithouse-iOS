@@ -77,6 +77,10 @@
     
 }
 
+- (void) viewWillAppear : (BOOL) animated {
+    [self.navigationController setToolbarHidden : NO];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [self stopScanningForDevices];
 }
