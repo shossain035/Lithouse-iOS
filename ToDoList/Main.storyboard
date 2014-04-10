@@ -40,7 +40,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lS0-Gc-BoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="f92-YE-wLt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="11805" y="459"/>
+            <point key="canvasLocation" x="11398" y="459"/>
         </scene>
         <!--Device List View Controller - Devices near me-->
         <scene sceneID="NgY-8G-CeX">
@@ -226,22 +226,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJU-8Q-Ghd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="10437" y="459"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="unv-6Q-5bp">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gOf-d7-k4A" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationItem key="navigationItem" id="CSM-g2-ugj"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qEa-pd-6hm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Mzb-Hf-f8x" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="11363" y="756"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
