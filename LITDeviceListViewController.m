@@ -14,6 +14,8 @@
 #import "LITDeviceDetailViewController.h"
 #import "UPnPManager.h"
 
+#define DEVICE_LIMIT 50
+
 @interface LITDeviceListViewController ()
 
 @property NSMutableArray *devices;
@@ -29,12 +31,12 @@
 
 - (IBAction)unwindToList:(UIStoryboardSegue *)segue
 {
-    LITDeviceDetailViewController *source = [segue sourceViewController];
-    LITDevice *item = source.toDoItem;
-    if (item != nil) {
-        [self.devices addObject:item];
-        [self.tableView reloadData];
-    }
+//    LITDeviceDetailViewController *source = [segue sourceViewController];
+//    LITDevice *item = source.toDoItem;
+//    if (item != nil) {
+//        [self.devices addObject:item];
+//        [self.tableView reloadData];
+//    }
 }
 
 - (IBAction)refresh:(id)sender
@@ -127,15 +129,12 @@
     NSLog ( @"LAN device count = %lu", (unsigned long) [mLANDevices count] );
     
     for ( BasicUPnPDevice* uPnPDevice in mBasicUPnPDevices ) {
-        [self registerUPnPDevice:uPnPDevice];
+        [self registerUPnPDevice : uPnPDevice];
     }
     
     
     for ( LITLANDevice *lanDevice in mLANDevices ) {
-        if ( [self.devicesDictionary objectForKey:[lanDevice ipAddress]] == nil ) {
-            [self.devices addObject:lanDevice];
-            [self.devicesDictionary setObject:lanDevice forKey:[lanDevice ipAddress]];
-        }
+        [self addDeviceToList : lanDevice withKey : [lanDevice ipAddress]];
     }
     
     NSLog ( @"Total device count = %lu", (unsigned long) [self.devices count] );
@@ -147,14 +146,7 @@
 - (LITUPnPDevice *) registerUPnPDevice: (BasicUPnPDevice *) uPnPDevice {
     LITUPnPDevice *device = [[LITUPnPDevice alloc] initWithBasicUPnPDevice:uPnPDevice];
     
-    if ( [self.devicesDictionary objectForKey:[device ipAddress]] == nil ) {
-        [self.devices addObject : device];
-        [self.devicesDictionary setObject : device forKey: [device ipAddress]];
-        
-        return device;
-    }
-    
-    return nil;
+    return (LITUPnPDevice *) [self addDeviceToList : device withKey : [device ipAddress]];
 }
 
 - (const char *) centralManagerStateToString: (int)state
@@ -188,12 +180,12 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView: (UITableView *) tableView numberOfRowsInSection : (NSInteger) section
 {
     return [self.devices count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *) tableView : (UITableView *) tableView cellForRowAtIndexPath : (NSIndexPath *) indexPath
 {
     static NSString *CellIdentifier = @"ListPrototypeCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -295,15 +287,14 @@
       advertisementData : (NSDictionary *) advertisementData
                    RSSI : (NSNumber *)RSSI
 {
-    if ( ( [peripheral.name length] == 0 )
+    if (( [peripheral.name length] == 0 )
         || ( [self.devicesDictionary objectForKey:peripheral.identifier] != nil )) return;
     
     NSLog( @"Received peripheral :%@, id :%@", peripheral.name, peripheral.identifier );
     
     LITBLEDevice *device = [[LITBLEDevice alloc] initWithCBPeripheral:peripheral];
-    [self.devices addObject:device];
-
-    [self.devicesDictionary setObject:device forKey : peripheral.identifier];
+    [self addDeviceToList : device withKey : peripheral.identifier];
+    
     [self.tableView reloadData];
     
     [self.mCentralManager connectPeripheral : peripheral options:nil ];
@@ -348,7 +339,7 @@
     
 }
 
-- (void) peripheral : (CBPeripheral * ) peripheral didDiscoverCharacteristicsForService : (CBService *) service
+- (void) peripheral : (CBPeripheral *) peripheral didDiscoverCharacteristicsForService : (CBService *) service
               error : (NSError *) error {
     if ( error != nil ) {
         NSLog ( @"ERROR! failed characteristics discovery %@", error );
@@ -373,6 +364,20 @@
     [self.mCentralManager cancelPeripheralConnection : peripheral];
 }
 
+//Todo: move to new class, make it thread safe
+- (LITDevice *) addDeviceToList : (LITDevice *) device withKey : (id) key {
+    if ( [self.devices count] >= DEVICE_LIMIT ) {
+        [self stopScanningForDevices];
+        return nil;
+    }
+    
+    if ( [self.devicesDictionary objectForKey : key] != nil ) return nil;
+    
+    [self.devices addObject : device];
+    [self.devicesDictionary setObject : device forKey : key];
+    
+    return device;
+}
 
 #pragma mark protocol UPnPDBObserver
 -(void)UPnPDBWillUpdate:(UPnPDB*)sender{
