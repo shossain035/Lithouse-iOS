@@ -74,6 +74,14 @@
                             <outlet property="dataSource" destination="fyT-M5-eOv" id="nOL-xY-bhA"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="S8L-dx-RQ4"/>
+                        <barButtonItem title="Devices" style="plain" id="QrY-ll-b33">
+                            <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WIa-rf-Wzl"/>
+                        <barButtonItem image="settings" id="7yD-M6-u3N"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Devices Near Me" id="AgM-vo-4yA">
                         <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="p9X-H1-a7I">
                             <connections>
@@ -113,6 +121,9 @@
             <point key="canvasLocation" x="10437" y="459"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="settings" width="25" height="25"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
