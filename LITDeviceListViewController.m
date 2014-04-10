@@ -369,13 +369,13 @@
 
 -(void)UPnPDBUpdated:(UPnPDB*)sender{
     NSLog(@"UPnPDBUpdated %lu", (unsigned long)[mBasicUPnPDevices count]);
-    BasicUPnPDevice* basicUPnPdevice = [ mBasicUPnPDevices objectAtIndex: ([mBasicUPnPDevices count]-1) ];
+    //BasicUPnPDevice* basicUPnPdevice = [ mBasicUPnPDevices objectAtIndex: ([mBasicUPnPDevices count]-1) ];
     
-    LITUPnPDevice *device = [self registerUPnPDevice:basicUPnPdevice];
+    //LITUPnPDevice *device = [self registerUPnPDevice:basicUPnPdevice];
     
-    [self.tableView reloadData];
+    //[self.tableView reloadData];
 
-    NSLog(@"upnp name = %@ uid = %@ type = %@ manufacturer = %@", [device name], [device uid], [device type], [device manufacturer]);
+    //NSLog(@"upnp name = %@ uid = %@ type = %@ manufacturer = %@", [device name], [device uid], [device type], [device manufacturer]);
 }
 
 #pragma mark protocol XYZBluetoothLEManager
