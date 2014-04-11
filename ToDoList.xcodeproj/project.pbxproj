@@ -14,6 +14,8 @@
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
 		717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */; };
 		7190E21318F74CA800045A65 /* LITOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7190E21218F74CA800045A65 /* LITOptionsViewController.m */; };
+		7190E21518F7B30A00045A65 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7190E21418F7B30A00045A65 /* Social.framework */; };
+		7190E21718F7BF1300045A65 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7190E21618F7BF1300045A65 /* MessageUI.framework */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
 		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -57,6 +59,8 @@
 		717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
 		7190E21118F74CA800045A65 /* LITOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITOptionsViewController.h; sourceTree = "<group>"; };
 		7190E21218F74CA800045A65 /* LITOptionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITOptionsViewController.m; sourceTree = "<group>"; };
+		7190E21418F7B30A00045A65 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		7190E21618F7BF1300045A65 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
 		71BA7B8118F261A400F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
 		71BA7B8218F261A400F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
@@ -93,6 +97,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7190E21718F7BF1300045A65 /* MessageUI.framework in Frameworks */,
+				7190E21518F7B30A00045A65 /* Social.framework in Frameworks */,
 				717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */,
 				71FA040B1883B40C005914EA /* CoreGraphics.framework in Frameworks */,
 				71FA040D1883B40C005914EA /* UIKit.framework in Frameworks */,
@@ -178,6 +184,8 @@
 		71FA04071883B40C005914EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7190E21618F7BF1300045A65 /* MessageUI.framework */,
+				7190E21418F7B30A00045A65 /* Social.framework */,
 				7119204F18F350C200F00437 /* libupnpx.a */,
 				717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */,
 				717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */,

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface LITOptionsViewController : UIViewController
+@interface LITOptionsViewController : UIViewController <MFMailComposeViewControllerDelegate>
 
 @end
