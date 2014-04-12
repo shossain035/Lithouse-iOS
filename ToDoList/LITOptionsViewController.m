@@ -61,7 +61,7 @@
     
     if ( [SLComposeViewController isAvailableForServiceType : SLServiceTypeTwitter] ) {
         SLComposeViewController *tweetSheet = [SLComposeViewController composeViewControllerForServiceType : SLServiceTypeTwitter];
-        [tweetSheet setInitialText : [NSString stringWithFormat : @"%@ by @lithouseIoT is the easiest way to connect #Internet-of-Things",
+        [tweetSheet setInitialText : [NSString stringWithFormat : @"%@ by @lithouseIoT is the easiest way to connect #IoT",
                                       ITUNES_APP_URL_IOS7]];
         
         [self presentViewController : tweetSheet animated : YES completion : nil];
