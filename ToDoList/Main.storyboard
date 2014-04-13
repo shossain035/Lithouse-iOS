@@ -134,66 +134,6 @@
             </objects>
             <point key="canvasLocation" x="11459" y="859"/>
         </scene>
-        <!--Device List View Controller - Devices near me-->
-        <scene sceneID="NgY-8G-CeX">
-            <objects>
-                <tableViewController title="Devices near me" id="fyT-M5-eOv" customClass="LITDeviceListViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="b3S-e4-W7u">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ListPrototypeCell" textLabel="QVp-ze-Kxd" style="IBUITableViewCellStyleDefault" id="svo-Y4-DaW">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="svo-Y4-DaW" id="oKl-C1-Thm">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Mow the lawn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QVp-ze-Kxd">
-                                            <rect key="frame" x="15" y="0.0" width="290" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                        <connections>
-                            <outlet property="dataSource" destination="fyT-M5-eOv" id="nOL-xY-bhA"/>
-                        </connections>
-                    </tableView>
-                    <toolbarItems>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="S8L-dx-RQ4"/>
-                        <barButtonItem title="Devices" style="plain" id="QrY-ll-b33">
-                            <color key="tintColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                        </barButtonItem>
-                        <barButtonItem style="plain" systemItem="flexibleSpace" id="WIa-rf-Wzl"/>
-                        <barButtonItem image="settings" id="7yD-M6-u3N">
-                            <connections>
-                                <segue destination="hfF-fa-WYu" kind="push" id="gkp-qE-T7V"/>
-                            </connections>
-                        </barButtonItem>
-                    </toolbarItems>
-                    <navigationItem key="navigationItem" title="Devices Near Me" id="AgM-vo-4yA">
-                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="p9X-H1-a7I">
-                            <connections>
-                                <action selector="refresh:" destination="fyT-M5-eOv" id="3dJ-gF-Li4"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="refreshButton" destination="p9X-H1-a7I" id="74V-H7-hJc"/>
-                        <segue destination="En6-bu-WSB" kind="push" identifier="sticknfind.seague" id="G3z-Bc-aH9"/>
-                    </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gKU-li-8AL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="10864" y="459"/>
-        </scene>
         <!--Navigation Controller - My To-Do list-->
         <scene sceneID="GQs-JB-oyN">
             <objects>
@@ -207,14 +147,103 @@
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Wjh-ZX-D8a">
                         <rect key="frame" x="0.0" y="436" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </toolbar>
                     <connections>
-                        <segue destination="fyT-M5-eOv" kind="relationship" relationship="rootViewController" id="6M4-6L-mcZ"/>
+                        <segue destination="eIF-G1-Q8C" kind="relationship" relationship="rootViewController" id="9hd-NR-TtW"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wJU-8Q-Ghd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="10437" y="459"/>
+        </scene>
+        <!--Device List View Controller - Devices Near Me-->
+        <scene sceneID="tvj-XP-oUM">
+            <objects>
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="eIF-G1-Q8C" customClass="LITDeviceListViewController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="9vF-bh-SLm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="h3P-KK-Fzs">
+                            <size key="itemSize" width="99" height="93"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="deviceCollectionCellID" id="Ngn-Az-GXq" customClass="DeviceListViewCell">
+                                <rect key="frame" x="0.0" y="64" width="99" height="93"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="99" height="93"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gQc-dq-bn7">
+                                            <rect key="frame" x="19" y="4" width="60" height="60"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="placeholder" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A2z-Iq-bf2">
+                                            <rect key="frame" x="6" y="69" width="88" height="16"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="16" id="Q24-IX-E5Y"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="A2z-Iq-bf2" firstAttribute="top" secondItem="gQc-dq-bn7" secondAttribute="bottom" constant="5" id="2o9-nJ-k6m"/>
+                                    <constraint firstItem="A2z-Iq-bf2" firstAttribute="leading" secondItem="Ngn-Az-GXq" secondAttribute="leading" constant="6" id="9KA-Pw-2VG"/>
+                                    <constraint firstItem="gQc-dq-bn7" firstAttribute="centerX" secondItem="Ngn-Az-GXq" secondAttribute="centerX" id="Pft-He-rOJ"/>
+                                    <constraint firstItem="gQc-dq-bn7" firstAttribute="top" secondItem="Ngn-Az-GXq" secondAttribute="top" constant="4" id="b2u-Mx-jNI"/>
+                                    <constraint firstAttribute="trailing" secondItem="A2z-Iq-bf2" secondAttribute="trailing" constant="5" id="icP-Rv-05x"/>
+                                    <constraint firstItem="A2z-Iq-bf2" firstAttribute="top" secondItem="gQc-dq-bn7" secondAttribute="bottom" constant="5" id="jjU-p6-WVD"/>
+                                    <constraint firstAttribute="trailing" secondItem="gQc-dq-bn7" secondAttribute="trailing" constant="20" id="oCq-Sp-FTW"/>
+                                    <constraint firstAttribute="bottom" secondItem="A2z-Iq-bf2" secondAttribute="bottom" constant="8" id="ugH-p0-4A1"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="image" destination="gQc-dq-bn7" id="4Nm-Dl-6re"/>
+                                    <outlet property="label" destination="A2z-Iq-bf2" id="gKC-xQ-9Ck"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="eIF-G1-Q8C" id="ndx-Ol-fgB"/>
+                            <outlet property="delegate" destination="eIF-G1-Q8C" id="4By-fF-un6"/>
+                        </connections>
+                    </collectionView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="DpI-wW-PnD"/>
+                        <barButtonItem title="Devices" style="plain" id="qff-VO-oVx">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="uH7-jq-q9N"/>
+                        <barButtonItem image="settings" id="SbY-Bw-snf">
+                            <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="hfF-fa-WYu" kind="push" id="uHT-Zf-mWT"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" title="Devices Near Me" id="8Dd-0j-zgz">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="FdF-at-kRz">
+                            <connections>
+                                <action selector="refresh:" destination="eIF-G1-Q8C" id="KVO-tY-udq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="deviceTotalLabel" destination="qff-VO-oVx" id="7nT-Dk-Tuv"/>
+                        <outlet property="refreshButton" destination="FdF-at-kRz" id="3fy-Ig-4Ti"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mbb-WU-ghq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10964" y="459"/>
         </scene>
     </scenes>
     <resources>

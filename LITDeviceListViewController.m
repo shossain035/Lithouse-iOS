@@ -13,14 +13,17 @@
 #import "LITLANDevice.h"
 #import "LITDeviceDetailViewController.h"
 #import "UPnPManager.h"
+#import "DeviceListViewCell.h"
 
 #define DEVICE_LIMIT 50
+#define DEVICE_LIST_CELL_ID @"deviceCollectionCellID"
 
 @interface LITDeviceListViewController ()
 
 @property NSMutableArray *devices;
 @property NSMutableDictionary *devicesDictionary;
 @property IBOutlet UIBarButtonItem *refreshButton;
+@property IBOutlet UIBarButtonItem *deviceTotalLabel;
 @property UIBarButtonItem *activityIndicatorButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
 @property ScanLAN *lanScanner;
@@ -46,23 +49,12 @@
     
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     self.devices = [[NSMutableArray alloc] init];
     self.devicesDictionary = [[NSMutableDictionary alloc] init];
     self.mCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-    
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     
     UPnPDB* db = [[UPnPManager GetInstance] DB];
     mBasicUPnPDevices = [db rootDevices];
@@ -93,6 +85,7 @@
 
 - (int) startScanningForDevices
 {
+    self.deviceTotalLabel.title = @"";
     if (self.mCentralManager.state != CBCentralManagerStatePoweredOn)
     {
         NSLog(@"CoreBluetooth is %s", [self centralManagerStateToString:self.mCentralManager.state] );
@@ -101,7 +94,7 @@
     
     [self.devices removeAllObjects];
     [self.devicesDictionary removeAllObjects];
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
     [mLANDevices removeAllObjects];
     
     NSLog(@"Starting to scan");
@@ -142,8 +135,9 @@
     }
     
     NSLog ( @"Total device count = %lu", (unsigned long) [self.devices count] );
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
     
+    self.deviceTotalLabel.title = [NSString stringWithFormat : @"Devices: %lu", (unsigned long)[self.devices count]];
     self.navigationItem.rightBarButtonItem = self.refreshButton;
 }
 
@@ -176,15 +170,10 @@
     return "Unknown state";
 }
 
-#pragma mark - Table view data source
+#pragma mark - Collection view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 1;
-}
-
-- (NSInteger)tableView: (UITableView *) tableView numberOfRowsInSection : (NSInteger) section
+- (NSInteger) collectionView : (UICollectionView *) view
+      numberOfItemsInSection : (NSInteger) section;
 {
     return [self.devices count];
 }
@@ -207,17 +196,18 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    LITDevice *device = [ self.devices objectAtIndex:indexPath.row ];
-    //@TODO consider other devices
-   /* if ( [device.name hasPrefix:@"Stick"] ) {
-        self.currentDevice = device;
+- (UICollectionViewCell *) collectionView : (UICollectionView *) cv
+                   cellForItemAtIndexPath : (NSIndexPath *) indexPath {
     
-        NSLog ( @"going to alert with %@: ", device.peripheral.name );
+    DeviceListViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier : DEVICE_LIST_CELL_ID
+                                                             forIndexPath : indexPath];
     
-        [self performSegueWithIdentifier: @"sticknfind.seague" sender: self];
-    }*/
+    LITDevice *device = [self.devices objectAtIndex : indexPath.row];
+    
+    cell.label.text = device.name;
+    cell.image.image = device.smallIcon;
+    
+    return cell;
 }
 
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
@@ -228,56 +218,6 @@
                                                                             target : nil
                                                                             action : nil];
 }
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a story board-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-
- */
 
 #pragma mark -Central manager delegate method
 
@@ -303,7 +243,7 @@
     LITBLEDevice *device = [[LITBLEDevice alloc] initWithCBPeripheral:peripheral];
     [self addDeviceToList : device withKey : peripheral.identifier];
     
-    [self.tableView reloadData];
+    [self.collectionView reloadData];
     
     [self.mCentralManager connectPeripheral : peripheral options:nil ];
 }

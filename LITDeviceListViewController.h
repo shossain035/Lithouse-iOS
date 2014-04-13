@@ -13,7 +13,7 @@
 
 #import "UPnPDB.h"
 
-@interface LITDeviceListViewController : UITableViewController < CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, ScanLANDelegate > {
+@interface LITDeviceListViewController : UICollectionViewController <CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, ScanLANDelegate> {
     NSArray *mBasicUPnPDevices;
     NSMutableArray *mLANDevices;
 }
