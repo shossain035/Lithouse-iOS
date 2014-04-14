@@ -17,6 +17,7 @@
 
 #define DEVICE_LIMIT 50
 #define DEVICE_LIST_CELL_ID @"deviceCollectionCellID"
+#define SEGUE_ID_DEVICE_LIST_TO_DETAIL @"segue-device-list-to-detail"
 
 @interface LITDeviceListViewController ()
 
@@ -178,23 +179,6 @@
     return [self.devices count];
 }
 
-- (UITableViewCell *) tableView : (UITableView *) tableView cellForRowAtIndexPath : (NSIndexPath *) indexPath
-{
-    static NSString *CellIdentifier = @"ListPrototypeCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    LITDevice *device = [self.devices objectAtIndex:indexPath.row];
-    
-    cell.textLabel.text = device.name;
-    cell.imageView.image = device.smallIcon;
-        
-//    if (toDoItem.completed) {
-//        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-//    } else {
-//        cell.accessoryType = UITableViewCellAccessoryNone;
-//    }
-    
-    return cell;
-}
 
 - (UICollectionViewCell *) collectionView : (UICollectionView *) cv
                    cellForItemAtIndexPath : (NSIndexPath *) indexPath {
@@ -212,7 +196,15 @@
 
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
 {
-    //LITDeviceDetailViewController *targetVC = ( LITDeviceDetailViewController* ) segue.destinationViewController;
+    if ( [[segue identifier] isEqualToString : SEGUE_ID_DEVICE_LIST_TO_DETAIL] ) {
+        //get the selected index
+        NSArray *indexPaths = [self.collectionView indexPathsForSelectedItems];
+        NSIndexPath *indexPath = [indexPaths objectAtIndex : 0];
+        
+        LITDeviceDetailViewController *targetVC = (LITDeviceDetailViewController *) segue.destinationViewController;
+        targetVC.currentDevice = [self.devices objectAtIndex : indexPath.row];
+    }
+    
     self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle : @""
                                                                              style : UIBarButtonItemStylePlain
                                                                             target : nil

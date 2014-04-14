@@ -11,6 +11,6 @@
 
 @interface LITDeviceDetailViewController : UIViewController
 
-@property LITDevice *toDoItem;
+@property LITDevice *currentDevice;
 
 @end

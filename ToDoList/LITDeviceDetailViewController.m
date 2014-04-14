@@ -9,19 +9,15 @@
 #import "LITDeviceDetailViewController.h"
 
 @interface LITDeviceDetailViewController ()
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+
+@property (strong, nonatomic) IBOutlet UIImageView *deviceImage;
+@property (strong, nonatomic) IBOutlet UILabel *name;
+@property (strong, nonatomic) IBOutlet UILabel *manufacturer;
 
 @end
 
 @implementation LITDeviceDetailViewController
 
-- (IBAction)alertStickNFind:(id)sender
-{
-   // [ self.bluetoothManager alertStickNFind ];
-    NSLog( @"Alert button clicked" );
-    
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,6 +34,16 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void) viewWillAppear : (BOOL) animated {
+    [super viewWillAppear:animated];
+    
+    self.navigationItem.title = [self.currentDevice name];
+    self.name.text = [self.currentDevice name];
+    self.deviceImage.image = [self.currentDevice smallIcon];
+    self.manufacturer.text = [self.currentDevice manufacturer];
+}
+
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -46,12 +52,7 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if (sender != self.doneButton) return;
-    if (self.textField.text.length > 0) {
-        self.toDoItem = [[LITDevice alloc] init];
-        //self.toDoItem.itemName = self.textField.text;
-        //self.toDoItem.completed = NO;
-    }
+    
 }
 
 @end

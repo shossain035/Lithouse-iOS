@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kVf-ir-YdZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="kVf-ir-YdZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -16,29 +16,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E3d-5h-aYi">
-                                <rect key="frame" x="137" y="225" width="46" height="30"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qFa-XW-D8I">
+                                <rect key="frame" x="26" y="86" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="YfO-TJ-bM1"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lk4-P3-Bhw">
+                                <rect key="frame" x="139" y="86" width="161" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Alert">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="alertStickNFind:" destination="En6-bu-WSB" eventType="touchDown" id="hVZ-DY-rtj"/>
-                                </connections>
-                            </button>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="h47-qv-z3w"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5B-ry-pbF">
+                                <rect key="frame" x="139" y="115" width="161" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FeU-B6-mQ8" firstAttribute="top" secondItem="e5B-ry-pbF" secondAttribute="bottom" constant="300" id="0bV-aG-YwX"/>
+                            <constraint firstItem="e5B-ry-pbF" firstAttribute="trailing" secondItem="Lk4-P3-Bhw" secondAttribute="trailing" id="N5d-dP-WPx"/>
+                            <constraint firstItem="Lk4-P3-Bhw" firstAttribute="top" secondItem="qFa-XW-D8I" secondAttribute="top" id="UYS-BR-v9Q"/>
+                            <constraint firstAttribute="trailing" secondItem="Lk4-P3-Bhw" secondAttribute="trailing" constant="20" symbolic="YES" id="Wp7-hQ-9N4"/>
+                            <constraint firstItem="e5B-ry-pbF" firstAttribute="leading" secondItem="Lk4-P3-Bhw" secondAttribute="leading" id="Wx5-sV-7tm"/>
+                            <constraint firstItem="qFa-XW-D8I" firstAttribute="top" secondItem="7nf-YJ-7bt" secondAttribute="bottom" constant="22" id="aPs-H7-P1A"/>
+                            <constraint firstItem="Lk4-P3-Bhw" firstAttribute="leading" secondItem="qFa-XW-D8I" secondAttribute="trailing" constant="33" id="ac5-NM-0gw"/>
+                            <constraint firstItem="e5B-ry-pbF" firstAttribute="top" secondItem="Lk4-P3-Bhw" secondAttribute="bottom" constant="8" symbolic="YES" id="dVp-W7-R8a"/>
+                            <constraint firstItem="qFa-XW-D8I" firstAttribute="leading" secondItem="hA2-Ky-84B" secondAttribute="leading" constant="26" id="e8N-oF-Dot"/>
+                            <constraint firstItem="FeU-B6-mQ8" firstAttribute="top" secondItem="qFa-XW-D8I" secondAttribute="bottom" constant="270" id="erC-w1-ZvP"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="StickNFind" id="Ing-So-GJO">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="BIc-0W-CGf">
-                            <connections>
-                                <segue destination="f92-YE-wLt" kind="unwind" unwindAction="unwindToList:" id="cNG-78-NTI"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="StickNFind" id="Ing-So-GJO"/>
+                    <connections>
+                        <outlet property="deviceImage" destination="qFa-XW-D8I" id="jth-aW-0s0"/>
+                        <outlet property="manufacturer" destination="e5B-ry-pbF" id="Z1x-7J-xA0"/>
+                        <outlet property="name" destination="Lk4-P3-Bhw" id="GvJ-Df-11x"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lS0-Gc-BoZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="f92-YE-wLt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="11451" y="269"/>
         </scene>
@@ -132,7 +156,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A2r-ZJ-X9d" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="11459" y="859"/>
+            <point key="canvasLocation" x="11451" y="859"/>
         </scene>
         <!--Navigation Controller - My To-Do list-->
         <scene sceneID="GQs-JB-oyN">
@@ -209,6 +233,7 @@
                                 <connections>
                                     <outlet property="image" destination="gQc-dq-bn7" id="4Nm-Dl-6re"/>
                                     <outlet property="label" destination="A2z-Iq-bf2" id="gKC-xQ-9Ck"/>
+                                    <segue destination="En6-bu-WSB" kind="push" identifier="segue-device-list-to-detail" id="1fg-68-jkt"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
