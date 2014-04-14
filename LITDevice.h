@@ -16,4 +16,6 @@
 @property NSString *manufacturer;
 @property UIImage  *smallIcon;
 
+- (void) updateType : (NSString *) type withManufacturer : (NSString *) aManufacturer;
+
 @end

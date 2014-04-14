@@ -10,4 +10,9 @@
 
 @implementation LITDevice
 
+- (void) updateType : (NSString *) type withManufacturer : (NSString *) aManufacturer {
+    self.manufacturer = aManufacturer;
+    self.type = [NSString stringWithFormat:@"%@-%@", type, aManufacturer ];
+}
+
 @end

@@ -15,9 +15,14 @@
 #import "UPnPManager.h"
 #import "DeviceListViewCell.h"
 
-#define DEVICE_LIMIT 50
-#define DEVICE_LIST_CELL_ID @"deviceCollectionCellID"
-#define SEGUE_ID_DEVICE_LIST_TO_DETAIL @"segue-device-list-to-detail"
+#define DEVICE_LIMIT                         50
+#define DEVICE_LIST_CELL_ID                  @"deviceCollectionCellID"
+#define SEGUE_ID_DEVICE_LIST_TO_DETAIL       @"segue-device-list-to-detail"
+
+#define BLE_SERVICE_DEVICE_INFORMATION       @"180A"
+#define BLE_CHARACTERISTICS_DEVICE_MODEL     @"2A24"
+#define BLE_CHARACTERISTICS_MANUFACTURER     @"2A29"
+
 
 @interface LITDeviceListViewController ()
 
@@ -249,7 +254,7 @@
     
     peripheral.delegate = self;
     //look for device information
-    NSArray *services = @[[CBUUID UUIDWithString : @"180A"]];
+    NSArray *services = @[[CBUUID UUIDWithString : BLE_SERVICE_DEVICE_INFORMATION]];
     [peripheral discoverServices : services];
 }
 
@@ -269,9 +274,10 @@
     }
     
     for ( CBService *service in peripheral.services ) {
-        if ( [service.UUID isEqual : [CBUUID UUIDWithString : @"180A"]] ) {
+        if ( [service.UUID isEqual : [CBUUID UUIDWithString : BLE_SERVICE_DEVICE_INFORMATION]] ) {
             //look for manufacturer info
-            NSArray *characteristics = @[[CBUUID UUIDWithString : @"2A29"]];
+            NSArray *characteristics = @[[CBUUID UUIDWithString : BLE_CHARACTERISTICS_MANUFACTURER],
+                                         [CBUUID UUIDWithString : BLE_CHARACTERISTICS_DEVICE_MODEL]];
 
             [peripheral discoverCharacteristics : characteristics forService : service];
         }
@@ -286,20 +292,26 @@
         return;
     }
     
-    if ( [service.UUID isEqual : [CBUUID UUIDWithString : @"180A"]] ) {
+    NSString *manufacturer, *model;
+    if ( [service.UUID isEqual : [CBUUID UUIDWithString : BLE_SERVICE_DEVICE_INFORMATION]] ) {
         for ( CBCharacteristic *characteristic in service.characteristics ) {
             
-            if ( [characteristic.UUID isEqual : [CBUUID UUIDWithString : @"2A29"]] ) {
+            if ( [characteristic.UUID isEqual : [CBUUID UUIDWithString : BLE_CHARACTERISTICS_MANUFACTURER]] ) {
                 
                 [peripheral readValueForCharacteristic : characteristic];
-                NSString *manufacturer = [NSString stringWithUTF8String : [[characteristic value] bytes]];
+                manufacturer = [NSString stringWithUTF8String : [[characteristic value] bytes]];
                 NSLog ( @"Manufacturer %@", manufacturer );
+            } else if ( [characteristic.UUID isEqual : [CBUUID UUIDWithString : BLE_CHARACTERISTICS_DEVICE_MODEL]] ) {
                 
-                LITDevice *device = [self.devicesDictionary objectForKey : peripheral.identifier];
-                device.manufacturer = manufacturer;
+                [peripheral readValueForCharacteristic : characteristic];
+                model = [NSString stringWithUTF8String : [[characteristic value] bytes]];
+                NSLog ( @"Model %@", model );
             }
         }
     }
+    
+    LITDevice *device = [self.devicesDictionary objectForKey : peripheral.identifier];
+    device.manufacturer = manufacturer;
     
     [self.mCentralManager cancelPeripheralConnection : peripheral];
 }
