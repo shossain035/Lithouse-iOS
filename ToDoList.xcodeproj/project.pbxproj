@@ -490,8 +490,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/upnpx-primer-master",
-					"$(PROJECT_DIR)/upnpx-primer-master/upnpx-primer",
 				);
 				PRODUCT_NAME = Lithouse;
 				PROVISIONING_PROFILE = "";
@@ -514,8 +512,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/upnpx-primer-master",
-					"$(PROJECT_DIR)/upnpx-primer-master/upnpx-primer",
 				);
 				PRODUCT_NAME = Lithouse;
 				PROVISIONING_PROFILE = "";
