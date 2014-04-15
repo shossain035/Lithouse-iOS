@@ -41,6 +41,8 @@
     self.name.text = [self.currentDevice name];
     self.deviceImage.image = [self.currentDevice smallIcon];
     self.manufacturer.text = [self.currentDevice manufacturer];
+    
+    [self.navigationController setToolbarHidden : YES];
 }
 
 
@@ -52,7 +54,10 @@
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle : @""
+                                                                             style : UIBarButtonItemStylePlain
+                                                                            target : nil
+                                                                            action : nil];
 }
 
 @end

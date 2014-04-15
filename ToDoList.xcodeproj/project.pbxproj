@@ -17,6 +17,7 @@
 		7190E21518F7B30A00045A65 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7190E21418F7B30A00045A65 /* Social.framework */; };
 		7190E21718F7BF1300045A65 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7190E21618F7BF1300045A65 /* MessageUI.framework */; };
 		7190E21A18FA4FF600045A65 /* DeviceListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7190E21918FA4FF600045A65 /* DeviceListViewCell.m */; };
+		71A2B7DE18FCECCA00EED59C /* LITDeviceReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B7DD18FCECCA00EED59C /* LITDeviceReviewViewController.m */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
 		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -64,6 +65,8 @@
 		7190E21618F7BF1300045A65 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		7190E21818FA4FF600045A65 /* DeviceListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceListViewCell.h; sourceTree = "<group>"; };
 		7190E21918FA4FF600045A65 /* DeviceListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListViewCell.m; sourceTree = "<group>"; };
+		71A2B7DC18FCECCA00EED59C /* LITDeviceReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITDeviceReviewViewController.h; sourceTree = "<group>"; };
+		71A2B7DD18FCECCA00EED59C /* LITDeviceReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITDeviceReviewViewController.m; sourceTree = "<group>"; };
 		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
 		71BA7B8118F261A400F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
 		71BA7B8218F261A400F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
@@ -150,6 +153,8 @@
 				71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */,
 				7190E21118F74CA800045A65 /* LITOptionsViewController.h */,
 				7190E21218F74CA800045A65 /* LITOptionsViewController.m */,
+				71A2B7DC18FCECCA00EED59C /* LITDeviceReviewViewController.h */,
+				71A2B7DD18FCECCA00EED59C /* LITDeviceReviewViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -346,6 +351,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71A2B7DE18FCECCA00EED59C /* LITDeviceReviewViewController.m in Sources */,
 				7190E21A18FA4FF600045A65 /* DeviceListViewCell.m in Sources */,
 				71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */,
 				7190E21318F74CA800045A65 /* LITOptionsViewController.m in Sources */,
