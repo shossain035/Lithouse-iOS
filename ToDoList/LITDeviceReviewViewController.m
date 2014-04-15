@@ -43,7 +43,13 @@
                      self.rateButton3,
                      self.rateButton4,
                      self.rateButton5];
-    // Do any additional setup after loading the view.
+    
+    [self.reviewTextView.layer setBorderColor : [[UIColor lightGrayColor] CGColor]];
+    [self.reviewTextView.layer setBorderWidth : 0.5];
+    
+    //The rounded corner part, where you specify your view's corner radius:
+    self.reviewTextView.layer.cornerRadius = 5;
+    self.reviewTextView.clipsToBounds = YES;
 }
 
 - (void) viewWillAppear : (BOOL) animated {

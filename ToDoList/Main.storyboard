@@ -103,14 +103,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s9a-rC-ylI">
-                                <rect key="frame" x="26" y="80" width="274" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5h-V6-5Zd">
-                                <rect key="frame" x="25" y="109" width="40" height="40"/>
+                                <rect key="frame" x="25" y="315" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -122,7 +116,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="2" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhB-Tz-pFZ">
-                                <rect key="frame" x="75" y="109" width="40" height="40"/>
+                                <rect key="frame" x="75" y="315" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -134,7 +128,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="3" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEb-Wq-aUo">
-                                <rect key="frame" x="125" y="109" width="40" height="40"/>
+                                <rect key="frame" x="125" y="315" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -146,7 +140,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="4" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPB-JR-ZTq">
-                                <rect key="frame" x="175" y="109" width="40" height="40"/>
+                                <rect key="frame" x="175" y="315" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -158,7 +152,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="5" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnY-gm-HA9">
-                                <rect key="frame" x="225" y="109" width="40" height="40"/>
+                                <rect key="frame" x="225" y="315" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -170,14 +164,14 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZsV-xD-cNm">
-                                <rect key="frame" x="26" y="165" width="274" height="30"/>
+                                <rect key="frame" x="26" y="75" width="274" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <accessibility key="accessibilityConfiguration" hint="Title" label=""/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dot-Gu-s5K">
-                                <rect key="frame" x="26" y="211" width="274" height="203"/>
+                                <rect key="frame" x="26" y="121" width="274" height="142"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Title"/>
