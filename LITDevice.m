@@ -10,9 +10,26 @@
 
 @implementation LITDevice
 
-- (void) updateType : (NSString *) type withManufacturer : (NSString *) aManufacturer {
-    self.manufacturer = aManufacturer;
-    self.type = [NSString stringWithFormat:@"%@-%@", type, aManufacturer ];
+@synthesize type = _type;
+
+- (id) init
+{
+    self = [super init];
+    if ( self ) {
+        self.type = DEVICE_TYPE_UNKNOWN;
+    }
+    return self;
+}
+
+- (void) setType : (NSString *) type
+{
+    //todo: remove special chars
+    _type = type;
+}
+
+- (NSString *) type
+{
+    return _type;
 }
 
 @end

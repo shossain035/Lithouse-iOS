@@ -7,6 +7,9 @@
 //
 
 #import "LITDeviceDetailViewController.h"
+#import "LITDeviceReviewViewController.h"
+
+#define SEGUE_ID_DEVICE_DETAIL_TO_REVIEW @"segue-device-detail-to-review"
 
 @interface LITDeviceDetailViewController ()
 
@@ -58,6 +61,12 @@
                                                                              style : UIBarButtonItemStylePlain
                                                                             target : nil
                                                                             action : nil];
+    
+    if ( [[segue identifier] isEqualToString : SEGUE_ID_DEVICE_DETAIL_TO_REVIEW] ) {
+        LITDeviceReviewViewController *targetVC = (LITDeviceReviewViewController *) segue.destinationViewController;
+        targetVC.currentDevice = self.currentDevice;
+    }
+
 }
 
 @end

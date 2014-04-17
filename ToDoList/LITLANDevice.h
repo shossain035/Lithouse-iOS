@@ -9,9 +9,9 @@
 #import "LITDevice.h"
 
 //todo: get these from service
-#define DEVICE_TYPE_MAC         @"APPLE_MAC"
-#define DEVICE_TYPE_PC          @"MSFT_PC"
-#define DEVICE_TYPE_IOS         @"APPLE_IOS"
+#define DEVICE_TYPE_MAC         @"APPLE-MAC"
+#define DEVICE_TYPE_PC          @"MSFT-PC"
+#define DEVICE_TYPE_IOS         @"APPLE-IOS"
 #define DEVICE_TYPE_PRINTER     @"PRINTER"
 
 #define DEVICE_PORT_MAC         548

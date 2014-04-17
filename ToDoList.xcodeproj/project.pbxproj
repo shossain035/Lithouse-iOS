@@ -18,6 +18,9 @@
 		7190E21718F7BF1300045A65 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7190E21618F7BF1300045A65 /* MessageUI.framework */; };
 		7190E21A18FA4FF600045A65 /* DeviceListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7190E21918FA4FF600045A65 /* DeviceListViewCell.m */; };
 		71A2B7DE18FCECCA00EED59C /* LITDeviceReviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B7DD18FCECCA00EED59C /* LITDeviceReviewViewController.m */; };
+		71A2B7E718FF23C100EED59C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71A2B7E618FF23C100EED59C /* CoreData.framework */; };
+		71A2B7EA18FF39AC00EED59C /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B7E818FF39AC00EED59C /* CoreDataModel.xcdatamodeld */; };
+		71A2B83118FF481400EED59C /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B83018FF481400EED59C /* Review.m */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
 		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -67,6 +70,10 @@
 		7190E21918FA4FF600045A65 /* DeviceListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceListViewCell.m; sourceTree = "<group>"; };
 		71A2B7DC18FCECCA00EED59C /* LITDeviceReviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITDeviceReviewViewController.h; sourceTree = "<group>"; };
 		71A2B7DD18FCECCA00EED59C /* LITDeviceReviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITDeviceReviewViewController.m; sourceTree = "<group>"; };
+		71A2B7E618FF23C100EED59C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		71A2B7E918FF39AC00EED59C /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		71A2B82F18FF481400EED59C /* Review.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Review.h; path = ../Review.h; sourceTree = "<group>"; };
+		71A2B83018FF481400EED59C /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = ../Review.m; sourceTree = "<group>"; };
 		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
 		71BA7B8118F261A400F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
 		71BA7B8218F261A400F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
@@ -103,6 +110,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71A2B7E718FF23C100EED59C /* CoreData.framework in Frameworks */,
 				7190E21718F7BF1300045A65 /* MessageUI.framework in Frameworks */,
 				7190E21518F7B30A00045A65 /* Social.framework in Frameworks */,
 				717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */,
@@ -130,6 +138,8 @@
 		7119205218F3A44D00F00437 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				71A2B82F18FF481400EED59C /* Review.h */,
+				71A2B83018FF481400EED59C /* Review.m */,
 				71D3492C188767D400AC5537 /* LITDevice.h */,
 				71D3492D188767D400AC5537 /* LITDevice.m */,
 				7119205318F3A49600F00437 /* LITBLEDevice.h */,
@@ -194,6 +204,7 @@
 		71FA04071883B40C005914EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				71A2B7E618FF23C100EED59C /* CoreData.framework */,
 				7190E21618F7BF1300045A65 /* MessageUI.framework */,
 				7190E21418F7B30A00045A65 /* Social.framework */,
 				7119204F18F350C200F00437 /* libupnpx.a */,
@@ -215,6 +226,7 @@
 				71BA7B7618F2231200F51A75 /* IPScan */,
 				71FA04171883B40C005914EA /* AppDelegate.h */,
 				71FA04181883B40C005914EA /* AppDelegate.m */,
+				71A2B7E818FF39AC00EED59C /* CoreDataModel.xcdatamodeld */,
 				71FA043718850421005914EA /* Main.storyboard */,
 				71FA041A1883B40C005914EA /* Images.xcassets */,
 				71FA040F1883B40C005914EA /* Supporting Files */,
@@ -357,12 +369,14 @@
 				7190E21318F74CA800045A65 /* LITOptionsViewController.m in Sources */,
 				71FA04191883B40C005914EA /* AppDelegate.m in Sources */,
 				71D3492E188767D400AC5537 /* LITDevice.m in Sources */,
+				71A2B7EA18FF39AC00EED59C /* CoreDataModel.xcdatamodeld in Sources */,
 				71FA04151883B40C005914EA /* main.m in Sources */,
 				7119205518F3A49600F00437 /* LITBLEDevice.m in Sources */,
 				71FA04411885E035005914EA /* LITDeviceListViewController.m in Sources */,
 				7119206018F3AD1200F00437 /* LITUPnPDevice.m in Sources */,
 				71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */,
 				71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */,
+				71A2B83118FF481400EED59C /* Review.m in Sources */,
 				7119205B18F3A8E600F00437 /* LITLANDevice.m in Sources */,
 				71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */,
 			);
@@ -591,6 +605,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		71A2B7E818FF39AC00EED59C /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				71A2B7E918FF39AC00EED59C /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 71A2B7E918FF39AC00EED59C /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 71FA03FD1883B40B005914EA /* Project object */;
 }

@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LITDevice.h"
 
 @interface LITDeviceReviewViewController : UIViewController <UITextViewDelegate> {
     NSArray *mRateButtons;
 }
+
+@property LITDevice *currentDevice;
 
 @end

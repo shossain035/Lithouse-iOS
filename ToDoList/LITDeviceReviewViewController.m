@@ -7,7 +7,10 @@
 //
 
 #import "LITDeviceReviewViewController.h"
-#define REVIEW_PLACEHOLDER_TEXT @"What did you like or dislike?\nWould you recommend this device?" 
+#import "AppDelegate.h"
+#import "Review.h"
+
+#define REVIEW_PLACEHOLDER_TEXT   @"What did you like or dislike?\nWould you recommend this device?" 
 
 @interface LITDeviceReviewViewController ()
 
@@ -19,10 +22,16 @@
 
 @property IBOutlet UITextView     *reviewTextView;
 @property IBOutlet UITextField    *titleTextField;
+@property NSInteger               rating;
 
 @end
 
 @implementation LITDeviceReviewViewController
+
+- (IBAction) addButtonTapped : (id) sender
+{
+    [self submitReview];
+}
 
 - (id)initWithNibName : (NSString *) nibNameOrNil
                bundle : (NSBundle *) nibBundleOrNil
@@ -54,18 +63,20 @@
 
 - (void) viewWillAppear : (BOOL) animated {
     [super viewWillAppear:animated];
-    
+    self.navigationItem.title = [NSString stringWithFormat : @"Review %@", self.currentDevice.name];
     [self.navigationController setToolbarHidden : YES];
+    
+    //check for previous review in db
     [self showPlaceholder : REVIEW_PLACEHOLDER_TEXT
                inTextView : self.reviewTextView];
 }
 
 - (IBAction) rateButtonTapped : (id) sender
 {
-    int rate = [[sender restorationIdentifier] intValue];
+    self.rating = [[sender restorationIdentifier] integerValue];
     UIImage* goldStarImage = [UIImage imageNamed : @"star-gold-64"];
     
-    for ( int i = 0; i < rate ; i++ ) {
+    for ( int i = 0; i < self.rating ; i++ ) {
         UIButton *button = [mRateButtons objectAtIndex : i];
         [button setImage : goldStarImage
                 forState : UIControlStateNormal];
@@ -73,15 +84,17 @@
     
     UIImage* grayStarImage = [UIImage imageNamed : @"star-gray-64"];
     
-    for ( int i = rate; i < 5 ; i++ ) {
+    for ( int i = self.rating; i < 5 ; i++ ) {
         UIButton *button = [mRateButtons objectAtIndex : i];
         [button setImage : grayStarImage
                 forState : UIControlStateNormal];
     }
 }
 
+//hide keyboard when touched outside
 - (void)touchesBegan : (NSSet *) touches
-           withEvent : (UIEvent *) event {
+           withEvent : (UIEvent *) event
+{
     
     UITouch *touch = [[event allTouches] anyObject];
     
@@ -98,6 +111,54 @@
     
     [super touchesBegan : touches withEvent : event];
 }
+
+- (BOOL) isReviewComplete
+{
+    return NO;
+}
+
+- (void) postReviewToService : (Review *) review
+{
+    NSLog(@"review %@", review);
+    NSURL * url = [NSURL URLWithString : [review restEndpoint]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL : url];
+
+    request.HTTPMethod = @"POST";
+    [request setValue : @"application/json; charset=utf-8" forHTTPHeaderField : @"Content-Type"];
+    request.HTTPBody = [review toJSONData];
+    
+    [NSURLConnection sendAsynchronousRequest : request
+                                       queue : [NSOperationQueue mainQueue]
+                           completionHandler : ^(NSURLResponse *response,
+                                                 NSData *data,
+                                                 NSError *connectionError)
+     {
+         if ( data.length > 0 && connectionError == nil ) {
+             NSLog(@"review posted data %@, response %@", data, response);
+         } else {
+             NSLog(@"response %@, error %@", response, connectionError);
+             //todo: show alert
+         }
+     }];
+}
+
+- (void) submitReview
+{
+    //if ( [self isReviewComplete] == NO ) return;
+    
+    AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
+    
+    Review * review = [Review insertNewObjectIntoContext : [appDelegate managedObjectContext]];
+    review.deviceType = self.currentDevice.type;
+    //todo: change to user login
+    review.reviewerId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    review.title = self.titleTextField.text;
+    review.reviewText = self.reviewTextView.text;
+    review.rating = [NSNumber numberWithInteger : self.rating];
+    
+    [self postReviewToService : review];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

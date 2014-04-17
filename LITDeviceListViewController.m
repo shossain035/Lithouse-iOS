@@ -38,16 +38,6 @@
 
 @implementation LITDeviceListViewController
 
-- (IBAction)unwindToList:(UIStoryboardSegue *)segue
-{
-//    LITDeviceDetailViewController *source = [segue sourceViewController];
-//    LITDevice *item = source.toDoItem;
-//    if (item != nil) {
-//        [self.devices addObject:item];
-//        [self.tableView reloadData];
-//    }
-}
-
 - (IBAction)refresh:(id)sender
 {
     [self startScanningForDevices];
@@ -68,6 +58,7 @@
     //Optional; set User Agent
     [[[UPnPManager GetInstance] SSDP] setUserAgentProduct:@"lithouse/1.0" andOS:@"OSX"];
     mLANDevices = [[NSMutableArray alloc] init];
+    mBLEDevices = [[NSMutableArray alloc] init];
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle : UIActivityIndicatorViewStyleGray];
     [activityIndicator startAnimating];
@@ -102,6 +93,7 @@
     [self.devicesDictionary removeAllObjects];
     [self.collectionView reloadData];
     [mLANDevices removeAllObjects];
+    [mBLEDevices removeAllObjects];
     
     NSLog(@"Starting to scan");
     
@@ -237,11 +229,8 @@
     
     NSLog( @"Received peripheral :%@, id :%@", peripheral.name, peripheral.identifier );
     
-    LITBLEDevice *device = [[LITBLEDevice alloc] initWithCBPeripheral:peripheral];
-    [self addDeviceToList : device withKey : peripheral.identifier];
-    
-    [self.collectionView reloadData];
-    
+    //retaining ble devices
+    [mBLEDevices addObject : peripheral];
     [self.mCentralManager connectPeripheral : peripheral options:nil ];
 }
 
@@ -310,8 +299,13 @@
         }
     }
     
-    LITDevice *device = [self.devicesDictionary objectForKey : peripheral.identifier];
-    device.manufacturer = manufacturer;
+    //add the ble device to list
+    LITBLEDevice *device = [[LITBLEDevice alloc] initWithCBPeripheral : peripheral
+                                                     withManufacturer : manufacturer
+                                                      withDeviceModel : model];
+    [self addDeviceToList : device withKey : peripheral.identifier];
+    [self.collectionView reloadData];
+    
     
     [self.mCentralManager cancelPeripheralConnection : peripheral];
 }

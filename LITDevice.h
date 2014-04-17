@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define DEVICE_TYPE_UNKNOWN     @"UNKNOWN"
+
 @interface LITDevice : NSObject
 
 @property NSString *uid;
@@ -15,7 +17,5 @@
 @property NSString *type;
 @property NSString *manufacturer;
 @property UIImage  *smallIcon;
-
-- (void) updateType : (NSString *) type withManufacturer : (NSString *) aManufacturer;
 
 @end

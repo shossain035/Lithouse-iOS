@@ -41,7 +41,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="bCL-Fa-aNr" kind="push" id="Zj9-65-DuT"/>
+                                    <segue destination="bCL-Fa-aNr" kind="push" identifier="segue-device-detail-to-review" id="Zj9-65-DuT"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jF-nQ-XHN">
@@ -187,7 +187,11 @@
                         <accessibility key="accessibilityConfiguration" hint="Title"/>
                     </view>
                     <navigationItem key="navigationItem" title="Review" id="AUt-zZ-TSY">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DRT-uf-sqs"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DRT-uf-sqs">
+                            <connections>
+                                <action selector="addButtonTapped:" destination="bCL-Fa-aNr" id="m6W-og-bRT"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="rateButton1" destination="b5h-V6-5Zd" id="Oi9-G1-o7k"/>

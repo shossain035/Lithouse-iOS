@@ -10,7 +10,11 @@
 
 @implementation LITBLEDevice
 
-- (id)initWithCBPeripheral:(CBPeripheral *) aCBPeripheral {
+
+- (id) initWithCBPeripheral : (CBPeripheral *) aCBPeripheral
+          withManufacturer  : (NSString *) manufacturer
+           withDeviceModel  : (NSString *) model
+{
     if ( self = [super init] ) {
         self.name = [aCBPeripheral name];
         
@@ -20,8 +24,8 @@
         else if ( [self.name hasPrefix:@"iSmart"] ) self.smallIcon = [UIImage imageNamed:@"lumen"];        
         else  self.smallIcon = [UIImage imageNamed:@"unknown"];
         
-        //self.manufacturer = [aBasicUPnPDevice manufacturer];
-        //self.type = [aBasicUPnPDevice modelNumber];
+        self.manufacturer = manufacturer;
+        self.type = [NSString stringWithFormat:@"%@-%@", model, manufacturer];
         self.uid = [[aCBPeripheral identifier] UUIDString];
         
         self.peripheral = aCBPeripheral;

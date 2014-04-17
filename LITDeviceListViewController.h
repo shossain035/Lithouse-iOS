@@ -16,6 +16,7 @@
 @interface LITDeviceListViewController : UICollectionViewController <CBCentralManagerDelegate, CBPeripheralDelegate, UPnPDBObserver, ScanLANDelegate> {
     NSArray *mBasicUPnPDevices;
     NSMutableArray *mLANDevices;
+    NSMutableArray *mBLEDevices;
 }
 
 //protocol UPnPDBObserver

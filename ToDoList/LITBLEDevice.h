@@ -13,6 +13,8 @@
 
 @property CBPeripheral *peripheral;
 
-- (id)initWithCBPeripheral:(CBPeripheral *) aCBPeripheral;
+- (id) initWithCBPeripheral : (CBPeripheral *) aCBPeripheral
+          withManufacturer  : (NSString *) manufacturer
+           withDeviceModel  : (NSString *) model;
 
 @end
