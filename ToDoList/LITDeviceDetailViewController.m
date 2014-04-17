@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *deviceImage;
 @property (strong, nonatomic) IBOutlet UILabel *name;
 @property (strong, nonatomic) IBOutlet UILabel *manufacturer;
+@property (strong, nonatomic) IBOutlet UILabel *ipAddress;
 
 @end
 
@@ -44,6 +45,7 @@
     self.name.text = [self.currentDevice name];
     self.deviceImage.image = [self.currentDevice smallIcon];
     self.manufacturer.text = [self.currentDevice manufacturer];
+    self.ipAddress.text = [self.currentDevice ipAddress];
     
     [self.navigationController setToolbarHidden : YES];
 }

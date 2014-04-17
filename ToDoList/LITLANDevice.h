@@ -22,7 +22,6 @@
 
 @interface LITLANDevice : LITDevice
 
-@property NSString *ipAddress;
 @property NSString *macAddress;
 
 - (id)initWithName : (NSString *) name

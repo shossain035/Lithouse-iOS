@@ -11,7 +11,6 @@
 
 @interface LITUPnPDevice : LITDevice
 
-@property NSString *ipAddress;
 @property NSString *uPnPDeviceType;
 @property BasicUPnPDevice *uPnPDevice;
 

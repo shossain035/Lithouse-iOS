@@ -12,10 +12,11 @@
 
 @interface LITDevice : NSObject
 
-@property NSString *uid;
-@property NSString *name;
-@property NSString *type;
-@property NSString *manufacturer;
-@property UIImage  *smallIcon;
+@property NSString * uid;
+@property NSString * name;
+@property NSString * type;
+@property NSString * manufacturer;
+@property UIImage  * smallIcon;
+@property NSString * ipAddress;
 
 @end
