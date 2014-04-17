@@ -158,18 +158,18 @@
 		7119205D18F3A9EA00F00437 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				71FA043F1885E035005914EA /* LITDeviceListViewController.h */,
-				71FA04401885E035005914EA /* LITDeviceListViewController.m */,
 				7190E21818FA4FF600045A65 /* DeviceListViewCell.h */,
 				7190E21918FA4FF600045A65 /* DeviceListViewCell.m */,
-				71FA04391885D6EE005914EA /* LITDeviceDetailViewController.h */,
-				71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */,
-				7190E21118F74CA800045A65 /* LITOptionsViewController.h */,
-				7190E21218F74CA800045A65 /* LITOptionsViewController.m */,
-				71A2B7DC18FCECCA00EED59C /* LITDeviceReviewViewController.h */,
-				71A2B7DD18FCECCA00EED59C /* LITDeviceReviewViewController.m */,
+				71FA043F1885E035005914EA /* LITDeviceListViewController.h */,
+				71FA04401885E035005914EA /* LITDeviceListViewController.m */,
 				71A2B83218FFB07B00EED59C /* DeviceReviewListViewCell.h */,
 				71A2B83318FFB07B00EED59C /* DeviceReviewListViewCell.m */,
+				71FA04391885D6EE005914EA /* LITDeviceDetailViewController.h */,
+				71FA043A1885D6EE005914EA /* LITDeviceDetailViewController.m */,
+				71A2B7DC18FCECCA00EED59C /* LITDeviceReviewViewController.h */,
+				71A2B7DD18FCECCA00EED59C /* LITDeviceReviewViewController.m */,
+				7190E21118F74CA800045A65 /* LITOptionsViewController.h */,
+				7190E21218F74CA800045A65 /* LITOptionsViewController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";

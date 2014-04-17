@@ -33,7 +33,6 @@
                                               range : range
                                        withTemplate : @"-"];
     
-    NSLog(@"%@", type);
 }
 
 - (NSString *) type

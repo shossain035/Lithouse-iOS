@@ -10,13 +10,18 @@
 
 @implementation DeviceReviewListViewCell
 
-- (id)initWithFrame:(CGRect)frame
+
+- (NSArray *) ratingImages
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
+    if ( mRateImages == nil ) {
+        mRateImages = @[self.rateImage1,
+                        self.rateImage2,
+                        self.rateImage3,
+                        self.rateImage4,
+                        self.rateImage5];
     }
-    return self;
+    
+    return mRateImages;
 }
 
 /*

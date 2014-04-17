@@ -5,7 +5,7 @@
 //
 
 #import <Availability.h>
-#define LITHOUSE_API_URL @"http://alpha-api.elasticbeanstalk.com/v1/"
+#define LITHOUSE_API_URL @"http://api.lithouse.co/v1/"
 
 #ifndef __IPHONE_3_0
 #warning "This project uses features only available in iOS SDK 3.0 and later."

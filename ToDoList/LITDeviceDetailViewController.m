@@ -9,8 +9,11 @@
 #import "LITDeviceDetailViewController.h"
 #import "LITDeviceReviewViewController.h"
 #import "Review.h"
+#import "AppDelegate.h"
+#import "DeviceReviewListViewCell.h"
 
-#define SEGUE_ID_DEVICE_DETAIL_TO_REVIEW @"segue-device-detail-to-review"
+#define DEVICE_REVIEW_LIST_CELL_ID           @"deviceReviewCollectionCellID"
+#define SEGUE_ID_DEVICE_DETAIL_TO_REVIEW     @"segue-device-detail-to-review"
 
 @interface LITDeviceDetailViewController ()
 
@@ -27,6 +30,9 @@
 
 @property (strong, nonatomic) IBOutlet UIActivityIndicatorView * loadingView;
 @property (strong, nonatomic) IBOutlet UILabel                 * reviewCount;
+@property (strong, nonatomic) IBOutlet UICollectionView        * reviewCollectionView;
+
+@property NSArray *reviews;
 @end
 
 @implementation LITDeviceDetailViewController
@@ -111,19 +117,23 @@
              NSDictionary *result = [NSJSONSerialization JSONObjectWithData : data
                                                                     options : 0
                                                                       error : NULL];
-             
              NSLog(@"result %@", result);
              int totalNumberOfReviews = [[result objectForKey : @"totalNumberOfReviews"] intValue];
              int sumOfAllRatings = [[result objectForKey : @"sumOfAllRatings"] intValue];
              
              [self updateRating : sumOfAllRatings withTotalNumberOfReviews : totalNumberOfReviews];
              
+             AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
+             self.reviews = [Review parseReviews : [result objectForKey : @"reviews"]
+                                     intoContext : [appDelegate managedObjectContext]];
+             
+             [self.reviewCollectionView reloadData];
          } else {
              //todo: show error
          }
      }];
 }
-
+     
 - (void) updateRating : (int) sumOfAllRatings withTotalNumberOfReviews : (int) totalNumberOfReviews
 {
     self.loadingView.hidden = YES;
@@ -165,6 +175,35 @@
         [rateImageView setImage : grayStarImage];
     }
 
+}
+
+#pragma mark - Collection view data source
+
+- (NSInteger) collectionView : (UICollectionView *) view
+      numberOfItemsInSection : (NSInteger) section;
+{
+    return [self.reviews count];
+}
+
+
+- (UICollectionViewCell *) collectionView : (UICollectionView *) cv
+                   cellForItemAtIndexPath : (NSIndexPath *) indexPath {
+    
+    DeviceReviewListViewCell *cell = [cv dequeueReusableCellWithReuseIdentifier : DEVICE_REVIEW_LIST_CELL_ID
+                                                                   forIndexPath : indexPath];
+    
+    Review *review = [self.reviews objectAtIndex : indexPath.row];
+    
+    cell.title.text = review.title;
+    cell.reviewText.text = review.reviewText;
+    cell.layer.borderWidth = 0.5f;
+    cell.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+    
+    [self updateRatingStars : [cell ratingImages]
+               withGoldStar : [UIImage imageNamed : @"star-gold-32"]
+               withGrayStar : [UIImage imageNamed : @"star-gray-32"]
+                    basedOn : [review.rating intValue]];
+    return cell;
 }
 
 @end

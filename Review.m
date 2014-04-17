@@ -49,5 +49,25 @@
     //todo: handle error
 }
 
++ (NSArray *) parseReviews : (NSArray *) fromJSONArray
+                   intoContext : (NSManagedObjectContext *) context
+{
+    NSMutableArray * reviews = [[NSMutableArray alloc] init];
+    
+    for ( NSDictionary * reviewDictionary in fromJSONArray ) {
+        Review * review = [Review insertNewObjectIntoContext : context];
+        
+        for ( NSString * key in reviewDictionary ) {
+            if ([review respondsToSelector : NSSelectorFromString ( key )]) {
+                [review setValue:[reviewDictionary valueForKey : key] forKey : key];
+            }
+        }
+        
+        [reviews addObject : review];
+    }
+    
+    return reviews;
+}
+
 
 @end

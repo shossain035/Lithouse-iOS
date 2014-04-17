@@ -8,7 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DeviceReviewListViewCell : UICollectionViewCell
+@interface DeviceReviewListViewCell : UICollectionViewCell {
+    NSArray *mRateImages;
+}
+
 
 @property (strong, nonatomic) IBOutlet UIImageView *rateImage1;
 @property (strong, nonatomic) IBOutlet UIImageView *rateImage2;
@@ -18,5 +21,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel     *title;
 @property (strong, nonatomic) IBOutlet UITextView  *reviewText;
+
+- (NSArray *) ratingImages;
 
 @end

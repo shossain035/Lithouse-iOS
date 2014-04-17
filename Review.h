@@ -21,6 +21,9 @@
 
 + (NSString *) restEndpoint : (NSString *) deviceType;
 + (instancetype) insertNewObjectIntoContext : (NSManagedObjectContext *) context;
++ (NSArray *) parseReviews : (NSArray *) fromJSONArray
+               intoContext : (NSManagedObjectContext *) context;
+
 - (NSData *) toJSONData;
 
 @end

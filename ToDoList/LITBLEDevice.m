@@ -25,7 +25,7 @@
         else  self.smallIcon = [UIImage imageNamed:@"unknown"];
         
         self.manufacturer = manufacturer;
-        self.type = [NSString stringWithFormat:@"%@-%@", model, manufacturer];
+        self.type = [NSString stringWithFormat:@"%@-%@", manufacturer, model];
         self.uid = [[aCBPeripheral identifier] UUIDString];
         
         self.peripheral = aCBPeripheral;

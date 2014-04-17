@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LITDevice.h"
 
-@interface LITDeviceDetailViewController : UIViewController {
+@interface LITDeviceDetailViewController : UIViewController<UICollectionViewDataSource, UICollectionViewDelegate> {
     NSArray *mRateImages;
 }
 
