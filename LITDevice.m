@@ -23,8 +23,17 @@
 
 - (void) setType : (NSString *) type
 {
-    //todo: remove special chars
-    _type = type;
+    NSRange range = NSMakeRange ( 0, type.length );
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern : @"[^a-zA-Z0-9]"
+                                                                           options : 0
+                                                                             error : nil ];
+    
+    _type = [regex stringByReplacingMatchesInString : type
+                                             options: 0
+                                              range : range
+                                       withTemplate : @"-"];
+    
+    NSLog(@"%@", type);
 }
 
 - (NSString *) type

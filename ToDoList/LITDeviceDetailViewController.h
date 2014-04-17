@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "LITDevice.h"
 
-@interface LITDeviceDetailViewController : UIViewController
+@interface LITDeviceDetailViewController : UIViewController {
+    NSArray *mRateImages;
+}
 
 @property LITDevice *currentDevice;
 

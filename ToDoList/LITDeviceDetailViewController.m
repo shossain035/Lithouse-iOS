@@ -8,16 +8,25 @@
 
 #import "LITDeviceDetailViewController.h"
 #import "LITDeviceReviewViewController.h"
+#import "Review.h"
 
 #define SEGUE_ID_DEVICE_DETAIL_TO_REVIEW @"segue-device-detail-to-review"
 
 @interface LITDeviceDetailViewController ()
 
-@property (strong, nonatomic) IBOutlet UIImageView *deviceImage;
-@property (strong, nonatomic) IBOutlet UILabel *name;
-@property (strong, nonatomic) IBOutlet UILabel *manufacturer;
-@property (strong, nonatomic) IBOutlet UILabel *ipAddress;
+@property (strong, nonatomic) IBOutlet UIImageView             * deviceImage;
+@property (strong, nonatomic) IBOutlet UILabel                 * name;
+@property (strong, nonatomic) IBOutlet UILabel                 * manufacturer;
+@property (strong, nonatomic) IBOutlet UILabel                 * ipAddress;
 
+@property (strong, nonatomic) IBOutlet UIImageView             * rateImage1;
+@property (strong, nonatomic) IBOutlet UIImageView             * rateImage2;
+@property (strong, nonatomic) IBOutlet UIImageView             * rateImage3;
+@property (strong, nonatomic) IBOutlet UIImageView             * rateImage4;
+@property (strong, nonatomic) IBOutlet UIImageView             * rateImage5;
+
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView * loadingView;
+@property (strong, nonatomic) IBOutlet UILabel                 * reviewCount;
 @end
 
 @implementation LITDeviceDetailViewController
@@ -35,7 +44,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    
+    mRateImages = @[self.rateImage1,
+                    self.rateImage2,
+                    self.rateImage3,
+                    self.rateImage4,
+                    self.rateImage5];
 }
 
 - (void) viewWillAppear : (BOOL) animated {
@@ -46,6 +60,8 @@
     self.deviceImage.image = [self.currentDevice smallIcon];
     self.manufacturer.text = [self.currentDevice manufacturer];
     self.ipAddress.text = [self.currentDevice ipAddress];
+    
+    [self fetchReviews];
     
     [self.navigationController setToolbarHidden : YES];
 }
@@ -67,6 +83,86 @@
     if ( [[segue identifier] isEqualToString : SEGUE_ID_DEVICE_DETAIL_TO_REVIEW] ) {
         LITDeviceReviewViewController *targetVC = (LITDeviceReviewViewController *) segue.destinationViewController;
         targetVC.currentDevice = self.currentDevice;
+    }
+
+}
+
+- (void) fetchReviews
+{
+    self.loadingView.hidden = NO;
+    [self.loadingView startAnimating];
+    [self.view bringSubviewToFront : self.loadingView];
+    self.reviewCount.hidden = YES;
+    [self updateRatingStars : mRateImages
+               withGoldStar : [UIImage imageNamed : @"star-gold-48"]
+               withGrayStar : [UIImage imageNamed : @"star-gray-48"]
+                    basedOn : 0];
+    
+    NSURL *url = [NSURL URLWithString : [Review restEndpoint : self.currentDevice.type]];
+    NSURLRequest *request = [NSURLRequest requestWithURL : url];
+    
+    [NSURLConnection sendAsynchronousRequest : request
+                                       queue : [NSOperationQueue mainQueue]
+                           completionHandler : ^(NSURLResponse *response,
+                                                 NSData *data,
+                                                 NSError *connectionError)
+     {
+         if ( data.length > 0 && connectionError == nil ) {
+             NSDictionary *result = [NSJSONSerialization JSONObjectWithData : data
+                                                                    options : 0
+                                                                      error : NULL];
+             
+             NSLog(@"result %@", result);
+             int totalNumberOfReviews = [[result objectForKey : @"totalNumberOfReviews"] intValue];
+             int sumOfAllRatings = [[result objectForKey : @"sumOfAllRatings"] intValue];
+             
+             [self updateRating : sumOfAllRatings withTotalNumberOfReviews : totalNumberOfReviews];
+             
+         } else {
+             //todo: show error
+         }
+     }];
+}
+
+- (void) updateRating : (int) sumOfAllRatings withTotalNumberOfReviews : (int) totalNumberOfReviews
+{
+    self.loadingView.hidden = YES;
+    self.reviewCount.hidden = NO;
+    [self.view bringSubviewToFront : self.reviewCount];
+    
+    NSString * reviewTotalText = [NSString stringWithFormat : @"%d Review", totalNumberOfReviews];
+    
+    if ( totalNumberOfReviews > 1 ) {
+        reviewTotalText = [NSString stringWithFormat : @"%@s", reviewTotalText];
+    }
+    
+    self.reviewCount.text = reviewTotalText;
+    
+    if ( totalNumberOfReviews > 0 ) {
+        int rate = sumOfAllRatings / totalNumberOfReviews;
+        
+        if ( rate > 0 ) {
+            [self updateRatingStars : mRateImages
+                       withGoldStar : [UIImage imageNamed : @"star-gold-48"]
+                       withGrayStar : [UIImage imageNamed : @"star-gray-48"]
+                            basedOn : rate];
+        }
+    }
+}
+
+- (void) updateRatingStars : (NSArray *) starImages
+              withGoldStar : (UIImage *) goldStarImage
+              withGrayStar : (UIImage *) grayStarImage
+                   basedOn : (int) rating
+{
+    for ( int i = 0; i < rating ; i++ ) {
+        UIImageView * rateImageView = [starImages objectAtIndex : i];
+        [rateImageView setImage : goldStarImage];
+    }
+    
+    for ( int i = rating; i < 5 ; i++ ) {
+        UIImageView * rateImageView = [starImages objectAtIndex : i];
+        [rateImageView setImage : grayStarImage];
     }
 
 }

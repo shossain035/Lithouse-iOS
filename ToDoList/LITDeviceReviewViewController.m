@@ -63,7 +63,7 @@
 
 - (void) viewWillAppear : (BOOL) animated {
     [super viewWillAppear:animated];
-    self.navigationItem.title = [NSString stringWithFormat : @"Review %@", self.currentDevice.name];
+    self.navigationItem.title = [NSString stringWithFormat : @"Review %@", [self.currentDevice name]];
     [self.navigationController setToolbarHidden : YES];
     
     //check for previous review in db
@@ -120,7 +120,7 @@
 - (void) postReviewToService : (Review *) review
 {
     NSLog(@"review %@", review);
-    NSURL * url = [NSURL URLWithString : [review restEndpoint]];
+    NSURL * url = [NSURL URLWithString : [Review restEndpoint : review.deviceType]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL : url];
 
     request.HTTPMethod = @"POST";

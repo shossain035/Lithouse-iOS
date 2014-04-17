@@ -19,8 +19,8 @@
 @property (nonatomic, retain) NSString * reviewDate;
 @property (nonatomic, retain) NSNumber * rating;
 
++ (NSString *) restEndpoint : (NSString *) deviceType;
 + (instancetype) insertNewObjectIntoContext : (NSManagedObjectContext *) context;
 - (NSData *) toJSONData;
-- (NSString *) restEndpoint;
 
 @end

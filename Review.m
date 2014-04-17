@@ -23,9 +23,9 @@
     return @"Review";
 }
 
-- (NSString *) restEndpoint
++ (NSString *) restEndpoint : (NSString *) deviceType
 {
-    return [NSString stringWithFormat : @"%@devices/%@/reviews", LITHOUSE_API_URL, self.deviceType];
+    return [NSString stringWithFormat : @"%@devices/%@/reviews", LITHOUSE_API_URL, deviceType];
 }
 
 + (instancetype) insertNewObjectIntoContext : (NSManagedObjectContext *) context
