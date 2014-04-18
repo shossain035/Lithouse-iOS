@@ -14,7 +14,6 @@
 
 @property (nonatomic, retain) NSString * deviceType;
 @property (nonatomic, retain) NSString * reviewerId;
-@property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * reviewText;
 @property (nonatomic, retain) NSString * reviewDate;
 @property (nonatomic, retain) NSNumber * rating;

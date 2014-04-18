@@ -13,7 +13,6 @@
 
 @dynamic deviceType;
 @dynamic reviewerId;
-@dynamic title;
 @dynamic reviewText;
 @dynamic reviewDate;
 @dynamic rating;

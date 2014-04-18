@@ -194,7 +194,6 @@
     
     Review *review = [self.reviews objectAtIndex : indexPath.row];
     
-    cell.title.text = review.title;
     cell.reviewText.text = review.reviewText;
     cell.layer.borderWidth = 0.5f;
     cell.layer.borderColor = [[UIColor lightGrayColor] CGColor];

@@ -75,8 +75,8 @@
                                 <rect key="frame" x="237" y="181" width="24" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="B1C-n9-2i1">
-                                <rect key="frame" x="27" y="233" width="267" height="235"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="B1C-n9-2i1">
+                                <rect key="frame" x="26" y="233" width="267" height="235"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -124,13 +124,6 @@
                                                     <rect key="frame" x="45" y="3" width="16" height="16"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
-                                                <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oGz-bl-nVB">
-                                                    <rect key="frame" x="92" y="0.0" width="177" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -141,7 +134,6 @@
                                             <outlet property="rateImage4" destination="9IH-EL-oHZ" id="8pm-P1-b0k"/>
                                             <outlet property="rateImage5" destination="xMf-Ig-NbR" id="t0C-8U-gvK"/>
                                             <outlet property="reviewText" destination="Jfq-YS-zYX" id="F1g-39-HKb"/>
-                                            <outlet property="title" destination="oGz-bl-nVB" id="3rJ-4O-VZQ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -213,8 +205,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oS3-yr-K6w">
+                                <rect key="frame" x="26" y="78" width="270" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5h-V6-5Zd">
-                                <rect key="frame" x="25" y="315" width="40" height="40"/>
+                                <rect key="frame" x="26" y="75" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -226,7 +223,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="2" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DhB-Tz-pFZ">
-                                <rect key="frame" x="75" y="315" width="40" height="40"/>
+                                <rect key="frame" x="75" y="75" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -238,7 +235,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="3" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eEb-Wq-aUo">
-                                <rect key="frame" x="125" y="315" width="40" height="40"/>
+                                <rect key="frame" x="125" y="75" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -250,7 +247,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="4" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPB-JR-ZTq">
-                                <rect key="frame" x="175" y="315" width="40" height="40"/>
+                                <rect key="frame" x="175" y="75" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -262,7 +259,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="5" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BnY-gm-HA9">
-                                <rect key="frame" x="225" y="315" width="40" height="40"/>
+                                <rect key="frame" x="225" y="75" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -273,15 +270,8 @@
                                     <action selector="rateButtonTapped:" destination="bCL-Fa-aNr" eventType="touchDown" id="RsR-AB-1OE"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZsV-xD-cNm">
-                                <rect key="frame" x="26" y="75" width="274" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" hint="Title" label=""/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dot-Gu-s5K">
-                                <rect key="frame" x="26" y="121" width="274" height="142"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dot-Gu-s5K">
+                                <rect key="frame" x="26" y="121" width="270" height="142"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Title"/>
@@ -295,6 +285,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration" hint="Title"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Dot-Gu-s5K" secondAttribute="trailing" constant="26" id="9Wx-Xf-nBm"/>
+                            <constraint firstAttribute="trailing" secondItem="oS3-yr-K6w" secondAttribute="trailing" constant="26" id="ah2-lo-4gP"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Review" id="AUt-zZ-TSY">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="DRT-uf-sqs">
@@ -309,8 +303,8 @@
                         <outlet property="rateButton3" destination="eEb-Wq-aUo" id="Qdt-qh-x5P"/>
                         <outlet property="rateButton4" destination="oPB-JR-ZTq" id="6BQ-wZ-yml"/>
                         <outlet property="rateButton5" destination="BnY-gm-HA9" id="KQG-46-J5v"/>
+                        <outlet property="ratingImagesGroupView" destination="oS3-yr-K6w" id="NtC-Zn-awk"/>
                         <outlet property="reviewTextView" destination="Dot-Gu-s5K" id="gOP-1u-Qzg"/>
-                        <outlet property="titleTextField" destination="ZsV-xD-cNm" id="Ts6-Mi-qGm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UCp-DH-SG7" userLabel="First Responder" sceneMemberID="firstResponder"/>

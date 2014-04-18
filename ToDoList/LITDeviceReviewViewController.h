@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "LITDevice.h"
 
-@interface LITDeviceReviewViewController : UIViewController <UITextViewDelegate> {
+@interface LITDeviceReviewViewController : UIViewController {
     NSArray *mRateButtons;
 }
 

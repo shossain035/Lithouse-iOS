@@ -12,6 +12,18 @@
 
 #define REVIEW_PLACEHOLDER_TEXT   @"What did you like or dislike?\nWould you recommend this device?" 
 
+#define BORDER_COLOR_NORMAL       [[UIColor lightGrayColor] CGColor]
+#define BORDER_COLOR_ERROR        [[UIColor redColor] CGColor]
+#define BORDER_WIDTH              0.5
+#define CORNER_RADIOUS            5
+
+#define VIEW_STATE_ERROR          0
+#define VIEW_STATE_NORMAL         1
+#define VIEW_STATE_HIDE_BORDER    2
+
+#define ERROR_MESSAGE_MISSING_REIVEW    @"Please provide a valid review"
+#define ERROR_MESSAGE_MISSING_RATING    @"Please tap on 1 of the 5 stars"
+
 @interface LITDeviceReviewViewController ()
 
 @property IBOutlet UIButton       *rateButton1;
@@ -21,8 +33,9 @@
 @property IBOutlet UIButton       *rateButton5;
 
 @property IBOutlet UITextView     *reviewTextView;
-@property IBOutlet UITextField    *titleTextField;
 @property NSInteger               rating;
+
+@property IBOutlet UIView         *ratingImagesGroupView;
 
 @end
 
@@ -53,12 +66,10 @@
                      self.rateButton4,
                      self.rateButton5];
     
-    [self.reviewTextView.layer setBorderColor : [[UIColor lightGrayColor] CGColor]];
-    [self.reviewTextView.layer setBorderWidth : 0.5];
-    
-    //The rounded corner part, where you specify your view's corner radius:
-    self.reviewTextView.layer.cornerRadius = 5;
+    [self updateBorderColor : self.reviewTextView
+                      state : VIEW_STATE_NORMAL];
     self.reviewTextView.clipsToBounds = YES;
+    self.rating = 0;
 }
 
 - (void) viewWillAppear : (BOOL) animated {
@@ -73,6 +84,9 @@
 
 - (IBAction) rateButtonTapped : (id) sender
 {
+    [self updateBorderColor : self.ratingImagesGroupView
+                      state : VIEW_STATE_HIDE_BORDER];
+    
     self.rating = [[sender restorationIdentifier] integerValue];
     UIImage* goldStarImage = [UIImage imageNamed : @"star-gold-64"];
     
@@ -103,10 +117,6 @@
         
         [self.reviewTextView resignFirstResponder];
         
-    } else if ( [self.titleTextField isFirstResponder]
-               && [touch view] != self.titleTextField ) {
-        
-        [self.titleTextField resignFirstResponder];
     }
     
     [super touchesBegan : touches withEvent : event];
@@ -114,7 +124,23 @@
 
 - (BOOL) isReviewComplete
 {
-    return NO;
+    BOOL isComplete = YES;
+    
+    if ( [self.reviewTextView.text length] == 0
+        || [self.reviewTextView.text isEqualToString : REVIEW_PLACEHOLDER_TEXT]) {
+        [self updateBorderColor : self.reviewTextView
+                          state : VIEW_STATE_ERROR];
+        isComplete = NO;
+        
+    }
+    
+    if ( self.rating == 0 ) {
+        [self updateBorderColor : self.ratingImagesGroupView
+                          state : VIEW_STATE_ERROR];
+        isComplete = NO;
+    }
+    
+    return isComplete;
 }
 
 - (void) postReviewToService : (Review *) review
@@ -133,6 +159,8 @@
                                                  NSData *data,
                                                  NSError *connectionError)
      {
+         [self.navigationController popViewControllerAnimated:YES];
+         
          if ( data.length > 0 && connectionError == nil ) {
              NSLog(@"review posted data %@, response %@", data, response);
          } else {
@@ -144,7 +172,8 @@
 
 - (void) submitReview
 {
-    //if ( [self isReviewComplete] == NO ) return;
+    if ( [self isReviewComplete] == NO )
+        return;
     
     AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
     
@@ -152,7 +181,6 @@
     review.deviceType = self.currentDevice.type;
     //todo: change to user login
     review.reviewerId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-    review.title = self.titleTextField.text;
     review.reviewText = self.reviewTextView.text;
     review.rating = [NSNumber numberWithInteger : self.rating];
     
@@ -193,6 +221,7 @@
         textView.textColor = [UIColor blackColor];
     }
     
+    [self updateBorderColor : textView state : VIEW_STATE_NORMAL];
     [textView becomeFirstResponder];
 }
 
@@ -201,6 +230,23 @@
                inTextView : textView];
     
     [textView resignFirstResponder];
+}
+
+
+#pragma mark - validation
+- (void) updateBorderColor : (UIView *) aView state : (int) aState
+{
+    if ( aState == VIEW_STATE_ERROR ) {
+        aView.layer.borderWidth = BORDER_WIDTH;
+        aView.layer.borderColor = BORDER_COLOR_ERROR;
+        aView.layer.cornerRadius = CORNER_RADIOUS;
+    } else if ( aState == VIEW_STATE_NORMAL ) {
+        aView.layer.borderWidth = BORDER_WIDTH;
+        aView.layer.borderColor = BORDER_COLOR_NORMAL;
+        aView.layer.cornerRadius = CORNER_RADIOUS;
+    } else if ( aState == VIEW_STATE_HIDE_BORDER ) {
+        aView.layer.borderWidth = 0;
+    }
 }
 
 @end

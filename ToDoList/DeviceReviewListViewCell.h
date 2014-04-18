@@ -19,7 +19,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *rateImage4;
 @property (strong, nonatomic) IBOutlet UIImageView *rateImage5;
 
-@property (strong, nonatomic) IBOutlet UILabel     *title;
 @property (strong, nonatomic) IBOutlet UITextView  *reviewText;
 
 - (NSArray *) ratingImages;
