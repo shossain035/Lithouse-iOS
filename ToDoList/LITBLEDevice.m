@@ -20,9 +20,7 @@
         
         //todo: refactor
         if ( [self.name hasPrefix:@"Flex"] ) self.smallIcon = [UIImage imageNamed:@"fitbit"];
-        else if ( [self.name hasPrefix:@"Stick"] ) self.smallIcon = [UIImage imageNamed:@"sticknfind"];
         else if ( [self.name hasPrefix:@"iSmart"] ) self.smallIcon = [UIImage imageNamed:@"lumen"];        
-        else  self.smallIcon = [UIImage imageNamed:@"unknown"];
         
         self.manufacturer = manufacturer;
         self.type = [NSString stringWithFormat:@"%@-%@", manufacturer, model];

@@ -17,6 +17,7 @@
     self = [super init];
     if ( self ) {
         self.type = DEVICE_TYPE_UNKNOWN;
+        self.smallIcon = [UIImage imageNamed : @"unknown"];
     }
     return self;
 }

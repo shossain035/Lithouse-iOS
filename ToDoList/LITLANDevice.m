@@ -22,8 +22,6 @@
         if ( type != nil ) {
             self.type = type;
             self.smallIcon = [UIImage imageNamed : type];
-        } else {
-            self.smallIcon = [UIImage imageNamed : @"unknown"];
         }
         
         self.uid = macAddress;

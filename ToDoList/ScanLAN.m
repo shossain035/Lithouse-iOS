@@ -133,7 +133,7 @@ struct sockaddr_inarp {
                 self.baseAddressEnd = and;
             }
         }
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(pingAddress) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(pingAddress) userInfo:nil repeats:YES];
     }
 }
 

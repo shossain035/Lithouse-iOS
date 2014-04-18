@@ -140,7 +140,7 @@
 }
 
 - (LITUPnPDevice *) registerUPnPDevice: (BasicUPnPDevice *) uPnPDevice {
-    LITUPnPDevice *device = [[LITUPnPDevice alloc] initWithBasicUPnPDevice:uPnPDevice];
+    LITUPnPDevice *device = [[LITUPnPDevice alloc] initWithBasicUPnPDevice : uPnPDevice];
     
     return (LITUPnPDevice *) [self addDeviceToList : device withKey : [device ipAddress]];
 }
@@ -187,8 +187,37 @@
     
     cell.label.text = device.name;
     cell.image.image = device.smallIcon;
+    NSLog (@"type = %@", device.type );
+    
+    [self fetchImagesFor : cell withSourceDevice : device];
     
     return cell;
+}
+
+- (void) fetchImagesFor : (DeviceListViewCell *) aCell withSourceDevice : (LITDevice *) aDevice
+{
+    if ( aCell.image.image != [UIImage imageNamed : @"unknown"] ) return;
+    
+    NSURL *url = [NSURL URLWithString :
+                  [NSString stringWithFormat :
+                   @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png", aDevice.type]];
+                  
+    NSURLRequest *request = [NSURLRequest requestWithURL : url];
+    
+    [NSURLConnection sendAsynchronousRequest : request
+                                       queue : [NSOperationQueue mainQueue]
+                           completionHandler : ^(NSURLResponse *response,
+                                                 NSData *data,
+                                                 NSError *connectionError)
+     {
+         NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *) response;
+         int statusCode = [httpResponse statusCode];
+         
+         if ( data.length > 0 && connectionError == nil  && statusCode == 200 ) {
+             aCell.image.image = [[UIImage alloc] initWithData:data];
+         }
+     }];
+    
 }
 
 - (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
