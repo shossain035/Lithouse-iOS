@@ -291,7 +291,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Review" id="AUt-zZ-TSY">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="DRT-uf-sqs">
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="DRT-uf-sqs">
                             <connections>
                                 <action selector="addButtonTapped:" destination="bCL-Fa-aNr" id="m6W-og-bRT"/>
                             </connections>

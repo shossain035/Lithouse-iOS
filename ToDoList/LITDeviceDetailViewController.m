@@ -67,8 +67,12 @@
     self.manufacturer.text = [self.currentDevice manufacturer];
     self.ipAddress.text = [self.currentDevice ipAddress];
     
-    [self fetchReviews];
+    //review is not allowed for "unknown" types 
+    if ( [self.currentDevice.type isEqualToString : DEVICE_TYPE_UNKNOWN] ) {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
     
+    [self fetchReviews];
     [self.navigationController setToolbarHidden : YES];
 }
 
