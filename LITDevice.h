@@ -24,4 +24,8 @@
             withDeviceDictionary : (NSMutableDictionary *) aDeviceDictionary
                          withKey : (id) key;
 
+- (NSString *) toJSONString;
++ (NSString *) toJSONString : (NSArray *) fromDeviceArray;
++ (NSString *) restEndpoint : (NSString *) scannerId;
+
 @end

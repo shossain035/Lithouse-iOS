@@ -55,4 +55,32 @@
     }
 }
 
+- (NSString *) toJSONString
+{
+    return [NSString stringWithFormat : @"{\"uid\":\"%@\",\"name\":\"%@\",\"type\":\"%@\",\"manufacturer\":\"%@\"}",
+            self.uid, self.name, self.type, self.manufacturer];
+}
+
++ (NSString *) toJSONString : (NSArray *) fromDeviceArray
+{
+    NSString * result = @"{\"devices\":[";
+    BOOL firstDevice = YES;
+    
+    for ( LITDevice * device in fromDeviceArray ) {
+        if ( !firstDevice ) {
+            result = [result stringByAppendingString : @","];
+        }
+        result = [result stringByAppendingFormat : @"%@", [device toJSONString]];
+        firstDevice = NO;
+    }
+    //delete
+    NSLog(@"%@", [result stringByAppendingString : @"]}"]);
+    return [result stringByAppendingString : @"]}"];
+}
+
++ (NSString *) restEndpoint : (NSString *) scannerId
+{
+    return [NSString stringWithFormat : @"%@devices?scannerId=%@", LITHOUSE_API_URL, scannerId];
+}
+
 @end

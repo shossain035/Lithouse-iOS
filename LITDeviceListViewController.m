@@ -128,10 +128,30 @@
 
 - (void) stopScanningForDevices {
     NSLog ( @"stopping scan" );
+    [self postDeviceList];
     [self.mCentralManager stopScan];
     [self.lanScanner stopScan];
     
     self.navigationItem.rightBarButtonItem = self.refreshButton;
+}
+
+- (void) postDeviceList
+{
+    NSURL * url = [NSURL URLWithString : [LITDevice restEndpoint :
+                                          [[[UIDevice currentDevice] identifierForVendor] UUIDString]]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL : url];
+    
+    request.HTTPMethod = @"POST";
+    [request setValue : @"application/json; charset=utf-8" forHTTPHeaderField : @"Content-Type"];
+    request.HTTPBody = [[LITDevice toJSONString : self.devices] dataUsingEncoding : NSUTF8StringEncoding];
+    
+    [NSURLConnection sendAsynchronousRequest : request
+                                       queue : [NSOperationQueue mainQueue]
+                           completionHandler : ^(NSURLResponse *response,
+                                                 NSData *data,
+                                                 NSError *connectionError)
+     {
+     }];
 }
 
 - (const char *) centralManagerStateToString: (int)state

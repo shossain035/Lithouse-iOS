@@ -24,7 +24,9 @@
             self.smallIcon = [UIImage imageNamed : type];
         }
         
-        self.uid = macAddress;
+        //self.uid = macAddress;
+        self.uid = [NSString stringWithFormat : @"lan:%@%@",
+                    [[[UIDevice currentDevice] identifierForVendor] UUIDString], ipAddress];
         
         self.ipAddress = ipAddress;
         self.macAddress = macAddress;
