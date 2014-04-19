@@ -11,6 +11,9 @@
         // change to our custom selected background view
        //CustomCellBackground *backgroundView = [[CustomCellBackground alloc] initWithFrame:CGRectZero];
         //self.selectedBackgroundView = backgroundView;
+        self.layer.borderWidth = 0.5f;
+        self.layer.borderColor = [[UIColor lightGrayColor] CGColor];
+        
     }
     return self;
 }
