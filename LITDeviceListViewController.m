@@ -205,7 +205,9 @@
 //todo : cleanup
 - (void) fetchImagesFor : (DeviceListViewCell *) aCell withSourceDevice : (LITDevice *) aDevice
 {
-    if ( aCell.image.image != [UIImage imageNamed : @"unknown"] ) return;
+    if ( aCell.image.image ) return;
+    
+    aCell.image.image = aDevice.smallIcon = [UIImage imageNamed : @"unknown"];
     
     NSString * urlString = [NSString stringWithFormat :
                             @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png",
@@ -213,8 +215,8 @@
     
     UIImage * image = [self.deviceImageCache objectForKey : urlString];
     if ( image ) {
-        aCell.image.image = image;
-        aDevice.smallIcon = aCell.image.image;
+        aCell.image.image = aDevice.smallIcon = image;
+        
         return;
     }
     
@@ -231,8 +233,7 @@
          int statusCode = [httpResponse statusCode];
          
          if ( data.length > 0 && connectionError == nil  && statusCode == 200 ) {
-             aCell.image.image = [[UIImage alloc] initWithData:data];
-             aDevice.smallIcon = aCell.image.image;
+             aCell.image.image = aDevice.smallIcon = [[UIImage alloc] initWithData:data];
              
              [self.deviceImageCache setObject : aCell.image.image
                                        forKey : urlString];
