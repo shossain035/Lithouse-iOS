@@ -28,6 +28,8 @@
 
 @property NSMutableArray *devices;
 @property NSMutableDictionary *devicesDictionary;
+@property NSMutableSet *uPnPIPSet;
+@property NSCache * deviceImageCache;
 @property IBOutlet UIBarButtonItem *refreshButton;
 @property IBOutlet UIBarButtonItem *deviceTotalLabel;
 @property UIBarButtonItem *activityIndicatorButton;
@@ -48,7 +50,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.deviceImageCache = [[NSCache alloc]init];
     self.devices = [[NSMutableArray alloc] init];
+    self.uPnPIPSet = [[NSMutableSet alloc] init];
+    
     self.devicesDictionary = [[NSMutableDictionary alloc] init];
     self.mCentralManager = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
     
@@ -57,7 +62,9 @@
     [db addObserver:(UPnPDBObserver*)self];
     //Optional; set User Agent
     [[[UPnPManager GetInstance] SSDP] setUserAgentProduct:@"lithouse/1.0" andOS:@"OSX"];
-    mLANDevices = [[NSMutableArray alloc] init];
+    //giving upnp a head start
+    [[[UPnPManager GetInstance] SSDP] searchSSDP];
+    
     mBLEDevices = [[NSMutableArray alloc] init];
     
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle : UIActivityIndicatorViewStyleGray];
@@ -92,16 +99,21 @@
     [self.devices removeAllObjects];
     [self.devicesDictionary removeAllObjects];
     [self.collectionView reloadData];
-    [mLANDevices removeAllObjects];
+    [self.uPnPIPSet removeAllObjects];
+    for ( CBPeripheral * peripheral in mBLEDevices ) {
+        [self.mCentralManager connectPeripheral : peripheral options:nil];
+    }
+    
     [mBLEDevices removeAllObjects];
     
     NSLog(@"Starting to scan");
     
     self.navigationItem.rightBarButtonItem = self.activityIndicatorButton;
+    //important: during refresh, db update needs to be triggered manually
+    //as upnpn db will hold onto discovered devices. 
+    [self UPnPDBUpdated : nil];
     
-    //search for upnp devices. Being defensive by stopping SSDP
-    [[[UPnPManager GetInstance] SSDP] stopSSDP];
-    [[[UPnPManager GetInstance] SSDP] startSSDP];
+    //search for upnp devices.
     [[[UPnPManager GetInstance] SSDP] searchSSDP];
     //search for ble devices
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
@@ -118,31 +130,8 @@
     NSLog ( @"stopping scan" );
     [self.mCentralManager stopScan];
     [self.lanScanner stopScan];
-    [[[UPnPManager GetInstance] SSDP] stopSSDP];
     
-    NSLog ( @"UPnP device count = %lu", (unsigned long) [mBasicUPnPDevices count] );
-    NSLog ( @"LAN device count = %lu", (unsigned long) [mLANDevices count] );
-    
-    for ( BasicUPnPDevice* uPnPDevice in mBasicUPnPDevices ) {
-        [self registerUPnPDevice : uPnPDevice];
-    }
-    
-    
-    for ( LITLANDevice *lanDevice in mLANDevices ) {
-        [self addDeviceToList : lanDevice withKey : [lanDevice ipAddress]];
-    }
-    
-    NSLog ( @"Total device count = %lu", (unsigned long) [self.devices count] );
-    [self.collectionView reloadData];
-    
-    self.deviceTotalLabel.title = [NSString stringWithFormat : @"Devices: %lu", (unsigned long)[self.devices count]];
     self.navigationItem.rightBarButtonItem = self.refreshButton;
-}
-
-- (LITUPnPDevice *) registerUPnPDevice: (BasicUPnPDevice *) uPnPDevice {
-    LITUPnPDevice *device = [[LITUPnPDevice alloc] initWithBasicUPnPDevice : uPnPDevice];
-    
-    return (LITUPnPDevice *) [self addDeviceToList : device withKey : [device ipAddress]];
 }
 
 - (const char *) centralManagerStateToString: (int)state
@@ -187,22 +176,30 @@
     
     cell.label.text = device.name;
     cell.image.image = device.smallIcon;
-    NSLog (@"type = %@", device.type );
     
     [self fetchImagesFor : cell withSourceDevice : device];
     
     return cell;
 }
 
+//todo : cleanup
 - (void) fetchImagesFor : (DeviceListViewCell *) aCell withSourceDevice : (LITDevice *) aDevice
 {
     if ( aCell.image.image != [UIImage imageNamed : @"unknown"] ) return;
     
-    NSURL *url = [NSURL URLWithString :
-                  [NSString stringWithFormat :
-                   @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png", aDevice.type]];
-                  
-    NSURLRequest *request = [NSURLRequest requestWithURL : url];
+    NSString * urlString = [NSString stringWithFormat :
+                            @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png",
+                            aDevice.type];
+    
+    UIImage * image = [self.deviceImageCache objectForKey : urlString];
+    if ( image ) {
+        aCell.image.image = image;
+        aDevice.smallIcon = aCell.image.image;
+        return;
+    }
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL :
+                             [NSURL URLWithString : urlString]];
     
     [NSURLConnection sendAsynchronousRequest : request
                                        queue : [NSOperationQueue mainQueue]
@@ -215,6 +212,10 @@
          
          if ( data.length > 0 && connectionError == nil  && statusCode == 200 ) {
              aCell.image.image = [[UIImage alloc] initWithData:data];
+             aDevice.smallIcon = aCell.image.image;
+             
+             [self.deviceImageCache setObject : aCell.image.image
+                                       forKey : urlString];
          }
      }];
     
@@ -311,17 +312,20 @@
     }
     
     NSString *manufacturer, *model;
+    
     if ( [service.UUID isEqual : [CBUUID UUIDWithString : BLE_SERVICE_DEVICE_INFORMATION]] ) {
         for ( CBCharacteristic *characteristic in service.characteristics ) {
             
             if ( [characteristic.UUID isEqual : [CBUUID UUIDWithString : BLE_CHARACTERISTICS_MANUFACTURER]] ) {
                 
                 [peripheral readValueForCharacteristic : characteristic];
+                if ( [characteristic value] == NULL ) return;
                 manufacturer = [NSString stringWithUTF8String : [[characteristic value] bytes]];
                 NSLog ( @"Manufacturer %@", manufacturer );
             } else if ( [characteristic.UUID isEqual : [CBUUID UUIDWithString : BLE_CHARACTERISTICS_DEVICE_MODEL]] ) {
                 
                 [peripheral readValueForCharacteristic : characteristic];
+                if ( [characteristic value] == NULL ) return;
                 model = [NSString stringWithUTF8String : [[characteristic value] bytes]];
                 NSLog ( @"Model %@", model );
             }
@@ -333,25 +337,29 @@
                                                      withManufacturer : manufacturer
                                                       withDeviceModel : model];
     [self addDeviceToList : device withKey : peripheral.identifier];
-    [self.collectionView reloadData];
-    
     
     [self.mCentralManager cancelPeripheralConnection : peripheral];
 }
 
-//Todo: move to new class, make it thread safe
-- (LITDevice *) addDeviceToList : (LITDevice *) device withKey : (id) key {
+- (LITDevice *) addDeviceToList : (LITDevice *) device
+                        withKey : (id) key
+{
     if ( [self.devices count] >= DEVICE_LIMIT ) {
         [self stopScanningForDevices];
         return nil;
     }
     
-    if ( [self.devicesDictionary objectForKey : key] != nil ) return nil;
+    LITDevice * addedDevice = [device updateDeviceList : self.devices
+                                  withDeviceDictionary : self.devicesDictionary
+                                               withKey : key];
     
-    [self.devices addObject : device];
-    [self.devicesDictionary setObject : device forKey : key];
+    if ( addedDevice ) {
+        self.deviceTotalLabel.title = [NSString stringWithFormat
+                                       : @"Devices: %lu", (unsigned long)[self.devices count]];
+        [self.collectionView reloadData];
+    }
     
-    return device;
+    return addedDevice;
 }
 
 #pragma mark protocol UPnPDBObserver
@@ -361,13 +369,16 @@
 
 -(void)UPnPDBUpdated:(UPnPDB*)sender{
     NSLog(@"UPnPDBUpdated %lu", (unsigned long)[mBasicUPnPDevices count]);
-    //BasicUPnPDevice* basicUPnPdevice = [ mBasicUPnPDevices objectAtIndex: ([mBasicUPnPDevices count]-1) ];
+    //todo: optimize the loop
+    for ( BasicUPnPDevice * aBasicUPnPDevice in mBasicUPnPDevices ) {
+        NSString * ipAddress = [[aBasicUPnPDevice baseURL] host];
     
-    //LITUPnPDevice *device = [self registerUPnPDevice:basicUPnPdevice];
-    
-    //[self.tableView reloadData];
-
-    //NSLog(@"upnp name = %@ uid = %@ type = %@ manufacturer = %@", [device name], [device uid], [device type], [device manufacturer]);
+        if ( [self.uPnPIPSet containsObject : ipAddress] == NO ) {
+           [self.uPnPIPSet addObject : ipAddress];
+            LITUPnPDevice * device = [[LITUPnPDevice alloc] initWithBasicUPnPDevice : aBasicUPnPDevice];
+            [self addDeviceToList : device withKey : ipAddress];
+        }
+    }
 }
 
 #pragma mark LAN Scanner delegate method
@@ -381,7 +392,8 @@
                                                     ipAddress : address
                                                    macAddress : macAddress
                                                          type : type];
-    [mLANDevices addObject:device];
+    
+    [self addDeviceToList : device withKey : address];
 }
 
 - (void)scanLANDidFinishScanning {

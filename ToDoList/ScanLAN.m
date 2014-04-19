@@ -133,7 +133,7 @@ struct sockaddr_inarp {
                 self.baseAddressEnd = and;
             }
         }
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(pingAddress) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(pingAddress) userInfo:nil repeats:YES];
     }
 }
 
@@ -177,7 +177,7 @@ struct sockaddr_inarp {
                                      havingType : deviceType];
     }
     else {
-        NSLog(@"FAILURE");
+       // NSLog(@"FAILURE");
     }
     if (self.timerIterationNumber+self.baseAddressEnd>=254) {
         [self.delegate scanLANDidFinishScanning];

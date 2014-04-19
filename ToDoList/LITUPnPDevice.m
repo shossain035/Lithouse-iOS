@@ -28,4 +28,28 @@
     }
 }
 
+
+- (LITDevice *) updateDeviceList : (NSMutableArray *) aDeviceList
+            withDeviceDictionary : (NSMutableDictionary *) aDeviceDictionary
+                         withKey : (id) key
+{
+    @synchronized ( aDeviceDictionary ) {
+        //there is a LAN device. lets replace it
+        if ( [aDeviceDictionary objectForKey : key] != nil ) {
+            NSUInteger index = [aDeviceList indexOfObject :
+                                [aDeviceDictionary objectForKey : key]];
+            
+            [aDeviceList replaceObjectAtIndex : index withObject : self];
+            [aDeviceDictionary setObject : self forKey : key];
+            
+            return self;
+        }
+        
+        [aDeviceList addObject : self];
+        [aDeviceDictionary setObject : self forKey : key];
+        
+        return self;
+    }
+}
+
 @end

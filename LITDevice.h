@@ -19,4 +19,9 @@
 @property UIImage  * smallIcon;
 @property NSString * ipAddress;
 
+
+- (LITDevice *) updateDeviceList : (NSMutableArray *) aDeviceList
+            withDeviceDictionary : (NSMutableDictionary *) aDeviceDictionary
+                         withKey : (id) key;
+
 @end

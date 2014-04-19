@@ -41,4 +41,18 @@
     return _type;
 }
 
+- (LITDevice *) updateDeviceList : (NSMutableArray *) aDeviceList
+            withDeviceDictionary : (NSMutableDictionary *) aDeviceDictionary
+                         withKey : (id) key
+{
+    @synchronized ( aDeviceDictionary ) {
+        if ( [aDeviceDictionary objectForKey : key] != nil ) return nil;
+    
+        [aDeviceList addObject : self];
+        [aDeviceDictionary setObject : self forKey : key];
+    
+        return self;
+    }
+}
+
 @end
