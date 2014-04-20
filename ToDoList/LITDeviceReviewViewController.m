@@ -77,7 +77,7 @@
     self.navigationItem.title = [NSString stringWithFormat : @"Review %@", [self.currentDevice name]];
     [self.navigationController setToolbarHidden : YES];
     
-    //check for previous review in db
+    //todo: check for previous review in db
     [self showPlaceholder : REVIEW_PLACEHOLDER_TEXT
                inTextView : self.reviewTextView];
 }
