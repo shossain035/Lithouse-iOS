@@ -22,6 +22,7 @@
 		71A2B7EA18FF39AC00EED59C /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B7E818FF39AC00EED59C /* CoreDataModel.xcdatamodeld */; };
 		71A2B83118FF481400EED59C /* Review.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B83018FF481400EED59C /* Review.m */; };
 		71A2B83418FFB07B00EED59C /* DeviceReviewListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B83318FFB07B00EED59C /* DeviceReviewListViewCell.m */; };
+		71A2B83A19039A6C00EED59C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B83919039A6C00EED59C /* Reachability.m */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
 		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -77,6 +78,8 @@
 		71A2B83018FF481400EED59C /* Review.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Review.m; path = ../Review.m; sourceTree = "<group>"; };
 		71A2B83218FFB07B00EED59C /* DeviceReviewListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceReviewListViewCell.h; sourceTree = "<group>"; };
 		71A2B83318FFB07B00EED59C /* DeviceReviewListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceReviewListViewCell.m; sourceTree = "<group>"; };
+		71A2B83819039A6400EED59C /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		71A2B83919039A6C00EED59C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
 		71BA7B8118F261A400F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
 		71BA7B8218F261A400F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
@@ -177,6 +180,8 @@
 		71BA7B7618F2231200F51A75 /* IPScan */ = {
 			isa = PBXGroup;
 			children = (
+				71A2B83819039A6400EED59C /* Reachability.h */,
+				71A2B83919039A6C00EED59C /* Reachability.m */,
 				71BA7B8018F261A400F51A75 /* ScanLAN.h */,
 				71BA7B8118F261A400F51A75 /* ScanLAN.m */,
 				71BA7B8218F261A400F51A75 /* SimplePing.h */,
@@ -384,6 +389,7 @@
 				71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */,
 				71A2B83118FF481400EED59C /* Review.m in Sources */,
 				7119205B18F3A8E600F00437 /* LITLANDevice.m in Sources */,
+				71A2B83A19039A6C00EED59C /* Reachability.m in Sources */,
 				71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

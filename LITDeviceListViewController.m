@@ -14,7 +14,9 @@
 #import "LITDeviceDetailViewController.h"
 #import "UPnPManager.h"
 #import "DeviceListViewCell.h"
+#import "Reachability.h"
 
+#define WATCHDOG_TIMER_TIMEOUT               10.0
 #define DEVICE_LIMIT                         50
 #define DEVICE_LIST_CELL_ID                  @"deviceCollectionCellID"
 #define SEGUE_ID_DEVICE_LIST_TO_DETAIL       @"segue-device-list-to-detail"
@@ -40,6 +42,8 @@
 @end
 
 @implementation LITDeviceListViewController
+
+NSTimer *watchdogTimer;
 
 - (IBAction)refresh:(id)sender
 {
@@ -126,14 +130,21 @@
     [[[UPnPManager GetInstance] SSDP] searchSSDP];
     //search for ble devices
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
-    //search for lan devices
-    [self.lanScanner stopScan];
-    self.lanScanner = [[ScanLAN alloc] initWithDelegate:self];
-    [self.lanScanner startScan];
+    //search for lan devices - only if wifi is available
+    if ( [self isWiFiAvailable] ) {
+        [self.lanScanner stopScan];
+        self.lanScanner = [[ScanLAN alloc] initWithDelegate:self];
+        [self.lanScanner startScan];
+    }
     
+    watchdogTimer = [NSTimer scheduledTimerWithTimeInterval : ( 10.0 )
+                                                     target : self
+                                                   selector : @selector ( onwatchdogTimerFired )
+                                                   userInfo : nil
+                                                     repeats: NO];
+
     return 0;
 }
-
 
 - (void) stopScanningForDevices {
     NSLog ( @"stopping scan" );
@@ -143,6 +154,21 @@
     [[[UPnPManager GetInstance] SSDP] stopSSDP];
     
     self.navigationItem.rightBarButtonItem = self.refreshButton;
+}
+
+- (void) onwatchdogTimerFired
+{
+    [self stopScanningForDevices];
+}
+
+-(BOOL) isWiFiAvailable
+{
+    Reachability * reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    return (status == ReachableViaWiFi);
 }
 
 - (void) postDeviceList
