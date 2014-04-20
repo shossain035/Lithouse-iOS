@@ -518,8 +518,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToDoList/ToDoList-Prefix.pch";
 				INFOPLIST_FILE = "ToDoList/ToDoList-Info.plist";
@@ -528,7 +527,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = Lithouse;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "EC749824-BD6D-4D5B-82D7-C3EAE0B5EB27";
 				USER_HEADER_SEARCH_PATHS = "/Users/shah/Downloads/upnpx-primer-master/upnpx/api";
 				WRAPPER_EXTENSION = app;
 			};
@@ -540,8 +539,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Lithouse, Inc. (ZJ6D9WMT6L)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ToDoList/ToDoList-Prefix.pch";
 				INFOPLIST_FILE = "ToDoList/ToDoList-Info.plist";
@@ -550,7 +549,7 @@
 					"$(PROJECT_DIR)",
 				);
 				PRODUCT_NAME = Lithouse;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "EC749824-BD6D-4D5B-82D7-C3EAE0B5EB27";
 				USER_HEADER_SEARCH_PATHS = "/Users/shah/Downloads/upnpx-primer-master/upnpx/api";
 				WRAPPER_EXTENSION = app;
 			};

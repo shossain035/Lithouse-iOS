@@ -16,7 +16,7 @@
 #import "DeviceListViewCell.h"
 #import "Reachability.h"
 
-#define WATCHDOG_TIMER_TIMEOUT               10.0
+#define WATCHDOG_TIMER_TIMEOUT               15.0
 #define DEVICE_LIMIT                         50
 #define DEVICE_LIST_CELL_ID                  @"deviceCollectionCellID"
 #define SEGUE_ID_DEVICE_LIST_TO_DETAIL       @"segue-device-list-to-detail"
@@ -111,10 +111,6 @@ NSTimer *watchdogTimer;
     [self.devicesDictionary removeAllObjects];
     [self.collectionView reloadData];
     [self.uPnPIPSet removeAllObjects];
-    for ( CBPeripheral * peripheral in mBLEDevices ) {
-        [self.mCentralManager connectPeripheral : peripheral options:nil];
-    }
-    
     [mBLEDevices removeAllObjects];
     
     NSLog(@"Starting to scan");
@@ -137,9 +133,9 @@ NSTimer *watchdogTimer;
         [self.lanScanner startScan];
     }
     
-    watchdogTimer = [NSTimer scheduledTimerWithTimeInterval : ( 10.0 )
+    watchdogTimer = [NSTimer scheduledTimerWithTimeInterval : ( WATCHDOG_TIMER_TIMEOUT )
                                                      target : self
-                                                   selector : @selector ( onwatchdogTimerFired )
+                                                   selector : @selector ( onWatchdogTimerFired )
                                                    userInfo : nil
                                                      repeats: NO];
 
@@ -147,7 +143,14 @@ NSTimer *watchdogTimer;
 }
 
 - (void) stopScanningForDevices {
+    [watchdogTimer invalidate];
+    
     NSLog ( @"stopping scan" );
+    //close any open ble connection
+    for ( CBPeripheral * peripheral in mBLEDevices ) {
+        [self.mCentralManager cancelPeripheralConnection : peripheral];
+    }
+    
     [self postDeviceList];
     [self.mCentralManager stopScan];
     [self.lanScanner stopScan];
@@ -156,7 +159,7 @@ NSTimer *watchdogTimer;
     self.navigationItem.rightBarButtonItem = self.refreshButton;
 }
 
-- (void) onwatchdogTimerFired
+- (void) onWatchdogTimerFired
 {
     [self stopScanningForDevices];
 }

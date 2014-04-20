@@ -130,7 +130,11 @@
                 self.baseAddressEnd = and;
             }
         }
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(pingAddress) userInfo:nil repeats:YES];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval : 0.02
+                                                      target : self
+                                                    selector : @selector(pingAddress)
+                                                    userInfo : nil
+                                                     repeats : YES];
     }
 }
 
