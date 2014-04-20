@@ -113,7 +113,9 @@
     //as upnpn db will hold onto discovered devices. 
     [self UPnPDBUpdated : nil];
     
-    //search for upnp devices.
+    //search for upnp devices. Being defensive by stopping SSDP
+    [[[UPnPManager GetInstance] SSDP] stopSSDP];
+    [[[UPnPManager GetInstance] SSDP] startSSDP];
     [[[UPnPManager GetInstance] SSDP] searchSSDP];
     //search for ble devices
     [self.mCentralManager scanForPeripheralsWithServices:nil options:nil];
@@ -131,6 +133,7 @@
     [self postDeviceList];
     [self.mCentralManager stopScan];
     [self.lanScanner stopScan];
+    [[[UPnPManager GetInstance] SSDP] stopSSDP];
     
     self.navigationItem.rightBarButtonItem = self.refreshButton;
 }

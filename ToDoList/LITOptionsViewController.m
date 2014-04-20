@@ -9,7 +9,7 @@
 #import "LITOptionsViewController.h"
 #import <Social/Social.h>
 
-#define ITUNES_APP_URL_IOS7 @"http://itunes.apple.com/app/id353372460"
+#define ITUNES_APP_URL_IOS7 @"http://itunes.apple.com/app/id866665066"
 
 @interface LITOptionsViewController ()
 
@@ -89,7 +89,7 @@
 
 - (IBAction) contactUs : (id) sender {
     //todo: get encrypted unique id
-    [self sendEmailWithContent : [NSString stringWithFormat : @"</br></br></br>%@", @"dfsdf"]
+    [self sendEmailWithContent : [NSString stringWithFormat : @"</br></br></br>%@", @"Lithouse v1.0.1"]
                    withSubject : @"Feedback from iOS app"
                    toRecipents : [NSArray arrayWithObject : @"nahid@lithouse.co"]];
 }
