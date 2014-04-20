@@ -83,7 +83,7 @@
                              ITUNES_APP_URL_IOS7];
     
     [self sendEmailWithContent : messageBody
-                   withSubject : @"Lookup Connected Things"
+                   withSubject : @"Checkout Lithouse App"
                    toRecipents : nil];
 }
 

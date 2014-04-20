@@ -32,6 +32,7 @@
 @property NSCache * deviceImageCache;
 @property IBOutlet UIBarButtonItem *refreshButton;
 @property IBOutlet UIBarButtonItem *deviceTotalLabel;
+@property IBOutlet UIBarButtonItem * settingsButton;
 @property UIBarButtonItem *activityIndicatorButton;
 @property (strong, nonatomic) CBCentralManager *mCentralManager;
 @property ScanLAN *lanScanner;
@@ -50,6 +51,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.settingsButton.title = @"\u2699";
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys : [UIFont fontWithName : @"Helvetica" size : 28.0],
+                          NSFontAttributeName, nil];
+    [self.settingsButton setTitleTextAttributes : dict
+                                       forState : UIControlStateNormal];
+    
     self.deviceImageCache = [[NSCache alloc]init];
     self.devices = [[NSMutableArray alloc] init];
     self.uPnPIPSet = [[NSMutableSet alloc] init];

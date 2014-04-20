@@ -493,7 +493,8 @@
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="uH7-jq-q9N"/>
-                        <barButtonItem image="settings" id="SbY-Bw-snf">
+                        <barButtonItem tag="1" title="⚙" style="plain" id="SbY-Bw-snf">
+                            <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
                             <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <segue destination="hfF-fa-WYu" kind="push" id="uHT-Zf-mWT"/>
@@ -510,6 +511,7 @@
                     <connections>
                         <outlet property="deviceTotalLabel" destination="qff-VO-oVx" id="7nT-Dk-Tuv"/>
                         <outlet property="refreshButton" destination="FdF-at-kRz" id="3fy-Ig-4Ti"/>
+                        <outlet property="settingsButton" destination="SbY-Bw-snf" id="VOJ-7W-yBF"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbb-WU-ghq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -521,7 +523,6 @@
         <image name="megaphone" width="256" height="256"/>
         <image name="message" width="256" height="256"/>
         <image name="rate" width="256" height="256"/>
-        <image name="settings" width="25" height="25"/>
         <image name="star-gray-32" width="32" height="32"/>
         <image name="star-gray-48" width="48" height="48"/>
         <image name="star-gray-64" width="64" height="64"/>
