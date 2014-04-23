@@ -236,13 +236,13 @@ NSTimer *watchdogTimer;
     cell.label.text = device.name;
     cell.image.image = device.smallIcon;
     
-    [self fetchImagesFor : cell withSourceDevice : device];
+    [self fetchImagesAsync : cell withSourceDevice : device];
     
     return cell;
 }
 
 //todo : cleanup
-- (void) fetchImagesFor : (DeviceListViewCell *) aCell withSourceDevice : (LITDevice *) aDevice
+- (void) fetchImagesAsync : (DeviceListViewCell *) aCell withSourceDevice : (LITDevice *) aDevice
 {
     if ( aCell.image.image ) return;
     

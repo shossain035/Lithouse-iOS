@@ -205,13 +205,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oS3-yr-K6w">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oS3-yr-K6w">
                                 <rect key="frame" x="26" y="78" width="270" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" restorationIdentifier="1" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5h-V6-5Zd">
-                                <rect key="frame" x="26" y="75" width="40" height="40"/>
+                                <rect key="frame" x="25" y="75" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.5" height="0.5"/>
                                 <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
@@ -270,8 +270,8 @@
                                     <action selector="rateButtonTapped:" destination="bCL-Fa-aNr" eventType="touchDown" id="RsR-AB-1OE"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dot-Gu-s5K">
-                                <rect key="frame" x="26" y="121" width="270" height="142"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dot-Gu-s5K">
+                                <rect key="frame" x="25" y="121" width="270" height="135"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <accessibility key="accessibilityConfiguration" hint="Title"/>
@@ -286,8 +286,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration" hint="Title"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Dot-Gu-s5K" secondAttribute="trailing" constant="26" id="9Wx-Xf-nBm"/>
-                            <constraint firstAttribute="trailing" secondItem="oS3-yr-K6w" secondAttribute="trailing" constant="26" id="ah2-lo-4gP"/>
+                            <constraint firstItem="oS3-yr-K6w" firstAttribute="top" secondItem="4Nj-Z8-f4v" secondAttribute="bottom" constant="14" id="6qf-38-WgL"/>
+                            <constraint firstAttribute="trailing" secondItem="Dot-Gu-s5K" secondAttribute="trailing" constant="25" id="9Wx-Xf-nBm"/>
+                            <constraint firstAttribute="bottom" secondItem="oS3-yr-K6w" secondAttribute="bottom" constant="368" id="C3Q-bW-Enb"/>
+                            <constraint firstItem="oS3-yr-K6w" firstAttribute="leading" secondItem="Dot-Gu-s5K" secondAttribute="leading" constant="1" id="MR2-Fz-5uo"/>
+                            <constraint firstItem="eLb-Zl-7ag" firstAttribute="top" secondItem="Dot-Gu-s5K" secondAttribute="bottom" constant="180" id="Nmq-ip-pkT"/>
+                            <constraint firstItem="oS3-yr-K6w" firstAttribute="leading" secondItem="gnc-jY-yoE" secondAttribute="leading" constant="26" id="RxB-Th-vYz"/>
+                            <constraint firstAttribute="trailing" secondItem="oS3-yr-K6w" secondAttribute="trailing" constant="24" id="ah2-lo-4gP"/>
+                            <constraint firstItem="Dot-Gu-s5K" firstAttribute="top" secondItem="oS3-yr-K6w" secondAttribute="bottom" constant="9" id="n9T-Ve-aqp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Review" id="AUt-zZ-TSY">
