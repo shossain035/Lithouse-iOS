@@ -178,6 +178,7 @@
                     <connections>
                         <outlet property="deviceImage" destination="qFa-XW-D8I" id="jth-aW-0s0"/>
                         <outlet property="ipAddress" destination="6jF-nQ-XHN" id="z8N-Bi-oaf"/>
+                        <outlet property="loadingView" destination="JUf-vA-hPw" id="B3f-FL-12M"/>
                         <outlet property="manufacturer" destination="e5B-ry-pbF" id="Z1x-7J-xA0"/>
                         <outlet property="name" destination="Lk4-P3-Bhw" id="GvJ-Df-11x"/>
                         <outlet property="rateImage1" destination="rsZ-0X-5Ea" id="4tI-O5-Zm5"/>
