@@ -4,5 +4,5 @@
 
 @property (strong, nonatomic) IBOutlet UIImageView *image;
 @property (strong, nonatomic) IBOutlet UILabel *label;
-
+@property NSString * imageUrlPath;
 @end

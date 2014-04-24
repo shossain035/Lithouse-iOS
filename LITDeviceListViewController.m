@@ -248,11 +248,14 @@ NSTimer *watchdogTimer;
     
     aCell.image.image = aDevice.smallIcon = [UIImage imageNamed : @"unknown"];
     
-    NSString * urlString = [NSString stringWithFormat :
-                            @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png",
-                            aDevice.type];
+    NSString * imageUrlPath = [NSString stringWithFormat :
+                               @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png",
+                               aDevice.type];
     
-    UIImage * image = [self.deviceImageCache objectForKey : urlString];
+    //holding the reference. guards against cell reuse
+    aCell.imageUrlPath = imageUrlPath;
+    
+    UIImage * image = [self.deviceImageCache objectForKey : imageUrlPath];
     if ( image ) {
         aCell.image.image = aDevice.smallIcon = image;
         
@@ -260,7 +263,7 @@ NSTimer *watchdogTimer;
     }
     
     NSURLRequest *request = [NSURLRequest requestWithURL :
-                             [NSURL URLWithString : urlString]];
+                             [NSURL URLWithString : imageUrlPath]];
     
     [NSURLConnection sendAsynchronousRequest : request
                                        queue : [NSOperationQueue mainQueue]
@@ -272,10 +275,13 @@ NSTimer *watchdogTimer;
          int statusCode = [httpResponse statusCode];
          
          if ( data.length > 0 && connectionError == nil  && statusCode == 200 ) {
-             aCell.image.image = aDevice.smallIcon = [[UIImage alloc] initWithData:data];
-             
+             aDevice.smallIcon = [[UIImage alloc] initWithData:data];
              [self.deviceImageCache setObject : aCell.image.image
-                                       forKey : urlString];
+                                       forKey : imageUrlPath];
+             //guard against cell reuse
+             if ( aCell.imageUrlPath == imageUrlPath ) {
+                 aCell.image.image = aDevice.smallIcon;
+             }
          }
      }];
     
