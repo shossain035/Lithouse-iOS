@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-#define DEVICE_TYPE_UNKNOWN     @"UNKNOWN"
+#define DEVICE_TYPE_UNKNOWN             @"UNKNOWN"
+#define DEVICE_TYPE_PHILLIPS_HUE_BRIDGE @"Royal-Philips-Electronics-Philips-hue-bridge"
+
 
 @interface LITDevice : NSObject
 

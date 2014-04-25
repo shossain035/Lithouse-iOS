@@ -32,6 +32,8 @@
 @property (strong, nonatomic) IBOutlet UILabel                 * reviewCount;
 @property (strong, nonatomic) IBOutlet UICollectionView        * reviewCollectionView;
 
+@property (strong, nonatomic) IBOutlet UIBarButtonItem         * controlButton;
+
 @property NSArray *reviews;
 @end
 
@@ -73,9 +75,41 @@
     }
     
     [self fetchReviews];
-    [self.navigationController setToolbarHidden : YES];
+    
+    [self configureControlButton];
 }
 
+- (void) toggleBarButton : (UIBarButtonItem *) button
+              shouldShow : (bool) show
+               withTitle : (NSString *) title
+{
+    if ( show ) {
+        button.style = UIBarButtonItemStyleBordered;
+        button.enabled = true;
+        button.title = title;
+        [self.navigationController setToolbarHidden : NO];
+
+    } else {
+        button.style = UIBarButtonItemStylePlain;
+        button.enabled = false;
+        button.title = nil;
+        [self.navigationController setToolbarHidden : YES];
+    }
+}
+
+- (void) configureControlButton
+{
+    //todo: refactor
+    if ( [self.currentDevice.type hasPrefix : DEVICE_TYPE_PHILLIPS_HUE_BRIDGE] ) {
+        [self toggleBarButton : self.controlButton
+                   shouldShow : YES
+                    withTitle : @"Lights"];
+    } else {
+        [self toggleBarButton : self.controlButton
+                   shouldShow : NO
+                    withTitle : nil];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {

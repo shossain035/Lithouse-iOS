@@ -24,6 +24,8 @@
 		71A2B83418FFB07B00EED59C /* DeviceReviewListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B83318FFB07B00EED59C /* DeviceReviewListViewCell.m */; };
 		71A2B83A19039A6C00EED59C /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A2B83919039A6C00EED59C /* Reachability.m */; };
 		71A30F5D1909E467002DF2F2 /* HueSDK_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71A30F5C1909E466002DF2F2 /* HueSDK_iOS.framework */; };
+		71A30F641909F3CD002DF2F2 /* PHBridgePushLinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A30F631909F3CD002DF2F2 /* PHBridgePushLinkViewController.m */; };
+		71A30F67190A17DA002DF2F2 /* PHCentralStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A30F66190A17DA002DF2F2 /* PHCentralStateViewController.m */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
 		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -82,6 +84,10 @@
 		71A2B83819039A6400EED59C /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		71A2B83919039A6C00EED59C /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		71A30F5C1909E466002DF2F2 /* HueSDK_iOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = HueSDK_iOS.framework; sourceTree = "<group>"; };
+		71A30F621909F3CD002DF2F2 /* PHBridgePushLinkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHBridgePushLinkViewController.h; sourceTree = "<group>"; };
+		71A30F631909F3CD002DF2F2 /* PHBridgePushLinkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHBridgePushLinkViewController.m; sourceTree = "<group>"; };
+		71A30F65190A17DA002DF2F2 /* PHCentralStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHCentralStateViewController.h; sourceTree = "<group>"; };
+		71A30F66190A17DA002DF2F2 /* PHCentralStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHCentralStateViewController.m; sourceTree = "<group>"; };
 		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
 		71BA7B8118F261A400F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
 		71BA7B8218F261A400F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
@@ -164,6 +170,7 @@
 		7119205D18F3A9EA00F00437 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				71A30F5E1909EAC8002DF2F2 /* Hue */,
 				7190E21818FA4FF600045A65 /* DeviceListViewCell.h */,
 				7190E21918FA4FF600045A65 /* DeviceListViewCell.m */,
 				71FA043F1885E035005914EA /* LITDeviceListViewController.h */,
@@ -178,6 +185,17 @@
 				7190E21218F74CA800045A65 /* LITOptionsViewController.m */,
 			);
 			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		71A30F5E1909EAC8002DF2F2 /* Hue */ = {
+			isa = PBXGroup;
+			children = (
+				71A30F621909F3CD002DF2F2 /* PHBridgePushLinkViewController.h */,
+				71A30F631909F3CD002DF2F2 /* PHBridgePushLinkViewController.m */,
+				71A30F65190A17DA002DF2F2 /* PHCentralStateViewController.h */,
+				71A30F66190A17DA002DF2F2 /* PHCentralStateViewController.m */,
+			);
+			name = Hue;
 			sourceTree = "<group>";
 		};
 		71BA7B7618F2231200F51A75 /* IPScan */ = {
@@ -380,6 +398,7 @@
 				71A2B7DE18FCECCA00EED59C /* LITDeviceReviewViewController.m in Sources */,
 				71A2B83418FFB07B00EED59C /* DeviceReviewListViewCell.m in Sources */,
 				7190E21A18FA4FF600045A65 /* DeviceListViewCell.m in Sources */,
+				71A30F641909F3CD002DF2F2 /* PHBridgePushLinkViewController.m in Sources */,
 				71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */,
 				7190E21318F74CA800045A65 /* LITOptionsViewController.m in Sources */,
 				71FA04191883B40C005914EA /* AppDelegate.m in Sources */,
@@ -394,6 +413,7 @@
 				71A2B83118FF481400EED59C /* Review.m in Sources */,
 				7119205B18F3A8E600F00437 /* LITLANDevice.m in Sources */,
 				71A2B83A19039A6C00EED59C /* Reachability.m in Sources */,
+				71A30F67190A17DA002DF2F2 /* PHCentralStateViewController.m in Sources */,
 				71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

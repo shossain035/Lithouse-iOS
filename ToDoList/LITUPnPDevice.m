@@ -15,8 +15,8 @@
         self.name = [aBasicUPnPDevice friendlyName];
         self.smallIcon = [aBasicUPnPDevice smallIcon];
         self.manufacturer = [aBasicUPnPDevice manufacturer];
-        self.type = [NSString stringWithFormat:@"%@-%@-%@",
-                     [aBasicUPnPDevice manufacturer], [aBasicUPnPDevice modelName], [aBasicUPnPDevice modelNumber]];
+        self.type = [NSString stringWithFormat:@"%@-%@",
+                     [aBasicUPnPDevice manufacturer], [aBasicUPnPDevice modelName]];
         self.uid = [aBasicUPnPDevice uuid];
         
         self.ipAddress = [[aBasicUPnPDevice baseURL] host];
