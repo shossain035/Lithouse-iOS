@@ -244,6 +244,7 @@ NSTimer *watchdogTimer;
 //todo : cleanup
 - (void) fetchImagesAsync : (DeviceListViewCell *) aCell withSourceDevice : (LITDevice *) aDevice
 {
+    aCell.imageUrlPath = nil;
     if ( aCell.image.image ) return;
     
     aCell.image.image = aDevice.smallIcon = [UIImage imageNamed : @"unknown"];
