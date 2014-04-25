@@ -244,9 +244,11 @@ NSTimer *watchdogTimer;
 //todo : cleanup
 - (void) fetchImagesAsync : (DeviceListViewCell *) aCell withSourceDevice : (LITDevice *) aDevice
 {
+    aCell.imageUrlPath = nil;
     if ( aCell.image.image ) return;
     
     aCell.image.image = aDevice.smallIcon = [UIImage imageNamed : @"unknown"];
+    if ( [aDevice.type isEqualToString : DEVICE_TYPE_UNKNOWN] ) return;
     
     NSString * imageUrlPath = [NSString stringWithFormat :
                                @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png",
