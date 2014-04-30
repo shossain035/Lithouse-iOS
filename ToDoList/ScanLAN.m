@@ -156,22 +156,28 @@
     self.timerIterationNumber++;
     if (success.boolValue) {
         NSLog(@"SUCCESS");
-        NSString *deviceIPAddress = [[anAddress stringByReplacingOccurrencesOfString:@".0" withString:@"."] stringByReplacingOccurrencesOfString:@".." withString:@".0."];
-        NSString *macAddress = [self ip2mac:inet_addr([ deviceIPAddress UTF8String ])];
-        NSLog(@"MAC = %@", macAddress);
-        NSString *deviceName = [self getHostFromIPAddress:[deviceIPAddress cStringUsingEncoding:NSASCIIStringEncoding]];
-        NSString *deviceType = nil;
+        dispatch_queue_t backgroundQueue = dispatch_queue_create("com.lithouse.lanscanQueue", 0);
+        dispatch_async(backgroundQueue, ^{
+            NSString *deviceIPAddress = [[anAddress stringByReplacingOccurrencesOfString : @".0" withString:@"."] stringByReplacingOccurrencesOfString:@".." withString:@".0."];
+            NSString *macAddress = [self ip2mac : inet_addr([ deviceIPAddress UTF8String ])];
+            NSLog(@"MAC = %@", macAddress);
+            NSString *deviceName = [self getHostFromIPAddress :
+                                    [deviceIPAddress cStringUsingEncoding : NSASCIIStringEncoding]];
+            NSString *deviceType = nil;
         
-        if ( [deviceIPAddress isEqualToString : self.localAddress] ) {
-            deviceType = DEVICE_TYPE_IOS;
-        } else {
-            deviceType = [self deviceTypeOfHost : deviceIPAddress];
-        }
+            if ( [deviceIPAddress isEqualToString : self.localAddress] ) {
+                deviceType = DEVICE_TYPE_IOS;
+            } else {
+                deviceType = [self deviceTypeOfHost : deviceIPAddress];
+            }
         
-        [self.delegate scanLANDidFindNewAdrress : deviceIPAddress
-                                 havingHostName : deviceName
-                               havingMACAddress : macAddress
-                                     havingType : deviceType];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.delegate scanLANDidFindNewAdrress : deviceIPAddress
+                                         havingHostName : deviceName
+                                       havingMACAddress : macAddress
+                                             havingType : deviceType];
+            });
+        });
     }
     else {
        // NSLog(@"FAILURE");
@@ -304,28 +310,39 @@
     return address;
 }
 
-- (BOOL) isPortOpenOfHost : (NSString *) hostAddress port : (int) aPort {
-    struct sockaddr_in addr;
-    int sockfd;
-    
-    // Create a socket
-    sockfd = socket( AF_INET, SOCK_STREAM, 0 );
-    
-    addr.sin_family = AF_INET;
-    addr.sin_addr.s_addr = inet_addr( [hostAddress UTF8String] );
-    addr.sin_port = htons( aPort );
-    
-    int conn = connect( sockfd, &addr, sizeof( addr ) );
-    
-    if ( !conn ) {
+- (BOOL) isPortOpenOfHost : (NSString *) hostAddress port : (int) aPort
+{
+    struct sockaddr_in address;
+    short int sock = -1;
+    fd_set fdset;
+    struct timeval tv;
         
-        NSLog ( @"port=%d is open of ip=%@", aPort, hostAddress );
-        close ( sockfd );
+    address.sin_family = AF_INET;
+    address.sin_addr.s_addr = inet_addr( [hostAddress UTF8String] );
+    address.sin_port = htons( aPort);
+    
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    fcntl(sock, F_SETFL, O_NONBLOCK);
+    
+    connect(sock, (struct sockaddr *)&address, sizeof(address));
+    
+    FD_ZERO(&fdset);
+    FD_SET(sock, &fdset);
+    tv.tv_sec = 10;             /* 10 second timeout */
+    tv.tv_usec = 0;
+    
+    if (select(sock + 1, NULL, &fdset, NULL, &tv) == 1) {
+        int so_error;
+        socklen_t len = sizeof so_error;
         
-        return YES;
+        getsockopt(sock, SOL_SOCKET, SO_ERROR, &so_error, &len);
+        
+        if (so_error == 0) {
+            return YES;
+        }
     }
     
-    close ( sockfd );
+    close(sock);
     return NO;
 }
 
