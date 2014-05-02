@@ -454,38 +454,6 @@
             </objects>
             <point key="canvasLocation" x="11947" y="859"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Qhu-Je-HdK">
-            <objects>
-                <viewController id="hQ0-BQ-VKr" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5zc-Rf-uPu"/>
-                        <viewControllerLayoutGuide type="bottom" id="SOW-Xp-Yc0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Oq9-Bj-hFh">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hue-press-smartbridge" translatesAutoresizingMaskIntoConstraints="NO" id="2eb-qZ-4ko">
-                                <rect key="frame" x="34" y="91" width="253" height="253"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="253" id="Agl-Kc-nq5"/>
-                                    <constraint firstAttribute="width" constant="253" id="JAV-RE-xhx"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="2eb-qZ-4ko" firstAttribute="centerX" secondItem="Oq9-Bj-hFh" secondAttribute="centerX" id="9II-Pz-Hbk"/>
-                            <constraint firstItem="2eb-qZ-4ko" firstAttribute="top" secondItem="5zc-Rf-uPu" secondAttribute="bottom" constant="71" id="A0k-8d-T5J"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="LQo-Fz-Ti8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="12391" y="859"/>
-        </scene>
         <!--Navigation Controller - My To-Do list-->
         <scene sceneID="GQs-JB-oyN">
             <objects>
@@ -605,7 +573,6 @@
     </scenes>
     <resources>
         <image name="hue-intro" width="400" height="400"/>
-        <image name="hue-press-smartbridge" width="516" height="475"/>
         <image name="megaphone" width="256" height="256"/>
         <image name="message" width="256" height="256"/>
         <image name="rate" width="256" height="256"/>

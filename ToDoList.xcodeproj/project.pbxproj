@@ -33,6 +33,7 @@
 		71A30FDA190BAF0C002DF2F2 /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A30FD0190BAF0C002DF2F2 /* DDTTYLogger.m */; };
 		71A30FDB190BAF0C002DF2F2 /* ContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A30FD3190BAF0C002DF2F2 /* ContextFilterLogFormatter.m */; };
 		71A30FDC190BAF0C002DF2F2 /* DispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 71A30FD5190BAF0C002DF2F2 /* DispatchQueueLogFormatter.m */; };
+		71B8AC201911C41200E675A7 /* PHBridgePushLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 71B8AC1F1911C41200E675A7 /* PHBridgePushLinkViewController.xib */; };
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
 		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -109,6 +110,7 @@
 		71A30FD3190BAF0C002DF2F2 /* ContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContextFilterLogFormatter.m; sourceTree = "<group>"; };
 		71A30FD4190BAF0C002DF2F2 /* DispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DispatchQueueLogFormatter.h; sourceTree = "<group>"; };
 		71A30FD5190BAF0C002DF2F2 /* DispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DispatchQueueLogFormatter.m; sourceTree = "<group>"; };
+		71B8AC1F1911C41200E675A7 /* PHBridgePushLinkViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PHBridgePushLinkViewController.xib; path = "../../../Downloads/PhilipsHue-PhilipsHueSDK-iOS-OSX-7c9f254/QuickStartApp_iOS/SDKWizard/PHBridgePushLinkViewController.xib"; sourceTree = "<group>"; };
 		71BA7B8018F261A400F51A75 /* ScanLAN.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanLAN.h; sourceTree = "<group>"; };
 		71BA7B8118F261A400F51A75 /* ScanLAN.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanLAN.m; sourceTree = "<group>"; };
 		71BA7B8218F261A400F51A75 /* SimplePing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePing.h; sourceTree = "<group>"; };
@@ -211,6 +213,7 @@
 		71A30F5E1909EAC8002DF2F2 /* Hue */ = {
 			isa = PBXGroup;
 			children = (
+				71B8AC1F1911C41200E675A7 /* PHBridgePushLinkViewController.xib */,
 				71A30F621909F3CD002DF2F2 /* PHBridgePushLinkViewController.h */,
 				71A30F631909F3CD002DF2F2 /* PHBridgePushLinkViewController.m */,
 				71A30F65190A17DA002DF2F2 /* PHCentralStateViewController.h */,
@@ -427,6 +430,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71FA043818850421005914EA /* Main.storyboard in Resources */,
+				71B8AC201911C41200E675A7 /* PHBridgePushLinkViewController.xib in Resources */,
 				71FA04131883B40C005914EA /* InfoPlist.strings in Resources */,
 				71FA041B1883B40C005914EA /* Images.xcassets in Resources */,
 			);

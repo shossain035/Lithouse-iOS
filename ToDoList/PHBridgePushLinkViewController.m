@@ -12,8 +12,12 @@
 
 @implementation PHBridgePushLinkViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil hueSDK:(PHHueSDK *)hueSdk delegate:(id<PHBridgePushLinkViewControllerDelegate>)delegate {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id)initWithHueSDK : (PHHueSDK *) hueSdk
+              bundle : (NSBundle *) nibBundleOrNil
+            delegate : (id<PHBridgePushLinkViewControllerDelegate>)delegate
+{
+    self = [super initWithNibName : @"PHBridgePushLinkViewController"
+                           bundle : nibBundleOrNil];
     if (self) {
         // Make it a form on iPad
         self.modalPresentationStyle = UIModalPresentationFormSheet;

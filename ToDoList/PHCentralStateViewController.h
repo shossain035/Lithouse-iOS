@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PHBridgePushLinkViewController.h"
 
-@interface PHCentralStateViewController : UIViewController
+@interface PHCentralStateViewController : UIViewController <PHBridgePushLinkViewControllerDelegate>
 
 @end

@@ -44,7 +44,9 @@
  @param hueSdk the hue sdk instance to use
  @param delegate the delegate to inform when pushlinking is done
  */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil hueSDK:(PHHueSDK *)hueSdk delegate:(id<PHBridgePushLinkViewControllerDelegate>)delegate;
+- (id)initWithHueSDK : (PHHueSDK *) hueSdk
+              bundle : (NSBundle *) nibBundleOrNil
+            delegate : (id<PHBridgePushLinkViewControllerDelegate>)delegate;
 
 /**
  Start the pushlinking process

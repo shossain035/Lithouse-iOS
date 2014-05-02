@@ -11,9 +11,11 @@
 
 @interface PHCentralStateViewController ()
 
-@property (strong, nonatomic) PHHueSDK          * phHueSDK;
-@property (nonatomic, strong) PHBridgeSearching * bridgeSearch;
-@property UIBarButtonItem                       * activityIndicatorButton;
+@property (strong, nonatomic) PHHueSDK                       * phHueSDK;
+@property (nonatomic, strong) PHBridgeSearching              * bridgeSearch;
+@property UIBarButtonItem                                    * activityIndicatorButton;
+@property (nonatomic, strong) PHBridgePushLinkViewController * pushLinkViewController;
+
 
 @end
 
@@ -64,12 +66,21 @@
     [notificationManager registerObject : self
                            withSelector : @selector ( notAuthenticated )
                         forNotification : NO_LOCAL_AUTHENTICATION_NOTIFICATION];
+}
+
+- (void) viewWillAppear : (BOOL) animated
+{
     /***************************************************
      The local heartbeat is a regular  timer event in the SDK. Once enabled the SDK regular collects the current state of resources managed
      by the bridge into the Bridge Resources Cache
      *****************************************************/
     
     [self enableLocalHeartbeat];
+}
+
+- (void) viewWillDisappear : (BOOL) animated
+{
+    [self disableLocalHeartbeat];
 }
 
 - (void)didReceiveMemoryWarning
@@ -126,8 +137,8 @@
     
     // Start search
     self.bridgeSearch = [[PHBridgeSearching alloc] initWithUpnpSearch : YES
-                                                      andPortalSearch : YES
-                                                    andIpAdressSearch : YES];
+                                                      andPortalSearch : NO
+                                                    andIpAdressSearch : NO];
     
     [self.bridgeSearch startSearchWithCompletionHandler : ^( NSDictionary *bridgesFound ) {
         
@@ -138,9 +149,14 @@
         // Check for results
         if (bridgesFound.count > 0) {
             NSLog ( @"bridges: %@", bridgesFound );
+            //warning: selecting first bridge by default.
+            //todo: create a bridge selection view.
+            NSString * macAddress = [bridgesFound.allKeys objectAtIndex : 0];
+            [self.phHueSDK setBridgeToUseWithIpAddress : [bridgesFound objectForKey : macAddress]
+                                            macAddress : macAddress];
         }
         else {
-
+            NSLog ( @"No HUE bridge found" );
 //            UIAlertView * alertView = [[UIAlertView alloc] initWithTitle : @"No bridge found"
 //                                                                 message : @"Could not find a Hue bridge. Please make sure that the bridge is powered up and connected to router."
 //                                                       cancelButtonTitle : @"Cancel"
@@ -150,6 +166,45 @@
     }];
 }
 
+
+#pragma mark - HueSDK
+
+/**
+ Notification receiver for successful local connection
+ */
+- (void)localConnection {
+    // Check current connection state
+    NSLog ( @"localConnection" );
+}
+
+/**
+ Notification receiver for failed local connection
+ */
+- (void)noLocalConnection {
+    // Check current connection state
+    NSLog ( @"noLocalConnection" );
+}
+
+/**
+ Notification receiver for failed local authentication
+ */
+- (void)notAuthenticated {
+    NSLog ( @"notAuthenticated" );
+    
+    self.pushLinkViewController = [[PHBridgePushLinkViewController alloc]
+                                   initWithHueSDK  : self.phHueSDK
+                                            bundle : [NSBundle mainBundle]
+                                          delegate : self];
+    
+    [self.navigationController presentViewController:self.pushLinkViewController animated:YES completion:^{
+        /***************************************************
+         Start the push linking process.
+         *****************************************************/
+        
+        // Start pushlinking when the interface is shown
+        [self.pushLinkViewController startPushLinking];
+    }];
+}
 
 /*
 #pragma mark - Navigation
@@ -161,5 +216,48 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+#pragma mark - PHBridgePushLinkViewController
+/**
+ Delegate method for PHBridgePushLinkViewController which is invoked if the pushlinking was successfull
+ */
+- (void)pushlinkSuccess {
+    // Remove pushlink view controller
+    [self.navigationController dismissViewControllerAnimated : YES completion : nil];
+    self.pushLinkViewController = nil;
+    
+    // Start local heartbeat
+    [self performSelector : @selector(enableLocalHeartbeat)
+               withObject : nil
+               afterDelay : 1];
+}
+
+/**
+ Delegate method for PHBridgePushLinkViewController which is invoked if the pushlinking was not successfull
+ */
+
+- (void)pushlinkFailed:(PHError *)error {
+    // Remove pushlink view controller
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    self.pushLinkViewController = nil;
+    
+    // Check which error occured
+    if (error.code == PUSHLINK_NO_CONNECTION) {
+        // No local connection to bridge
+        [self noLocalConnection];
+        
+        // Start local heartbeat (to see when connection comes back)
+        [self performSelector:@selector(enableLocalHeartbeat) withObject:nil afterDelay:1];
+    }
+    else {
+        // Bridge button not pressed in time
+        [[[UIAlertView alloc] initWithTitle : NSLocalizedString(@"Authentication failed", @"Authentication failed alert title")
+                                    message : NSLocalizedString(@"Make sure you press the button within 30 seconds", @"Authentication failed alert message")
+                                   delegate : self
+                          cancelButtonTitle : nil
+                          otherButtonTitles : NSLocalizedString(@"Retry", @"Authentication failed alert retry button"), NSLocalizedString(@"Cancel", @"Authentication failed cancel button"), nil] show];
+    }
+}
+
 
 @end
