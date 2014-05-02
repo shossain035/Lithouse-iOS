@@ -16,7 +16,7 @@
 #import "DeviceListViewCell.h"
 #import "Reachability.h"
 
-#define WATCHDOG_TIMER_TIMEOUT               15.0
+#define WATCHDOG_TIMER_TIMEOUT               10.0
 #define DEVICE_LIMIT                         50
 #define DEVICE_LIST_CELL_ID                  @"deviceCollectionCellID"
 #define SEGUE_ID_DEVICE_LIST_TO_DETAIL       @"segue-device-list-to-detail"
@@ -249,7 +249,7 @@ NSTimer *watchdogTimer;
     
     aCell.image.image = aDevice.smallIcon = [UIImage imageNamed : @"unknown"];
     if ( [aDevice.type isEqualToString : DEVICE_TYPE_UNKNOWN] ) return;
-        
+
     NSString * imageUrlPath = [NSString stringWithFormat :
                                @"https://s3-us-west-1.amazonaws.com/lit-device-images/%@/default.png",
                                aDevice.type];
@@ -466,7 +466,7 @@ NSTimer *watchdogTimer;
 
 - (void)scanLANDidFinishScanning {
     NSLog(@"Scan finished");
-    [self stopScanningForDevices];
+    //[self stopScanningForDevices];
 }
 
 @end
