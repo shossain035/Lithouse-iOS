@@ -7,7 +7,10 @@
 //
 
 #import "PHCentralStateViewController.h"
+#import "PHLightListViewController.h"
 #import <HueSDK_iOS/HueSDK.h>
+
+#define SEGUE_ID_HUE_CENTRAL_TO_LIGHT_LIST                   @"segue-hue-central-to-light-list"
 
 @interface PHCentralStateViewController ()
 
@@ -15,6 +18,7 @@
 @property (nonatomic, strong) PHBridgeSearching              * bridgeSearch;
 @property UIBarButtonItem                                    * activityIndicatorButton;
 @property (nonatomic, strong) PHBridgePushLinkViewController * pushLinkViewController;
+@property BOOL                                                 didViewAppear;
 
 
 @end
@@ -74,8 +78,13 @@
      The local heartbeat is a regular  timer event in the SDK. Once enabled the SDK regular collects the current state of resources managed
      by the bridge into the Bridge Resources Cache
      *****************************************************/
-    
+    self.didViewAppear = NO;
     [self enableLocalHeartbeat];
+}
+
+- (void) viewDidAppear : (BOOL) animated
+{
+    self.didViewAppear = YES;
 }
 
 - (void) viewWillDisappear : (BOOL) animated
@@ -175,6 +184,21 @@
 - (void)localConnection {
     // Check current connection state
     NSLog ( @"localConnection" );
+    
+    //todo: check if at least one light is reachable
+    [self pushLightListViewController];
+}
+
+- (void) pushLightListViewController {
+    if ( [self isViewLoaded] && self.navigationController.visibleViewController == self
+        && ![self isBeingPresented] && self.didViewAppear ) {
+        [self performSegueWithIdentifier : SEGUE_ID_HUE_CENTRAL_TO_LIGHT_LIST sender : self];
+    }
+    else {
+        [self performSelector : @selector(pushLightListViewController)
+                   withObject : nil
+                   afterDelay : 0.4f];
+    }
 }
 
 /**
@@ -196,7 +220,9 @@
                                             bundle : [NSBundle mainBundle]
                                           delegate : self];
     
-    [self.navigationController presentViewController:self.pushLinkViewController animated:YES completion:^{
+    [self.navigationController presentViewController : self.pushLinkViewController
+                                            animated : YES
+                                          completion : ^{
         /***************************************************
          Start the push linking process.
          *****************************************************/
@@ -206,16 +232,6 @@
     }];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - PHBridgePushLinkViewController
 /**
@@ -258,6 +274,22 @@
                           otherButtonTitles : NSLocalizedString(@"Retry", @"Authentication failed alert retry button"), NSLocalizedString(@"Cancel", @"Authentication failed cancel button"), nil] show];
     }
 }
+
+#pragma mark - navigation
+
+- (void) prepareForSegue: ( UIStoryboardSegue * ) segue sender : ( id ) sender
+{
+    if ( [[segue identifier] isEqualToString : SEGUE_ID_HUE_CENTRAL_TO_LIGHT_LIST] ) {
+        UINavigationController *targetNavigationVC = (UINavigationController *) segue.destinationViewController;
+        //todo: stronger check
+        if ( targetNavigationVC.childViewControllers.count > 0 ) {
+            PHLightListViewController * targetVC = (PHLightListViewController *) [targetNavigationVC.childViewControllers objectAtIndex : 0];
+            
+            targetVC.phHueSDK = self.phHueSDK;
+        }
+    }
+}
+
 
 
 @end

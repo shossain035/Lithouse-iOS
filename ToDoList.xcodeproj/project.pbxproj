@@ -11,6 +11,8 @@
 		7119205518F3A49600F00437 /* LITBLEDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119205418F3A49600F00437 /* LITBLEDevice.m */; };
 		7119205B18F3A8E600F00437 /* LITLANDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119205A18F3A8E600F00437 /* LITLANDevice.m */; };
 		7119206018F3AD1200F00437 /* LITUPnPDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7119205F18F3AD1200F00437 /* LITUPnPDevice.m */; };
+		7165A9A6191383B0005FE7DA /* PHLightListViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7165A9A5191383B0005FE7DA /* PHLightListViewCell.m */; };
+		7165A9A919138A4D005FE7DA /* PHLightListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7165A9A819138A4D005FE7DA /* PHLightListViewController.m */; };
 		717ECD9E18DB63A00057D7CD /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */; };
 		717ECDA818DD4C2F0057D7CD /* libstdc++.6.0.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */; };
 		7190E21318F74CA800045A65 /* LITOptionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7190E21218F74CA800045A65 /* LITOptionsViewController.m */; };
@@ -73,6 +75,10 @@
 		7119205A18F3A8E600F00437 /* LITLANDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITLANDevice.m; sourceTree = "<group>"; };
 		7119205E18F3AD1200F00437 /* LITUPnPDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITUPnPDevice.h; sourceTree = "<group>"; };
 		7119205F18F3AD1200F00437 /* LITUPnPDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LITUPnPDevice.m; sourceTree = "<group>"; };
+		7165A9A4191383B0005FE7DA /* PHLightListViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHLightListViewCell.h; sourceTree = "<group>"; };
+		7165A9A5191383B0005FE7DA /* PHLightListViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHLightListViewCell.m; sourceTree = "<group>"; };
+		7165A9A719138A4D005FE7DA /* PHLightListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PHLightListViewController.h; sourceTree = "<group>"; };
+		7165A9A819138A4D005FE7DA /* PHLightListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PHLightListViewController.m; sourceTree = "<group>"; };
 		717ECD9D18DB63A00057D7CD /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		717ECDA718DD4C2F0057D7CD /* libstdc++.6.0.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = "libstdc++.6.0.9.dylib"; sourceTree = "<group>"; };
 		7190E21118F74CA800045A65 /* LITOptionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LITOptionsViewController.h; sourceTree = "<group>"; };
@@ -218,6 +224,10 @@
 				71A30F631909F3CD002DF2F2 /* PHBridgePushLinkViewController.m */,
 				71A30F65190A17DA002DF2F2 /* PHCentralStateViewController.h */,
 				71A30F66190A17DA002DF2F2 /* PHCentralStateViewController.m */,
+				7165A9A4191383B0005FE7DA /* PHLightListViewCell.h */,
+				7165A9A5191383B0005FE7DA /* PHLightListViewCell.m */,
+				7165A9A719138A4D005FE7DA /* PHLightListViewController.h */,
+				7165A9A819138A4D005FE7DA /* PHLightListViewController.m */,
 			);
 			name = Hue;
 			sourceTree = "<group>";
@@ -473,11 +483,13 @@
 				71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */,
 				71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */,
 				71A2B83118FF481400EED59C /* Review.m in Sources */,
+				7165A9A919138A4D005FE7DA /* PHLightListViewController.m in Sources */,
 				71A30FDC190BAF0C002DF2F2 /* DispatchQueueLogFormatter.m in Sources */,
 				7119205B18F3A8E600F00437 /* LITLANDevice.m in Sources */,
 				71A2B83A19039A6C00EED59C /* Reachability.m in Sources */,
 				71A30F67190A17DA002DF2F2 /* PHCentralStateViewController.m in Sources */,
 				71FA043B1885D6EE005914EA /* LITDeviceDetailViewController.m in Sources */,
+				7165A9A6191383B0005FE7DA /* PHLightListViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

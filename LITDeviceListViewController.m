@@ -109,7 +109,9 @@ NSTimer *watchdogTimer;
     
     [self.devices removeAllObjects];
     [self.devicesDictionary removeAllObjects];
-    [self.collectionView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.collectionView reloadData];
+    });
     [self.uPnPIPSet removeAllObjects];
     [mBLEDevices removeAllObjects];
     
@@ -424,7 +426,9 @@ NSTimer *watchdogTimer;
     if ( addedDevice ) {
         self.deviceTotalLabel.title = [NSString stringWithFormat
                                        : @"Devices: %lu", (unsigned long)[self.devices count]];
-        [self.collectionView reloadData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.collectionView reloadData];
+        });
     }
     
     return addedDevice;

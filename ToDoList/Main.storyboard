@@ -449,10 +449,76 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="4SM-vS-Cub"/>
+                    <connections>
+                        <segue destination="4UA-jQ-5bz" kind="modal" identifier="segue-hue-central-to-light-list" id="XPG-1W-7bu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WXJ-o4-j0U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="11947" y="859"/>
+        </scene>
+        <!--Light List View Controller - Lights-->
+        <scene sceneID="HBT-YL-Dsq">
+            <objects>
+                <collectionViewController autoresizesArchivedViewToFullSize="NO" id="ZQI-CL-EXZ" customClass="PHLightListViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="AOA-0g-vsn">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="mis-8Y-bhR">
+                            <size key="itemSize" width="89" height="89"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="hueLightCollectionCellID" id="0kW-P4-di1" customClass="PHLightListViewCell">
+                                <rect key="frame" x="0.0" y="0.0" width="89" height="89"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="89" height="89"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OKM-sf-oiM">
+                                            <rect key="frame" x="6" y="56" width="77" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IMF-Jb-UnW">
+                                            <rect key="frame" x="20" y="12" width="51" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="switchValueChanged:" destination="ZQI-CL-EXZ" eventType="valueChanged" id="Jd7-r5-cob"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <connections>
+                                    <outlet property="nameLabel" destination="OKM-sf-oiM" id="QQx-TW-Knr"/>
+                                    <outlet property="onOffSwitch" destination="IMF-Jb-UnW" id="z45-RT-eYR"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="ZQI-CL-EXZ" id="vm4-MY-ASP"/>
+                            <outlet property="delegate" destination="ZQI-CL-EXZ" id="DQJ-YL-ztL"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Lights" id="L9M-My-Qmb">
+                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="h4H-7f-5Jo">
+                            <connections>
+                                <action selector="stopButtonTapped:" destination="ZQI-CL-EXZ" id="J2O-4y-ZX1"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yVl-fN-5fO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12932" y="859"/>
         </scene>
         <!--Navigation Controller - My To-Do list-->
         <scene sceneID="GQs-JB-oyN">
@@ -569,6 +635,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mbb-WU-ghq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="10964" y="459"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="T8W-sX-itm">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4UA-jQ-5bz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hsJ-U9-hSO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ZQI-CL-EXZ" kind="relationship" relationship="rootViewController" id="xGg-0z-faL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KaY-QK-927" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="12406" y="859"/>
         </scene>
     </scenes>
     <resources>
