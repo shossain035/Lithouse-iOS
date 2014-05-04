@@ -9,12 +9,12 @@
 #import "PHCentralStateViewController.h"
 #import "PHLightListViewController.h"
 #import <HueSDK_iOS/HueSDK.h>
+#import "AppDelegate.h"
 
 #define SEGUE_ID_HUE_CENTRAL_TO_LIGHT_LIST                   @"segue-hue-central-to-light-list"
 
 @interface PHCentralStateViewController ()
 
-@property (strong, nonatomic) PHHueSDK                       * phHueSDK;
 @property (nonatomic, strong) PHBridgeSearching              * bridgeSearch;
 @property UIBarButtonItem                                    * activityIndicatorButton;
 @property (nonatomic, strong) PHBridgePushLinkViewController * pushLinkViewController;
@@ -46,10 +46,6 @@
     self.navigationItem.title = @"Searching...";
     [self.navigationController setToolbarHidden : YES];
     
-    // Create sdk instance
-    self.phHueSDK = [[PHHueSDK alloc] init];
-    [self.phHueSDK startUpSDK];
-    [self.phHueSDK enableLogging : YES];
     
     // Listen for notifications
     PHNotificationManager *notificationManager = [PHNotificationManager defaultManager];
@@ -70,6 +66,8 @@
     [notificationManager registerObject : self
                            withSelector : @selector ( notAuthenticated )
                         forNotification : NO_LOCAL_AUTHENTICATION_NOTIFICATION];
+    
+    [self enableLocalHeartbeat];
 }
 
 - (void) viewWillAppear : (BOOL) animated
@@ -79,7 +77,9 @@
      by the bridge into the Bridge Resources Cache
      *****************************************************/
     self.didViewAppear = NO;
-    [self enableLocalHeartbeat];
+    
+    //todo: investigate why just putting in viewDidLoad is sufficient 
+    //[self enableLocalHeartbeat];
 }
 
 - (void) viewDidAppear : (BOOL) animated
@@ -116,7 +116,7 @@
         self.navigationItem.title = @"Connecting...";
         
         // Enable heartbeat with interval of 10 seconds
-        [self.phHueSDK enableLocalConnectionUsingInterval:10];
+        [[AppDelegate getHueSDK] enableLocalConnectionUsingInterval:10];
     } else {
         // Automaticly start searching for bridges
         [self searchForBridgeLocal];
@@ -127,7 +127,7 @@
  Stops the local heartbeat
  */
 - (void)disableLocalHeartbeat {
-    [self.phHueSDK disableLocalConnection];
+    [[AppDelegate getHueSDK] disableLocalConnection];
 }
 
 #pragma mark - Bridge searching and selection
@@ -161,8 +161,8 @@
             //warning: selecting first bridge by default.
             //todo: create a bridge selection view.
             NSString * macAddress = [bridgesFound.allKeys objectAtIndex : 0];
-            [self.phHueSDK setBridgeToUseWithIpAddress : [bridgesFound objectForKey : macAddress]
-                                            macAddress : macAddress];
+            [[AppDelegate getHueSDK] setBridgeToUseWithIpAddress : [bridgesFound objectForKey : macAddress]
+                                                      macAddress : macAddress];
         }
         else {
             NSLog ( @"No HUE bridge found" );
@@ -216,7 +216,7 @@
     NSLog ( @"notAuthenticated" );
     
     self.pushLinkViewController = [[PHBridgePushLinkViewController alloc]
-                                   initWithHueSDK  : self.phHueSDK
+                                   initWithHueSDK  : [AppDelegate getHueSDK]
                                             bundle : [NSBundle mainBundle]
                                           delegate : self];
     
@@ -285,7 +285,7 @@
         if ( targetNavigationVC.childViewControllers.count > 0 ) {
             PHLightListViewController * targetVC = (PHLightListViewController *) [targetNavigationVC.childViewControllers objectAtIndex : 0];
             
-            targetVC.phHueSDK = self.phHueSDK;
+            targetVC.lightListViewControllerDelegate = self;
         }
     }
 }

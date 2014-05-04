@@ -11,6 +11,6 @@
 
 @interface PHLightListViewController : UICollectionViewController
 
-@property (nonatomic, strong) PHHueSDK * phHueSDK;
+@property (nonatomic, strong) id lightListViewControllerDelegate;
 
 @end

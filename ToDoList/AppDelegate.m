@@ -13,9 +13,16 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
+@synthesize phHueSDK = _phHueSDK;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    // Create sdk instance
+    _phHueSDK = [[PHHueSDK alloc] init];
+    [self.phHueSDK startUpSDK];
+    [self.phHueSDK enableLogging : YES];
+    
     return YES;
 }
 
@@ -140,6 +147,13 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+
++ (PHHueSDK *) getHueSDK
+{
+    AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
+    return [appDelegate phHueSDK];
 }
 
 @end

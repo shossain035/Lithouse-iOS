@@ -8,6 +8,7 @@
 
 #import "PHLightListViewController.h"
 #import "PHLightListViewCell.h"
+#import "AppDelegate.h"
 #import <HueSDK_iOS/HueSDK.h>
 
 #define HUE_LIGHT_LIST_CELL_ID                  @"hueLightCollectionCellID"
@@ -19,8 +20,8 @@
 
 - (IBAction) stopButtonTapped : (id) sender
 {
+    [((PHLightListViewController *) self.lightListViewControllerDelegate).navigationController popViewControllerAnimated : NO];
     [self dismissViewControllerAnimated : YES completion:nil];
-    //todo: go one step back
 }
 
 - (IBAction) switchValueChanged : (UISwitch *) theSwitch
@@ -69,7 +70,7 @@
 
 - (void) viewWillAppear : (BOOL) animated
 {
-    PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    //PHBridgeResourcesCache *cache = [PHBridgeResourcesReader readBridgeResourcesCache];
     
     //todo: enable heartbeat
 }
