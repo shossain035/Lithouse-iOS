@@ -16,7 +16,7 @@
 #import "DeviceListViewCell.h"
 #import "Reachability.h"
 
-#define WATCHDOG_TIMER_TIMEOUT               10.0
+#define WATCHDOG_TIMER_TIMEOUT               12.0
 #define DEVICE_LIMIT                         50
 #define DEVICE_LIST_CELL_ID                  @"deviceCollectionCellID"
 #define SEGUE_ID_DEVICE_LIST_TO_DETAIL       @"segue-device-list-to-detail"
@@ -280,7 +280,7 @@ NSTimer *watchdogTimer;
          
          if ( data.length > 0 && connectionError == nil  && statusCode == 200 ) {
              aDevice.smallIcon = [[UIImage alloc] initWithData:data];
-             [self.deviceImageCache setObject : aCell.image.image
+             [self.deviceImageCache setObject : aDevice.smallIcon
                                        forKey : imageUrlPath];
              //guard against cell reuse
              if ( aCell.imageUrlPath == imageUrlPath ) {
@@ -427,7 +427,7 @@ NSTimer *watchdogTimer;
         self.deviceTotalLabel.title = [NSString stringWithFormat
                                        : @"Devices: %lu", (unsigned long)[self.devices count]];
         dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.collectionView reloadData];
+            [self.collectionView reloadData];
         });
     }
     
