@@ -10,7 +10,7 @@
 
 #define DEVICE_TYPE_UNKNOWN             @"UNKNOWN"
 #define DEVICE_TYPE_PHILLIPS_HUE_BRIDGE @"Royal-Philips-Electronics-Philips-hue-bridge"
-
+#define DEVICE_TYPE_RB_BLE_SHIELD       @"RB-BLE-SHIELD" 
 
 @interface LITDevice : NSObject
 

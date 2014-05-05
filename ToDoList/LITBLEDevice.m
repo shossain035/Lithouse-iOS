@@ -17,16 +17,20 @@
 {
     if ( self = [super init] ) {
         self.name = [aCBPeripheral name];
+        self.manufacturer = manufacturer;
+        self.type = [NSString stringWithFormat : @"%@-%@", manufacturer, model];
+        self.uid = [[aCBPeripheral identifier] UUIDString];
+        self.peripheral = aCBPeripheral;
         
         //todo: refactor
-        if ( [self.name hasPrefix:@"Flex"] ) self.smallIcon = [UIImage imageNamed:@"fitbit"];
-        else if ( [self.name hasPrefix:@"iSmart"] ) self.smallIcon = [UIImage imageNamed:@"lumen"];        
+        if ( [self.name hasPrefix : @"Flex"] ) self.smallIcon = [UIImage imageNamed : @"fitbit"];
+        else if ( [self.name hasPrefix : @"iSmart"] ) self.smallIcon = [UIImage imageNamed : @"lumen"];
+        else if ( [self.name hasPrefix : @"BLE Shield"] ) {
+            self.smallIcon = [UIImage imageNamed : DEVICE_TYPE_RB_BLE_SHIELD];
+            self.type = DEVICE_TYPE_RB_BLE_SHIELD;
+            self.manufacturer = @"Red Bear Lab";
+        }
         
-        self.manufacturer = manufacturer;
-        self.type = [NSString stringWithFormat:@"%@-%@", manufacturer, model];
-        self.uid = [[aCBPeripheral identifier] UUIDString];
-        
-        self.peripheral = aCBPeripheral;
         return self;
     } else {
         return nil;
