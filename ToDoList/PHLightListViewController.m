@@ -26,31 +26,7 @@
 
 - (IBAction) switchValueChanged : (UISwitch *) theSwitch
 {
-    PHBridgeResourcesCache * cache = [PHBridgeResourcesReader readBridgeResourcesCache];
-    
-    //todo: refactor
-    PHLight * light = nil;
-    
-    for ( PHLight * currentlight in cache.lights.allValues ) {
-        if ( [currentlight.lightState.reachable boolValue] ) {
-            light = currentlight;
-        }
-    }
-    PHLightState * lightState = [[PHLightState alloc] init];
-    
-    [lightState setOnBool : theSwitch.on];
-    
-    id<PHBridgeSendAPI> bridgeSendAPI = [[[PHOverallFactory alloc] init] bridgeSendAPI];
-    
-    [bridgeSendAPI updateLightStateForId : light.identifier
-                           withLighState : lightState
-                       completionHandler : ^(NSArray *errors) {
-        if (errors != nil) {
-            NSString * message = [NSString stringWithFormat : @"%@: %@", NSLocalizedString(@"Errors", @""), errors != nil ? errors : NSLocalizedString(@"none", @"")];
-            
-            NSLog(@"Response: %@",message);
-        }
-    }];
+    [AppDelegate updateLastReachableHueLight : theSwitch.on];
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

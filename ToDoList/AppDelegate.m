@@ -8,20 +8,35 @@
 
 #import "AppDelegate.h"
 
+#define LUMEN_LEVEL_BRIGHT             400
+
+@interface AppDelegate() <BLEDelegate>
+@property (readonly, strong, nonatomic) PHHueSDK * phHueSDK;
+@property (readonly, strong, nonatomic) BLE      * ble;
+
+@end
+
 @implementation AppDelegate
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
 @synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 @synthesize phHueSDK = _phHueSDK;
+@synthesize ble = _ble;
+
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     
-    // Create sdk instance
+    // Create hue sdk instance
     _phHueSDK = [[PHHueSDK alloc] init];
     [self.phHueSDK startUpSDK];
     [self.phHueSDK enableLogging : YES];
+    
+    //Create Redbearlab BLE SDK instance
+    _ble = [[BLE alloc] init];
+    [self.ble controlSetup];
+    self.ble.delegate = self;
     
     return YES;
 }
@@ -152,8 +167,132 @@
 
 + (PHHueSDK *) getHueSDK
 {
-    AppDelegate * appDelegate = [[UIApplication sharedApplication] delegate];
+    AppDelegate * appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     return [appDelegate phHueSDK];
 }
+
++ (void) updateLastReachableHueLight : (BOOL) toState
+{
+    PHBridgeResourcesCache * cache = [PHBridgeResourcesReader readBridgeResourcesCache];
+    
+    PHLight * light = nil;
+    
+    //grab the last light. todo: consider more than one hue light
+    for ( PHLight * currentlight in cache.lights.allValues ) {
+        if ( [currentlight.lightState.reachable boolValue] ) {
+            light = currentlight;
+        }
+    }
+    PHLightState * lightState = [[PHLightState alloc] init];
+    
+    [lightState setOnBool : toState];
+    
+    id<PHBridgeSendAPI> bridgeSendAPI = [[[PHOverallFactory alloc] init] bridgeSendAPI];
+    
+    [bridgeSendAPI updateLightStateForId : light.identifier
+                           withLighState : lightState
+                       completionHandler : ^(NSArray *errors) {
+                           if (errors != nil) {
+                               NSString * message = [NSString stringWithFormat : @"%@: %@", NSLocalizedString(@"Errors", @""), errors != nil ? errors : NSLocalizedString(@"none", @"")];
+                               
+                               NSLog(@"Response: %@",message);
+                           }
+                       }];
+
+}
+
+#pragma mark - BLE delegate
+
+ -(void) bleDidConnect
+{
+    NSLog(@"->Connected");
+    
+    // send reset
+    UInt8 bufReset[] = {0x04, 0x00, 0x00};
+    NSData * data = [[NSData alloc] initWithBytes : bufReset
+                                           length : 3];
+    [self.ble write : data];
+    
+    UInt8 bufAnalogIn[] = {0xA0, 0x01, 0x00};
+    
+    //send analog in
+    data = [[NSData alloc] initWithBytes : bufAnalogIn
+                                  length : 3];
+    [self.ble write : data];
+}
+
+-(void) bleDidDisconnect
+{
+    NSLog(@"->Disonnected");
+}
+
+// When data is comming, this will be called
+-(void) bleDidReceiveData : (unsigned char *) data
+                   length : (int) length
+{
+    // parse data, all commands are in 3-byte
+    for (int i = 0; i < length; i+=3) {
+        
+        if (data[i] == 0x0A) {
+            /*
+            if (data[i+1] == 0x01)
+                swDigitalIn.on = true;
+            else
+                swDigitalIn.on = false;
+             */
+        }
+        else if (data[i] == 0x0B) {
+            UInt16 value;
+            
+            value = data[i+2] | data[i+1] << 8;
+            NSLog ( @"lumen: %@", [NSString stringWithFormat:@"%d", value]);
+            
+            if ( value > LUMEN_LEVEL_BRIGHT ) {
+                [AppDelegate updateLastReachableHueLight : NO];
+            } else {
+                [AppDelegate updateLastReachableHueLight : YES];
+            }
+        }        
+    }
+}
+
+#pragma mark - Actions
+
+// Connect button will call to this
+- (void) scanForPeripherals
+{
+    //already connected just return
+    if(self.ble.activePeripheral.state == CBPeripheralStateConnected) {
+        return;
+    }
+    
+    self.ble.peripherals = nil;
+    
+    //search for 2 seconds
+    [self.ble findBLEPeripherals : 2];
+    
+    [NSTimer scheduledTimerWithTimeInterval : 2.0f
+                                     target : self
+                                   selector : @selector(bleScanTimeoutTimer:)
+                                   userInfo : nil
+                                    repeats : NO];
+}
+
+-(void) bleScanTimeoutTimer : (NSTimer *)timer
+{
+    //connect with the first shield
+    if (self.ble.peripherals.count > 0) {
+        [self.ble connectPeripheral : [self.ble.peripherals objectAtIndex:0]];
+    }
+    else {
+        
+    }
+}
+
+- (void) disconnectFromActivePeripheral
+{
+    [[self.ble CM] cancelPeripheralConnection : [self.ble activePeripheral]];
+}
+
 
 @end

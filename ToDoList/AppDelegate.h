@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import <HueSDK_iOS/HueSDK.h>
+#import "BLE.h"
 
 @class PHHueSDK;
+@class BLE;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -19,11 +21,13 @@
 @property (readonly, strong, nonatomic) NSManagedObjectModel         * managedObjectModel;
 @property (readonly, strong, nonatomic) NSPersistentStoreCoordinator * persistentStoreCoordinator;
 
-@property (readonly, strong, nonatomic) PHHueSDK                     * phHueSDK;
-
 + (PHHueSDK *) getHueSDK;
++ (void) updateLastReachableHueLight : (BOOL) toState;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
+
+- (void) scanForPeripherals;
+- (void) disconnectFromActivePeripheral;
 
 @end

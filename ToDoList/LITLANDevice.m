@@ -22,6 +22,8 @@
         if ( type != nil ) {
             self.type = type;
             self.smallIcon = [UIImage imageNamed : type];
+            //todo: refactor
+            if ( [type hasPrefix : @"APPLE"] ) self.manufacturer = @"Apple Inc.";
         }
         
         //self.uid = macAddress;

@@ -77,6 +77,23 @@
     [self fetchReviews];
     
     [self configureControlButton];
+    
+    //todo: refactor
+    //scan & connect to BLE shield
+    if ( [self.currentDevice.type isEqualToString : DEVICE_TYPE_RB_BLE_SHIELD] ) {
+        AppDelegate * appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+        [appDelegate scanForPeripherals];
+    }
+}
+
+-(void) viewWillDisappear : (BOOL)animated
+{
+    //todo: refactor
+    //scan & connect to BLE shield
+    if ( [self.currentDevice.type isEqualToString : DEVICE_TYPE_RB_BLE_SHIELD] ) {
+        AppDelegate * appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+        [appDelegate disconnectFromActivePeripheral];
+    }
 }
 
 - (void) toggleBarButton : (UIBarButtonItem *) button

@@ -39,6 +39,7 @@
 		71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8118F261A400F51A75 /* ScanLAN.m */; };
 		71BA7B8718F261A400F51A75 /* SimplePing.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8318F261A400F51A75 /* SimplePing.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		71BA7B8818F261A400F51A75 /* SimplePingHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 71BA7B8518F261A400F51A75 /* SimplePingHelper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		71C82D2C1918926C00395392 /* BLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 71C82D2A1918926C00395392 /* BLE.m */; };
 		71D3492E188767D400AC5537 /* LITDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 71D3492D188767D400AC5537 /* LITDevice.m */; };
 		71FA04091883B40C005914EA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA04081883B40C005914EA /* Foundation.framework */; };
 		71FA040B1883B40C005914EA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71FA040A1883B40C005914EA /* CoreGraphics.framework */; };
@@ -123,6 +124,9 @@
 		71BA7B8318F261A400F51A75 /* SimplePing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePing.m; sourceTree = "<group>"; };
 		71BA7B8418F261A400F51A75 /* SimplePingHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePingHelper.h; sourceTree = "<group>"; };
 		71BA7B8518F261A400F51A75 /* SimplePingHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePingHelper.m; sourceTree = "<group>"; };
+		71C82D291918926C00395392 /* BLE.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLE.h; path = "../../Downloads/iOS-master/BLEFramework/BLE/BLE.h"; sourceTree = "<group>"; };
+		71C82D2A1918926C00395392 /* BLE.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BLE.m; path = "../../Downloads/iOS-master/BLEFramework/BLE/BLE.m"; sourceTree = "<group>"; };
+		71C82D2B1918926C00395392 /* BLEDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BLEDefines.h; path = "../../Downloads/iOS-master/BLEFramework/BLE/BLEDefines.h"; sourceTree = "<group>"; };
 		71D3492C188767D400AC5537 /* LITDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LITDevice.h; path = ../LITDevice.h; sourceTree = "<group>"; };
 		71D3492D188767D400AC5537 /* LITDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LITDevice.m; path = ../LITDevice.m; sourceTree = "<group>"; };
 		71FA04051883B40C005914EA /* Lithouse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lithouse.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -277,6 +281,16 @@
 			name = IPScan;
 			sourceTree = "<group>";
 		};
+		71C82D261918923700395392 /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				71C82D291918926C00395392 /* BLE.h */,
+				71C82D2A1918926C00395392 /* BLE.m */,
+				71C82D2B1918926C00395392 /* BLEDefines.h */,
+			);
+			name = BLE;
+			sourceTree = "<group>";
+		};
 		71FA03FC1883B40B005914EA = {
 			isa = PBXGroup;
 			children = (
@@ -299,6 +313,7 @@
 		71FA04071883B40C005914EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				71C82D261918923700395392 /* BLE */,
 				71A30FC5190BAEF9002DF2F2 /* Lumberjack */,
 				71A30FC2190BA999002DF2F2 /* HueSDK_iOS.framework */,
 				71A2B7E618FF23C100EED59C /* CoreData.framework */,
@@ -464,6 +479,7 @@
 				71A2B7DE18FCECCA00EED59C /* LITDeviceReviewViewController.m in Sources */,
 				71A2B83418FFB07B00EED59C /* DeviceReviewListViewCell.m in Sources */,
 				71A30FD8190BAF0C002DF2F2 /* DDFileLogger.m in Sources */,
+				71C82D2C1918926C00395392 /* BLE.m in Sources */,
 				7190E21A18FA4FF600045A65 /* DeviceListViewCell.m in Sources */,
 				71A30F641909F3CD002DF2F2 /* PHBridgePushLinkViewController.m in Sources */,
 				71BA7B8618F261A400F51A75 /* ScanLAN.m in Sources */,
